@@ -8,96 +8,138 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet"> 
 </head>
 <body>
-	<div class="container0">
+	<div class="container0" [@loginState]="loginState">
+		<div>
+			<h1 class="questionTitle">Don't have an account yet?</h1>
+			<button (click)="onSwitchToSignup()" class="signinBtn">Sign up</button>
+		</div>	
+	</div>
+	<form [@loginState]="loginState"  class="container" #loginForm="ngForm" (ngSubmit)="onSubmitLogin(loginForm)" action="">
+		<h1 class="title" name="title">Log in</h1>
+		<input 
+			class="loginInput" 
+			type="text" 
+			name="login" 
+			login
+			placeholder="Login"
+			ngModel
+			required
+			#login2 = "ngModel"
+			>
+		<span *ngIf="!login2.valid && login2.touched">
+			Login is invalid
+		</span>
+		<input 
+			class="passwordInput" 
+			type="password" 
+			name="password" 
+			placeholder="Password"
+			ngModel
+			password
+			minlength="3" 
+			required
+			#password2 = "ngModel"
+			>
+		<span *ngIf="!password2.valid && password2.touched">
+			Password has to be at least 3 characters long
+		</span>
+		<button type="submit" class="signupBtn" [disabled]="!loginForm.valid">Log in</button>
+	</form>
+
+
+	<div class="container0" [@loginState]="signupState">
 		<div>
 			<h1 class="questionTitle">Already have an account ?</h1>
-			<button class="signinBtn">Sign in</button>
+			<button (click)="onSwitchToLogin()" class="signinBtn">Sign in</button>
 		</div>	
 	</div>
 
-		<form [@slideState]="registerState"  class="container" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" action="">
-			<h1 class="title" name="title">Create Account</h1>
+	<form [@loginState]="signupState" [@slideState]="registerState"  class="container" #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)" action="">
+		<h1 class="title" name="title">Create Account</h1>
+		<input 
+			class="nameInput" 
+			type="text" 
+			name="fullName" 
+			placeholder="Full Name"
+			ngModel
+			fullName
+			minlength="3"
+			required 
+			#fullName = "ngModel" 
+			>
+		<span *ngIf="!fullName.valid && fullName.touched">
+			Name has to be at least 3 characters long
+		</span>
+		<input 
+			class="loginInput" 
+			type="text" 
+			name="login" 
+			login
+			placeholder="Login"
+			ngModel
+			required
+			#login = "ngModel"
+			>
+		<span *ngIf="!login.valid && login.touched">
+			Login is invalid
+		</span>
+		<input 
+			class="passwordInput" 
+			type="password" 
+			name="password" 
+			placeholder="Password"
+			ngModel
+			password
+			minlength="3" 
+			required
+			#password = "ngModel"
+			>
+		<span *ngIf="!password.valid && password.touched">
+			Password has to be at least 3 characters long
+		</span>
+		<button type="submit" class="signupBtn" [disabled]="!registerForm.valid">Next</button>
+	</form>
+	
+	<div class="container" [@slideState]="selectTypeState">
+		<h1 class="title2" name="title">Select one of the options</h1>
+		<div class="studTeachDiv">
+			<h1 class="teacherOrStudent" (click)="onSelectType('teacher')">Teacher</h1>
+			<h1 class="teacherOrStudent"  (click)="onSelectType('student')">Student</h1>
+		</div>
+	</div>
+
+	<div [@slideState]="selectClassState" class="container">
+		<h1 class="title2" name="title">Select one of the options</h1>
+		<div *ngFor="let error of errors">
+			{{ error.msg }}
+		</div>
+		<div class="classDiv" >
 			<input 
-				class="nameInput" 
-				type="text" 
-				name="fullName" 
-				placeholder="Full Name"
-				ngModel
-				fullName
-				minlength="3"
-				required 
-				#fullName = "ngModel" 
-				>
-			<span *ngIf="!fullName.valid && fullName.touched">
-				Name has to be at least 3 characters long
+			type="text" 
+			list="className" 
+			placeholder="select your class"
+			ngModel
+			required
+			#className="ngModel"
+			/>
+			<span class="classErrSpan" *ngIf="className.touched && !className.valid">
+				Please select class
 			</span>
-			<input 
-				class="loginInput" 
-				type="text" 
-				name="login" 
-				login
-				placeholder="Login"
-				ngModel
-				required
-				#login = "ngModel"
-				>
-			<span *ngIf="!login.valid && login.touched">
-				Login is invalid
-			</span>
-			<input 
-				class="passwordInput" 
-				type="password" 
-				name="password" 
-				placeholder="Password"
-				ngModel
-				password
-				minlength="3" 
-				required
-				#password = "ngModel"
-				>
-			<span *ngIf="!password.valid && password.touched">
-				Password has to be at least 3 characters long
-			</span>
-			<button type="submit" class="signupBtn" [disabled]="!registerForm.valid">Next</button>
-		</form>
+			<datalist id="className">
+			
+			  <option>1-M</option>
+			  <option>23-F</option>
+			  <option>44-G</option>
+			  <option>12-DR</option>
+			  <option>111-M</option>
+
+			</datalist>
+		</div>
 		
-		<div class="container" [@slideState]="selectTypeState">
-			<h1 class="title2" name="title">Select one of the options</h1>
-			<div class="studTeachDiv">
-				<h1 class="teacherOrStudent" (click)="onSelectType('teacher')">Teacher</h1>
-				<h1 class="teacherOrStudent"  (click)="onSelectType('student')">Student</h1>
-			</div>
+		<div class="classBtn">
+			<button type="submit" class="signupBtn" [disabled]="!className.valid" (click)="onSelectClass(className)">Sign up</button>
 		</div>
-
-		<div [@slideState]="selectClassState" class="container">
-			<h1 class="title2" name="title">Select one of the options</h1>
-			<div class="classDiv" >
-				<input 
-				type="text" 
-				list="className" 
-				placeholder="select your class"
-				ngModel
-				required
-				#className="ngModel"
-				/>
-				<span class="classErrSpan" *ngIf="className.touched && !className.valid">
-					Please select class
-				</span>
-				<datalist id="className">
-				
-				  <option>1-M</option>
-				  <option>23-F</option>
-				  <option>44-G</option>
-				  <option>12-DR</option>
-				  <option>111-M</option>
-
-				</datalist>
-			</div>
-			
-			<div class="classBtn">
-				<button type="submit" class="signupBtn" [disabled]="!className.valid" (click)="onSelectClass(className)">Sign up</button>
-			</div>
-			
-		</div>
+		
+	</div>
 </body> 
 </html>
