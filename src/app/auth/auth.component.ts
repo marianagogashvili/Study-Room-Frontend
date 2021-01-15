@@ -23,36 +23,42 @@ import { catchError } from 'rxjs/operators';
       })),
       transition('shown <=> hidden', animate(500)),
     ]),
-    trigger('slideState', [
+    trigger('errorState', [
       state('shown', style({
-        transform: 'rotateY(0px)',
+        transform: 'translateX(0px)',
         opacity: 1,
         visibility: 'visible'
       })),
       state('hidden', style({
-        transform: 'rotateY(180deg)',
+        transform: 'translateY(-50px)',
         opacity: 0,
         visibility: 'hidden'
       })),
-      transition('shown <=> hidden', animate(500)),
+      transition('shown <=> hidden', animate(300)),
+    ]),
 
-    ])
   ]
 })
 export class AuthComponent implements OnInit {
-  registerState = "shown";
-  selectTypeState = "hidden";
-  selectClassState = "hidden";
+  // registerState = "shown";
+  // selectTypeState = "hidden";
+  // selectClassState = "hidden";
 
   loginState = "hidden";
   signupState = "shown";
+  errorState = "hidden";
 
   user;
   errors;
+  userType;
   constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
+  }
+
+  setUserType(value: string) {
+    this.userType = value;
   }
 
   onSubmitRegister(form: NgForm) {
@@ -62,11 +68,20 @@ export class AuthComponent implements OnInit {
   	const fullName = form.value.fullName;
   	const login = form.value.login;
   	const password = form.value.password;
+    const className = form.value.className;
+    const type = this.userType;
 
-    this.user = {login: login, password: password, fullName: fullName};
+    this.user = {login: login, password: password, fullName: fullName, className: className, type: type};
+    console.log(form);
 
-    this.selectTypeState = "shown";
-    this.registerState = "hidden";
+    this.authService.register(this.user).subscribe(result => {
+      console.log(result);
+      // this.router.navigate(['/teacher or student', ]);
+    }, errors => {
+      console.log(errors);
+      
+      this.getErrorMessage(errors, form);
+    });
   }
 
   onSubmitLogin(form: NgForm) {
@@ -77,10 +92,11 @@ export class AuthComponent implements OnInit {
     const password = form.value.password;
 
     this.user = {login: login, password: password};
-    console.log(this.user);
-    this.authService.login(this.user).subscribe((result: {token: string, id: string}) => {
+
+    this.authService.login(this.user).subscribe((result: {token: string, id: string, type: string}) => {
         localStorage.setItem('token', result.token);
         localStorage.setItem('userId', result.id);
+        localStorage.setItem('type', result.type);
         const time = 60 * 60 * 1000 * 24;
         const expiryDate = new Date(
           new Date().getTime() + time
@@ -88,26 +104,32 @@ export class AuthComponent implements OnInit {
         localStorage.setItem('expiryDate', expiryDate.toISOString());
         this.setAutoLogout(time);
     }, errors => {
-      this.errors = errors;
+      this.getErrorMessage(errors, form);
       console.log(errors);
     });
   }
 
-  onSelectType(type)
-  { 
-    this.user.type = type;
-    if (type === 'teacher') {
-      this.authService.register(this.user).subscribe(result => {
-        console.log(result);
-      }, errors => {
+  getErrorMessage(errors, form) {
+    if (errors) {
+        this.errorState = "shown";
+        
         this.errors = errors;
-        console.log(errors);
-      });
-      // this.router.navigate(['/teacher', ]);
-    } else {
-      this.selectTypeState = "hidden";
-      this.selectClassState = "shown";
-    }
+        errors.forEach(error => {
+          form.controls[error.param].setErrors({'incorrect': true});
+        });
+
+        setTimeout(() => {
+          this.errorState = "hidden";
+        }, 3000);
+      }
+  }
+
+  resetForm(form: NgForm) {
+    form.reset();
+    this.errorState = "hidden";
+    this.errors = [];
+    this.userType = '';
+    this.user = {};
   }
 
   setAutoLogout = time => {
@@ -122,26 +144,16 @@ export class AuthComponent implements OnInit {
     localStorage.removeItem('expiryDate');
   }
 
-  onSelectClass(className) {
-    this.user.className = className.value;
-    this.authService.register(this.user).subscribe(result => {
-      
-    }, errors => {
-      this.errors = errors;
-      console.log(errors);
-    });
-    // this.router.navigate(['/student', ]);
-  }
-
-  onSwitchToLogin() {
+  onSwitchToLogin(form) {
     this.loginState = "shown";
     this.signupState = "hidden";
+    this.resetForm(form);
     console.log("ha");
   }
-  onSwitchToSignup() {
+  onSwitchToSignup(form) {
     this.loginState = "hidden";
     this.signupState = "shown";
+    this.resetForm(form);
     console.log("ha");
-
   }
 }

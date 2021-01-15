@@ -11,10 +11,14 @@
 	<div class="container0" [@loginState]="loginState">
 		<div>
 			<h1 class="questionTitle">Don't have an account yet?</h1>
-			<button (click)="onSwitchToSignup()" class="signinBtn">Sign up</button>
+			<button (click)="onSwitchToSignup(loginForm)" class="signinBtn">Sign up</button>
 		</div>	
 	</div>
 	<form [@loginState]="loginState"  class="container" #loginForm="ngForm" (ngSubmit)="onSubmitLogin(loginForm)" action="">
+		<div [@errorState]="errorState" class="errorsDiv">
+			<h3 class="errorTitle">Error</h3>
+			<div *ngFor="let error of errors" class="errorDiv">{{ error.msg }}</div>
+		</div>
 		<h1 class="title" name="title">Log in</h1>
 		<input 
 			class="loginInput" 
@@ -27,7 +31,7 @@
 			#login2 = "ngModel"
 			>
 		<span *ngIf="!login2.valid && login2.touched">
-			Login is invalid
+			Login is wrong
 		</span>
 		<input 
 			class="passwordInput" 
@@ -41,7 +45,7 @@
 			#password2 = "ngModel"
 			>
 		<span *ngIf="!password2.valid && password2.touched">
-			Password has to be at least 3 characters long
+			Password is wrong
 		</span>
 		<button type="submit" class="signupBtn" [disabled]="!loginForm.valid">Log in</button>
 	</form>
@@ -50,12 +54,18 @@
 	<div class="container0" [@loginState]="signupState">
 		<div>
 			<h1 class="questionTitle">Already have an account ?</h1>
-			<button (click)="onSwitchToLogin()" class="signinBtn">Sign in</button>
+			<button (click)="onSwitchToLogin(registerForm)" class="signinBtn">Sign in</button>
 		</div>	
 	</div>
 
-	<form [@loginState]="signupState" [@slideState]="registerState"  class="container" #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)" action="">
+
+
+	<form [@loginState]="signupState"  class="container" #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)" action="">
 		<h1 class="title" name="title">Create Account</h1>
+		<div [@errorState]="errorState" class="errorsDiv">
+			<h3 class="errorTitle">Error</h3>
+			<div *ngFor="let error of errors" class="errorDiv">{{ error.msg }}</div>
+		</div>
 		<input 
 			class="nameInput" 
 			type="text" 
@@ -97,28 +107,21 @@
 		<span *ngIf="!password.valid && password.touched">
 			Password has to be at least 3 characters long
 		</span>
-		<button type="submit" class="signupBtn" [disabled]="!registerForm.valid">Next</button>
-	</form>
-	
-	<div class="container" [@slideState]="selectTypeState">
-		<h1 class="title2" name="title">Select one of the options</h1>
-		<div class="studTeachDiv">
-			<h1 class="teacherOrStudent" (click)="onSelectType('teacher')">Teacher</h1>
-			<h1 class="teacherOrStudent"  (click)="onSelectType('student')">Student</h1>
-		</div>
-	</div>
 
-	<div [@slideState]="selectClassState" class="container">
-		<h1 class="title2" name="title">Select one of the options</h1>
-		<div *ngFor="let error of errors">
-			{{ error.msg }}
+		<div>
+			<h1 class="teacherOrStudent" [ngStyle]="(userType==='teacher') && {'color': '#00b5d4'} " (click)="userType='teacher'">Teacher</h1>
+			<h1 class="teacherOrStudent" [ngStyle]="(userType==='student') && {'color': '#00b5d4'} " (click)="userType='student'">Student</h1>
+			
 		</div>
-		<div class="classDiv" >
+
+		<div  *ngIf="userType==='student'">
 			<input 
 			type="text" 
 			list="className" 
+			name="className"
 			placeholder="select your class"
 			ngModel
+			className
 			required
 			#className="ngModel"
 			/>
@@ -133,13 +136,11 @@
 			  <option>12-DR</option>
 			  <option>111-M</option>
 
-			</datalist>
-		</div>
-		
-		<div class="classBtn">
-			<button type="submit" class="signupBtn" [disabled]="!className.valid" (click)="onSelectClass(className)">Sign up</button>
-		</div>
-		
-	</div>
+			</datalist> 
+		</div> 
+		 
+		<button type="submit" class="signupBtn" [disabled]="!registerForm.valid || !userType">Sign up</button>
+	</form> 
+	
 </body> 
 </html>

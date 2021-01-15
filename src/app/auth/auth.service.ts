@@ -17,7 +17,7 @@ export class AuthService {
 					'Content-Type': 'application/json'
 				})
 			}).pipe(catchError(error => {
-				return throwError(error.error.data);
+				return throwError(error.error);
 			}));
 	}
 
@@ -30,7 +30,18 @@ export class AuthService {
 					'Content-Type': 'application/json'
 				})
 			}).pipe(catchError(error => {
-				return throwError(error.error.data);
+				return throwError(error.error);
 			}));
+	}
+
+	checkIfUserExists(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/auth/checkUser',
+			JSON.stringify(param),
+			{
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json'
+				})
+			})
 	}
 }
