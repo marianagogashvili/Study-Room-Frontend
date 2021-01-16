@@ -34,14 +34,14 @@ export class AuthService {
 			}));
 	}
 
-	checkIfUserExists(param: Params) {
-		return this.http.post(
-			'http://localhost:8000/auth/checkUser',
-			JSON.stringify(param),
-			{
-				headers: new HttpHeaders({
-					'Content-Type': 'application/json'
-				})
-			})
-	}
+	// checkIfUserExists(param: Params) {
+	// 	return this.http.post(
+	// 		'http://localhost:8000/auth/checkUser',
+	// 		JSON.stringify(param),
+	// 		{
+	// 			headers: new HttpHeaders({
+	// 				'Content-Type': 'application/json'
+	// 			})
+	// 		})
+	// }
 }

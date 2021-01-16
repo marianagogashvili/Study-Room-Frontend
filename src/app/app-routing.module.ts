@@ -3,17 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
-import { StudentAuthGuard } from './student-auth-guard.service';
-import { TeacherAuthGuard } from './teacher-auth-guard.service';
-
+import { AuthGuard } from './auth-guard.service';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes:Routes = [
-	{ path: '', redirectTo: '/auth', pathMatch: 'full'},
+	{ path: '', component: HomeComponent},
 	{ path: 'auth', component: AuthComponent },
-	{ path: 'student', canActivate:[StudentAuthGuard], component: StudentComponent, children: [
+	{ path: 'student', canActivate:[AuthGuard], component: StudentComponent, children: [
 		// edit, grades
 	]},
-	{ path: 'teacher', canActivate:[TeacherAuthGuard], component: TeacherComponent, children: [
+	{ path: 'teacher', canActivate:[AuthGuard], component: TeacherComponent, children: [
 		// edit, grades
 	]}
 ];

@@ -1,0 +1,40 @@
+
+.main-header {
+	width: 100%;
+	/*text-align: right;*/
+	margin-left: 50px;
+	position: absolute;
+	/*background-color: #00b5d4;*/
+	/*background-image: linear-gradient(to right top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);*/
+}
+p {
+	display: inline-block;
+	color: white;
+	font-size: 18px;
+	padding: 0 10px;
+}
+span {
+	margin-left: 25px;
+}
+
+.icon {
+	font-size: 25px; 
+	color: white; 
+	margin: 0 8px;
+}
+
+p:hover {
+	text-shadow: 0 0 7px white;
+}
+
+@media screen and (max-width: 600px) {
+	p {
+		display: none;
+	}
+
+	.main-header {
+		text-align: center;
+		margin: 20px 0 0 0;
+	}
+
+}

@@ -93,10 +93,9 @@ export class AuthComponent implements OnInit {
 
     this.user = {login: login, password: password};
 
-    this.authService.login(this.user).subscribe((result: {token: string, id: string, type: string}) => {
+    this.authService.login(this.user).subscribe((result: {token: string, id: string}) => {
         localStorage.setItem('token', result.token);
         localStorage.setItem('userId', result.id);
-        localStorage.setItem('type', result.type);
         const time = 60 * 60 * 1000 * 24;
         const expiryDate = new Date(
           new Date().getTime() + time

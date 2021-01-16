@@ -1,0 +1,54 @@
+body {
+	min-width: 795px;
+	background-image:  linear-gradient(to right top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
+	width: 100vw;
+	height: 100vh;
+	display: grid;
+	padding: 0;
+	margin: 0 !important;
+	grid-template-columns: [col-1-start] 50% [col-2-start] 50% [col-2-end];
+	grid-template-rows: 80px [row-1-start] 150px [row-1-end row-2-start] 200px [row-2-end row-3-start] 350px [row-3-end];
+}
+
+.top-div {
+	grid-column: col-1-start /col-2-end;
+	margin: 0 2rem;
+	padding: 10px 20px;
+	border-radius: 7px;
+	box-shadow: 0 0 7px white;
+	grid-row-start: row-1-start 1;
+	background-color: white;
+	max-width: 940px;
+	/*background-image:  linear-gradient(to right top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);*/
+}
+
+.bottom-div1 {
+	grid-column-start: col-1-start 1;
+	grid-row-start: row-2-start 1;
+	background-color: white;
+	margin: 1rem 2rem;
+	border-radius: 7px;
+	box-shadow: 0 0 7px white;
+	padding: 10px 20px;
+	max-width: 300px;
+}
+
+.bottom-div2 {
+	grid-column-start: col-2-start 1;
+	grid-row-start: row-2-start 1;
+	background-color: white;
+	margin: 1rem 2rem;
+	border-radius: 7px;
+	box-shadow: 0 0 7px white;
+	padding: 10px 20px;
+	max-width: 300px;
+}
+
+.prop-title {
+	font-weight: 600;
+}
+
+.prop-value {
+	margin-left: 10px;
+	font-weight: 300;
+}

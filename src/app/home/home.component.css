@@ -1,0 +1,24 @@
+
+body {
+	display: flex;
+	justify-content: center;
+}
+.errorsDiv {
+	position: absolute; 
+	background-color: rgb(237, 70, 47, 0.9); 
+	top: 1rem; 
+	padding: 20px; 
+	color: white; 
+	border-radius: 10px; 
+	box-shadow: 0 0 7px rgb(237, 70, 47);
+}
+
+.errorTitle {
+	text-align: center; 
+	text-transform: uppercase;
+}
+
+.errorDiv {
+	font-size: 18px; 
+	line-height: 40px; 
+}

@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Params } from '@angular/router';
-import { throwError, Subject, BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { throwError, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
-export class StudentService {
+export class TeacherService {
 	error = new BehaviorSubject<string>(null);
-
 	constructor(private http: HttpClient) {}
 
-	getStudent(param: Params) {
+	getTeacher(param: Params) {
 		return this.http.post(
-			'http://localhost:8000/student/getStudent', 
+			'http://localhost:8000/teacher/getTeacher', 
 			JSON.stringify(param), 
 			{
 				headers: new HttpHeaders({
 					'Content-Type': 'application/json',
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
-			})
-			.pipe(catchError(error => {
+			}).pipe(catchError(error => {
 				return throwError(error.error);
 			}));
 	}

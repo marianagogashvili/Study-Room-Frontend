@@ -7,7 +7,6 @@ body {
 	background-image:  linear-gradient(to right top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
 	width: 100vw;
 	height: 100vh;
-	font-family: 'Montserrat', sans-serif;
 	display: grid;
 	padding: 0;
 	margin: 0 !important;
