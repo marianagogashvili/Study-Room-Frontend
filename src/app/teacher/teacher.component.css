@@ -1,54 +1,171 @@
 body {
-	min-width: 795px;
-	background-image:  linear-gradient(to right top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
 	width: 100vw;
 	height: 100vh;
-	display: grid;
-	padding: 0;
+	/*display: grid;*/
+	top: 0;
 	margin: 0 !important;
-	grid-template-columns: [col-1-start] 50% [col-2-start] 50% [col-2-end];
-	grid-template-rows: 80px [row-1-start] 150px [row-1-end row-2-start] 200px [row-2-end row-3-start] 350px [row-3-end];
+	padding: 0 !important;
+
 }
 
 .top-div {
-	grid-column: col-1-start /col-2-end;
-	margin: 0 2rem;
-	padding: 10px 20px;
-	border-radius: 7px;
-	box-shadow: 0 0 7px white;
-	grid-row-start: row-1-start 1;
-	background-color: white;
-	max-width: 940px;
-	/*background-image:  linear-gradient(to right top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);*/
+	color: white;
+	top: 0;
+	width: 100vw;
+	min-height: 220px;
+	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
+	display: grid;
+	grid-template-columns: [col-1-start] 40% [col-2-start] 30% [col-2-end col-3-start] 30% [col-3-end];
+	grid-template-rows: [row-1-start] 80px [row-1-end row-2-start] 80px [row-2-end];
+	padding-top: 5rem;
+	-webkit-box-shadow: 0 8px 10px  #99e3cc;
+    -moz-box-shadow: 0 8px 10px  #99e3cc;
+        box-shadow: 0 8px 10px  #99e3cc;
+
 }
 
-.bottom-div1 {
-	grid-column-start: col-1-start 1;
-	grid-row-start: row-2-start 1;
-	background-color: white;
-	margin: 1rem 2rem;
-	border-radius: 7px;
-	box-shadow: 0 0 7px white;
-	padding: 10px 20px;
-	max-width: 300px;
+.left-div {
+	grid-column: col-1-start / col-2-start;
+	margin: auto;
+	text-align: left;
+	padding-left: 10px;
 }
 
-.bottom-div2 {
-	grid-column-start: col-2-start 1;
-	grid-row-start: row-2-start 1;
-	background-color: white;
-	margin: 1rem 2rem;
-	border-radius: 7px;
-	box-shadow: 0 0 7px white;
-	padding: 10px 20px;
-	max-width: 300px;
-}
+	.title {
+		grid-row: row-1-start / row-1-end;
+	}
+
+	.edit-btn {
+		width: 5rem;
+		height: 2rem;
+		color: #0b7ace;
+		text-transform: uppercase;
+		background-color: #EEEEEE;
+		border: 0;
+		outline: none;
+		grid-row: row-2-start / row-2-end;
+	}
+
+	.edit-btn:hover {
+		background-color: #0b7ace;
+		color: #EEEEEE;
+	}
+
+	.edit-btn:active {
+		outline: none;
+
+		color: #0b7ace;
+		background-color: #EEEEEE;
+	}
+
+	.first-row-div, .second-row-div {
+		font-size: 20px;
+		margin-top: 10px;
+	}
+
+	.first-row-div {
+		grid-column: col-2-start / col-2-end;
+		grid-row: row-1-start / row-2-end;
+	}
+
+	.second-row-div {
+		grid-column: col-3-start / col-3-end;
+		grid-row: row-1-start / row-2-end;
+
+	}
 
 .prop-title {
 	font-weight: 600;
+	margin: 20px;
 }
 
 .prop-value {
 	margin-left: 10px;
 	font-weight: 300;
 }
+/*/////*/
+
+.courses-div {
+	margin-top: 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.course-div, .course-header-div {
+	display: flex;
+	text-align: center;
+	align-items: center;
+	width: 90%;
+} 
+
+.course-div {
+	
+	background-color: rgb(11, 122, 206, 0.8);
+	border-radius: 15px;
+	box-shadow: 0 0 10px rgb(11, 122, 206);
+	justify-content: space-around;
+	height: 6rem;
+	margin: 1rem;
+}
+
+.course-header-div {
+	height: 2rem;
+	justify-content: space-between;
+	text-transform: uppercase;
+}
+
+.course-header-div p {
+	padding: 6px;
+	width: 20%;
+}
+
+.course-title {
+	font-size: 20px;
+	text-transform: uppercase;
+	max-width: 20%;
+}
+
+.course-div p  {
+	color: white;
+	display: inline;
+	padding: 6px;
+	width: 20%;
+}
+.course-grade {
+	font-size: 20px;
+}
+
+@media screen and (max-width: 890px) {
+	.title {
+		font-size: 24px;
+	}
+	.prop-title, .course-grade {
+		font-size: 15px;
+	}
+	.course-header-div {
+		font-size: 13px;
+	}
+	.course-title {
+		font-size: 17px;
+	}
+	.top-div {
+		grid-template-columns: [col-1-start] 50% [col-2-start] 50% [col-2-end] ;
+	}
+	.left-div {
+		grid-column: col-1-start / col-2-start;
+		grid-row: row-1-start / row-1-end;
+	}
+
+	.first-row-div {
+		grid-column: col-2-start / col-2-end;
+		grid-row: row-1-start / row-1-end;
+
+	}
+
+	.second-row-div {
+		grid-column: col-2-start / col-2-end;
+		grid-row: row-2-start / row-2-end;
+
+	}
+}
+

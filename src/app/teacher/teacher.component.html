@@ -1,4 +1,4 @@
-
+<!-- <app-header></app-header> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +9,41 @@
 <app-header></app-header>
 <body>
 	<div class="top-div">
-		<h1>{{teacher.fullName}}</h1>
+		<div class="left-div">
+			<h1 class="title">{{ teacher.fullName }}</h1>
+			<button class="edit-btn">Edit</button>
+		</div>
+		
+
+		<div class="first-row-div">
+			<p class="prop-title">Login <span class="prop-value">{{ teacher.login }}</span></p>
+			
+		</div>
+		<div class="second-row-div">
+
+			<p class="prop-title">First login <span class="prop-value">{{ teacher.firstLogin | date: 'd LLL y, h:mm'}}</span></p>
+			
+			<p class="prop-title">Last login<span class="prop-value">{{ teacher.lastLogin | date: 'd LLL y,  h:mm'}}</span></p>
+		</div>
+
 	</div>
-	<div class="bottom-div1">
-		<p class="prop-title">Login</p>
-		<p class="prop-value">{{teacher.login}}</p>
+
+	<div class="courses-div">
+		<div class="course-header-div">
+			<p class="course-header-title">Course title</p>
+			<p>your grade</p>
+			<p>max grade</p>
+			<p>view</p>
+			<p>edit</p>
+		</div>
+		<div class="course-div">
+			<p class="course-title">Course title titletitle</p>
+			<p class="course-grade">95</p>
+			<p class="course-grade">100</p>
+			<p>view</p>
+			<p>edit</p>
+		</div>
 	</div>
-	<div class="bottom-div2">
-		<p class="prop-title">Links</p>
-		<p class="prop-value">Edit profile</p>
-		<p class="prop-value">Courses </p>
-	</div>
+	
 </body>
 </html>

@@ -7,20 +7,47 @@
 	<title>Document</title>
 </head>
 <app-header></app-header>
+<div *ngIf="showEdit" class="backdrop" (click)="showEdit = false"></div>
+<app-edit (showEditVal)="getEditVal($event)" *ngIf="showEdit"></app-edit>
 <body>
 	<div class="top-div">
-		<h1>{{student.fullName}}</h1>
+		<div class="left-div">
+			<h1 class="title">{{ student.fullName }}</h1>
+			<button class="edit-btn" (click)="showEditPage()">Edit</button>
+		</div>
+		
+
+		<div class="first-row-div">
+			<p class="prop-title">Login <span class="prop-value">{{ student.login }}</span></p>
+
+			<p class="prop-title">Class<span class="prop-value">{{ student.class }}</span></p>				
+		</div>
+		<div class="second-row-div">
+
+			<p class="prop-title">First login <span class="prop-value">{{ student.firstLogin | date: 'd LLL y, h:mm'}}</span></p>
+			
+			<p class="prop-title">Last login<span class="prop-value">{{ student.lastLogin | date: 'd LLL y,  h:mm'}}</span></p>
+		</div>
+
 	</div>
-	<div class="bottom-div1">
-		<p class="prop-title">Login</p>
-		<p class="prop-value">{{student.login}}</p>
-		<p class="prop-title">Class</p>
-		<p class="prop-value">{{student.class}}</p>
+
+	<div class="courses-div">
+		<div class="course-header-div">
+			<p class="course-header-title">Course title</p>
+			<p>your grade</p>
+			<p>max grade</p>
+			<p>work</p>
+			<p>view</p>
+		</div>
+		<div class="course-div">
+			<p class="course-title">Course title titletitle</p>
+			<p class="course-grade">95</p>
+			<p class="course-grade">100</p>
+			<p>assignments</p>
+			<p>view</p>
+		</div>
+
 	</div>
-	<div class="bottom-div2">
-		<p class="prop-title">Links</p>
-		<p class="prop-value">Edit profile</p>
-		<p class="prop-value">Grades</p>
-	</div>
+	
 </body>
 </html>

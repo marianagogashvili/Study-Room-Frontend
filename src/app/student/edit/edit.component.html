@@ -1,0 +1,69 @@
+
+<div class="editDiv"> 
+	
+<form   class="container" #editForm="ngForm" (ngSubmit)="onSubmitEdit(editForm)" action="">
+	<div [@errorState]="errorState" class="errorsDiv">
+		<h3 class="errorTitle">Error</h3>
+		<div *ngFor="let error of errors" class="errorDiv">{{ error.msg }}</div>
+	</div>
+	<h1 class="title" name="title">Edit your account</h1>
+	<input 
+		class="loginInput" 
+		type="text" 
+		name="fullName" 
+		fullName
+		placeholder="Full Name"
+		[(ngModel)]="student.fullName" 
+		required
+		#fullName = "ngModel"
+		
+		>
+	<span *ngIf="!fullName.valid  && fullName.touched">
+		Name has to be at least 3 characters long
+	</span>
+	<input 
+		class="loginInput" 
+		type="text" 
+		name="login" 
+		login
+		placeholder="Login"
+		[(ngModel)]="student.login" 
+		required
+		#login = "ngModel"
+		minlength="3" 
+		>
+	<span *ngIf="!login.valid && login.touched">
+		Login is invalid
+	</span>
+	<input 
+		class="loginInput" 
+		type="password" 
+		name="oldPassword" 
+		oldPassword
+		placeholder="Old Password"
+		ngModel
+		required
+		#oldPassword = "ngModel"
+		minlength="3" 
+		>
+	<span *ngIf="!oldPassword.valid && oldPassword.touched">
+		Old password has to be at least 3 characters long
+	</span>
+	<input 
+		class="loginInput" 
+		type="password" 
+		name="newPassword" 
+		newPassword
+		placeholder="New Password"
+		ngModel
+		required
+		#newPassword = "ngModel"
+		minlength="3" 
+		>
+	<span *ngIf="!newPassword.valid && newPassword.touched">
+		New password has to be at least 3 characters long
+	</span>
+	<button type="submit" class="signupBtn" [disabled]="!editForm.valid">Update</button>
+</form>
+
+</div>

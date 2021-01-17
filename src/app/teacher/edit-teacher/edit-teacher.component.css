@@ -1,0 +1,167 @@
+* {
+	box-sizing: border-box;
+}
+.editDiv {
+	position: absolute;
+	width: 100vw; 
+	height: 100vh;
+	display: grid; 
+	grid-auto-flow: column;
+	justify-content: center; 
+	align-items: center; 
+	justify-items: center;
+
+}
+form {
+  position: absolute;
+  width: 56vw;
+  height: 40vh;
+  max-width: 600px;
+  min-width: 400px;
+  min-height: 560px;
+  z-index: 100;
+}
+input {
+	height: 50px;
+	width: 330px;
+	min-width: 240px;
+	min-height: 40px;
+
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 20px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 0 0 7px red;
+}
+
+button:focus {
+	outline:0;
+}
+button:disabled,
+button:disabled:hover {
+	color: white;
+	background-image: linear-gradient(to right top, #d8e4ea, #c3cfd6, #aebbc2, #9aa7ae, #86949b);
+	border: 0;
+}
+
+span {
+	color: red;
+}
+.container0 {
+	display: grid;
+	grid-column-start: col-1-start 1;
+	grid-row-start: row-start 1;
+	justify-content: space-around;
+	align-content: center;
+	min-height: 500px;
+	margin-left: 30px;
+}
+.container {
+	border-radius: 20px;
+	box-shadow: 0 0 12px white;
+	margin-bottom: 1rem; 
+	grid-column-start: col-2-start 1;
+	grid-row-start: row-start 1;
+	display: flex; 
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 500px;
+	background-color: white;
+	margin-right: 20px;
+}
+input::placeholder {
+	color: #BEBEBE;
+}
+.title {
+	color: #00b5d4;
+}
+.questionTitle {
+	color: #F4FAFF;
+}
+
+.signupBtn, .signinBtn {
+	width: 200px;
+	height: 40px;
+	border-radius: 20px;
+	font-size: 15px;
+	border: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+.signupBtn 
+{
+	background-image: linear-gradient(to right top, #5dfdcb, #0af3e9, #00e6fd, #4bd7ff, #7cc6fe);
+	color: #F4FAFF;
+}
+.signinBtn {
+	color: #00b5d4;
+}
+.signupBtn:hover  {
+	color: #00b5d4;
+	background-image: none ; 
+	background-color: white;
+	border: 1px solid #00b5d4;
+}
+.signinBtn:hover {
+	color: #F4FAFF;
+	background-image: linear-gradient(to right top, #5dfdcb, #0af3e9, #00e6fd, #4bd7ff, #7cc6fe);
+}
+.signinBtn:active {
+	color: #00b5d4;
+	background-image: none;
+}
+.signupBtn:active {
+	border: 0;
+	background-image: linear-gradient(to right top, #5dfdcb, #0af3e9, #00e6fd, #4bd7ff, #7cc6fe);
+	color: #F4FAFF;
+}
+
+.classErrSpan {
+	display: block; 
+	text-align: center; 
+	margin-top: 1rem;
+}
+
+.teacherOrStudent {
+	display: inline; 
+	padding: 20px;
+}
+
+.teacherOrStudent:hover {
+	color: #00b5d4;
+}
+
+.teacherOrStudent:active {
+	color: black;
+}
+
+
+.errorsDiv {
+	position: absolute; 
+	background-color: rgb(237, 70, 47, 0.9); 
+	top: 1rem; 
+	padding: 20px; 
+	color: white; 
+	border-radius: 10px; 
+	box-shadow: 0 0 7px rgb(237, 70, 47);
+}
+
+.errorTitle {
+	text-align: center; 
+	text-transform: uppercase;
+}
+
+.errorDiv {
+	font-size: 18px; 
+	line-height: 40px; 
+}
+
+
+

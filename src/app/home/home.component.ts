@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../student/student.service';
 import { TeacherService } from '../teacher/teacher.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -28,11 +29,14 @@ export class HomeComponent implements OnInit {
   error;
   errorState = 'hidden';
 
+  subscription: Subscription;
+
   constructor(private studentService: StudentService,
   			  private teacherService: TeacherService) { }
 
   ngOnInit() {
-  	this.studentService.error.subscribe(error => {
+  	this.subscription = this.studentService.error.subscribe(error => {
+  		console.log(error);
   		if (error) {
   			setTimeout(() => {
 	  			this.errorState = 'shown';
@@ -44,7 +48,7 @@ export class HomeComponent implements OnInit {
 	  		console.log(error);
   		}
   	});
-  	this.teacherService.error.subscribe(error => {
+  	this.subscription = this.teacherService.error.subscribe(error => {
   		if (error) {
   			setTimeout(() => {
 	  			this.errorState = 'shown';
@@ -56,6 +60,10 @@ export class HomeComponent implements OnInit {
 	  		console.log(error);
   		}
   	});
+  }
+
+  ngOnDestroy() {
+  	this.subscription.unsubscribe();
   }
 
 }

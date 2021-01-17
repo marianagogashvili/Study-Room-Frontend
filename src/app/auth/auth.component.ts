@@ -48,7 +48,7 @@ export class AuthComponent implements OnInit {
   signupState = "shown";
   errorState = "hidden";
 
-  user;
+  user = {};
   errors;
   userType;
   constructor(private authService: AuthService,
@@ -74,9 +74,17 @@ export class AuthComponent implements OnInit {
     this.user = {login: login, password: password, fullName: fullName, className: className, type: type};
     console.log(form);
 
-    this.authService.register(this.user).subscribe(result => {
+    this.authService.register(this.user).subscribe((result: {token: string, id: string, type: string}) => {
       console.log(result);
-      // this.router.navigate(['/teacher or student', ]);
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('userId', result.id);
+      const time = 60 * 60 * 1000 * 24;
+      const expiryDate = new Date(
+        new Date().getTime() + time
+        );
+      localStorage.setItem('expiryDate', expiryDate.toISOString());
+      this.setAutoLogout(time);
+      this.router.navigate(['/', type]);
     }, errors => {
       console.log(errors);
       
@@ -93,7 +101,7 @@ export class AuthComponent implements OnInit {
 
     this.user = {login: login, password: password};
 
-    this.authService.login(this.user).subscribe((result: {token: string, id: string}) => {
+    this.authService.login(this.user).subscribe((result: {token: string, id: string, type: string}) => {
         localStorage.setItem('token', result.token);
         localStorage.setItem('userId', result.id);
         const time = 60 * 60 * 1000 * 24;
@@ -102,6 +110,7 @@ export class AuthComponent implements OnInit {
           );
         localStorage.setItem('expiryDate', expiryDate.toISOString());
         this.setAutoLogout(time);
+        this.router.navigate(['/', result.type]);
     }, errors => {
       this.getErrorMessage(errors, form);
       console.log(errors);
