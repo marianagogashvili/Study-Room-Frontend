@@ -3,6 +3,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -14,11 +15,17 @@ export class HeaderComponent implements OnInit {
   gradesIcon = faGraduationCap;
   editIcon = faEdit;
   aboutIcon = faAddressCard;
-
+  logOutIcon = faDoorOpen;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('expiryDate');
   }
 
 }

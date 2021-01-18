@@ -7,11 +7,14 @@
 	<title>Document</title>
 </head>
 <app-header></app-header>
+<div *ngIf="showEdit" class="backdrop" (click)="showEdit = false"></div>
+<app-edit-teacher (showEditVal)="getEditVal($event)" *ngIf="showEdit"></app-edit-teacher>
+
 <body>
 	<div class="top-div">
 		<div class="left-div">
 			<h1 class="title">{{ teacher.fullName }}</h1>
-			<button class="edit-btn">Edit</button>
+			<button class="edit-btn" (click)="showEditPage()">Edit</button>
 		</div>
 		
 

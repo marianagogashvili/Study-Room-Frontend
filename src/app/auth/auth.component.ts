@@ -40,10 +40,7 @@ import { catchError } from 'rxjs/operators';
   ]
 })
 export class AuthComponent implements OnInit {
-  // registerState = "shown";
-  // selectTypeState = "hidden";
-  // selectClassState = "hidden";
-
+  
   loginState = "hidden";
   signupState = "shown";
   errorState = "hidden";

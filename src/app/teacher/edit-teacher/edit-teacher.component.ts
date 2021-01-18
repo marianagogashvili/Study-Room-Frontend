@@ -5,7 +5,7 @@ import { NgForm } from '@angular/forms';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-type Teacher = {class: string,
+type Teacher = {
 	firstLogin: string,
 	fullName: string,
 	lastLogin: string,
@@ -35,30 +35,21 @@ type Teacher = {class: string,
 })
 export class EditTeacherComponent implements OnInit {
   @Output() showEditVal: EventEmitter<any> = new EventEmitter<any>();
-  studentForm: FormGroup;
-  student:any = {};
+  teacher:any = {};
   savedVal: {name: string, login: string} = {name: '', login: ''};
   errors;
   errorState = 'hidden';
 
   constructor(private teacherService: TeacherService,
   			  private router: Router) { }
-		// this.studentForm = new FormGroup({
-	 //  		'studentData': new FormGroup({
-	 //  			'login': new FormControl(student.login, [Validators.required]),
-	 //  			'fullName': new FormControl(student.fullName, [Validators.required, Validators.minLength(3)]),
-	 //  			'oldPassword': new FormControl(null, [Validators.required, Validators.minLength(3)]),
-	 //  			'newPassword': new FormControl(null, [Validators.required])
-	 //  		})
-	 //  	});
 
   ngOnInit() {
   	const id = localStorage.getItem('userId');
-  	this.teacherService.getTeacher({id: id}).subscribe((student: Student) => {
-		this.student = student;
-		this.savedVal.name = student.fullName;
-		this.savedVal.login = student.login;
-  		console.log(this.student);
+  	this.teacherService.getTeacher({id: id}).subscribe((teacher: Teacher) => {
+		this.teacher = teacher;
+		this.savedVal.name = teacher.fullName;
+		this.savedVal.login = teacher.login;
+  		console.log(this.teacher);
   	}, error => {
   		this.teacherService.sendError(error);
   		this.router.navigate(['/']);
@@ -69,7 +60,6 @@ export class EditTeacherComponent implements OnInit {
   }
 
   onSubmitEdit(form: NgForm) {
-  	console.log(form);
   	if (!form.valid) {
       return;
     }
@@ -78,8 +68,6 @@ export class EditTeacherComponent implements OnInit {
   	const login = form.value.login;
   	const oldPassword = form.value.oldPassword;
     const newPassword = form.value.newPassword;
-
-    // console.log(this.savedStudent.login);
 
     if (fullName === this.savedVal.name && login === this.savedVal.login && oldPassword === newPassword) {
     	this.errors = [{msg: "You haven't changed anything"}];
@@ -90,13 +78,18 @@ export class EditTeacherComponent implements OnInit {
     } else {
     	const user = {id: id, fullName: fullName, login: login, oldPassword: oldPassword, newPassword: newPassword};
 
-	  	this.teacherService.editStudent(user).subscribe((result: {message: string, student: Student}) => {
-			// this.student = student;
-			this.teacherService.sendStudent(result.student);
+	  	this.teacherService.editTeacher(user).subscribe((result: {message: string, teacher: Teacher}) => {
+			this.teacherService.sendTeacher(result.teacher);
 			this.showEditVal.emit(false);
-	  		console.log(result);
 	  	}, error => {
-	  		
+	  		this.errors = error;
+	  		error.forEach(err => {
+	          form.controls[err.param].setErrors({'incorrect': true});
+	        });
+	  		this.errorState = 'shown';
+	  		setTimeout(() => {
+	  			this.errorState = 'hidden';
+	  		}, 2000);
 	  	});
     }
 

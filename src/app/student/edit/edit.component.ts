@@ -43,14 +43,6 @@ export class EditComponent implements OnInit {
 
   constructor(private studentService: StudentService,
   			  private router: Router) { }
-		// this.studentForm = new FormGroup({
-	 //  		'studentData': new FormGroup({
-	 //  			'login': new FormControl(student.login, [Validators.required]),
-	 //  			'fullName': new FormControl(student.fullName, [Validators.required, Validators.minLength(3)]),
-	 //  			'oldPassword': new FormControl(null, [Validators.required, Validators.minLength(3)]),
-	 //  			'newPassword': new FormControl(null, [Validators.required])
-	 //  		})
-	 //  	});
 
   ngOnInit() {
   	const id = localStorage.getItem('userId');
@@ -69,7 +61,6 @@ export class EditComponent implements OnInit {
   }
 
   onSubmitEdit(form: NgForm) {
-  	console.log(form);
   	if (!form.valid) {
       return;
     }
@@ -78,8 +69,6 @@ export class EditComponent implements OnInit {
   	const login = form.value.login;
   	const oldPassword = form.value.oldPassword;
     const newPassword = form.value.newPassword;
-
-    // console.log(this.savedStudent.login);
 
     if (fullName === this.savedVal.name && login === this.savedVal.login && oldPassword === newPassword) {
     	this.errors = [{msg: "You haven't changed anything"}];
@@ -91,12 +80,17 @@ export class EditComponent implements OnInit {
     	const user = {id: id, fullName: fullName, login: login, oldPassword: oldPassword, newPassword: newPassword};
 
 	  	this.studentService.editStudent(user).subscribe((result: {message: string, student: Student}) => {
-			// this.student = student;
-			this.studentService.sendStudent(result.student);
-			this.showEditVal.emit(false);
-	  		console.log(result);
+  			this.studentService.sendStudent(result.student);
+  			this.showEditVal.emit(false);
 	  	}, error => {
-	  		
+	  		this.errors = error;
+        error.forEach(err => {
+          form.controls[err.param].setErrors({'incorrect': true});
+        });
+	  		this.errorState = 'shown';
+	  		setTimeout(() => {
+	  			this.errorState = 'hidden';
+	  		}, 2000);
 	  	});
     }
 

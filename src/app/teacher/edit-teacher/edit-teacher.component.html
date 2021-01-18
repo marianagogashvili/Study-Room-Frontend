@@ -13,7 +13,7 @@
 		name="fullName" 
 		fullName
 		placeholder="Full Name"
-		[(ngModel)]="student.fullName" 
+		[(ngModel)]="teacher.fullName" 
 		required
 		#fullName = "ngModel"
 		
@@ -27,7 +27,7 @@
 		name="login" 
 		login
 		placeholder="Login"
-		[(ngModel)]="student.login" 
+		[(ngModel)]="teacher.login" 
 		required
 		#login = "ngModel"
 		minlength="3" 
@@ -47,7 +47,7 @@
 		minlength="3" 
 		>
 	<span *ngIf="!oldPassword.valid && oldPassword.touched">
-		Old password has to be at least 3 characters long
+		Old password is invalid
 	</span>
 	<input 
 		class="loginInput" 
@@ -61,7 +61,7 @@
 		minlength="3" 
 		>
 	<span *ngIf="!newPassword.valid && newPassword.touched">
-		New password has to be at least 3 characters long
+		New password is invalid
 	</span>
 	<button type="submit" class="signupBtn" [disabled]="!editForm.valid">Update</button>
 </form>
