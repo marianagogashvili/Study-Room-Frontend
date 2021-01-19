@@ -32,6 +32,87 @@
 	</div>
 
 	<div class="courses-div">
+		<form class="create-course-div" #courseForm="ngForm" (ngSubmit)="onSubmitCourse(courseForm)">
+			<div class="create-course-left-div">
+				<input 
+					class="loginInput" 
+					type="text" 
+					name="title" 
+					title
+					placeholder="Course title"
+					ngModel
+					required
+					#title = "ngModel"
+					minlength="3" 
+					>
+				<textarea
+					class="loginInput" 
+					type="text" 
+					name="description" 
+					description
+					placeholder="Description"
+					ngModel
+					required
+					#description = "ngModel"
+					minlength="3"
+					style="height: 200px; padding-top: 10px; resize: none;" 
+					></textarea> 
+				<input 
+					class="loginInput" 
+					type="text" 
+					name="key" 
+					key
+					placeholder="Secret key"
+					ngModel
+					required
+					#key = "ngModel"
+					minlength="3" 
+					>
+			</div>
+			<div class="create-course-right-div">
+				<div>
+					<input 
+					type="text" 
+					list="className" 
+					name="className"
+					placeholder="select class"
+					ngModel
+					className
+					required
+					#className="ngModel"
+					/>
+					
+					<!-- <span class="classErrSpan" *ngIf="className.touched && !className.valid">
+						Please select class
+					</span> -->
+
+					<datalist id="className">
+					  <option *ngFor="let group of groups" >{{ group.name }}</option>
+					</datalist> 
+				</div> 
+				<div>
+					<input 
+					type="text" 
+					list="student" 
+					name="student"
+					placeholder="input student's name"
+					ngModel
+					student
+					required
+					#student="ngModel"
+					(input)="findStudent($event.target.value)"
+					/>
+					
+					<!-- <span class="classErrSpan" *ngIf="className.touched && !className.valid">
+						Please select class
+					</span> -->
+
+					<datalist id="student" *ngIf="students">
+					  <option *ngFor="let student of students" >{{ student.fullName }}</option>
+					</datalist> 
+				</div> 
+			</div>
+		</form>
 		<div class="course-header-div">
 			<p class="course-header-title">Course title</p>
 			<p>your grade</p>

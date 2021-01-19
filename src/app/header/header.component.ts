@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
@@ -17,7 +18,9 @@ export class HeaderComponent implements OnInit {
   aboutIcon = faAddressCard;
   logOutIcon = faDoorOpen;
 
-  constructor() { }
+  loggedIn = localStorage.getItem('userId');
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -26,6 +29,11 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('expiryDate');
+    this.router.navigate(['/auth']);
+  }
+
+  logIn() {
+    this.router.navigate(['/auth']);
   }
 
 }

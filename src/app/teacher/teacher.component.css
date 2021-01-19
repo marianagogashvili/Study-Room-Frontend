@@ -17,6 +17,20 @@ body {
   z-index: 50;
 }
 
+input, textarea {
+	height: 50px;
+	width: 330px;
+	min-width: 240px;
+	min-height: 40px;
+
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 20px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+}
 
 .top-div {
 	color: white;
@@ -95,6 +109,28 @@ body {
 }
 /*/////*/
 
+.create-course-div  {
+  height: 500px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+
+}
+
+.create-course-left-div, .create-course-right-div {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
+	margin-left: 20px;
+}
+.create-course-right-div {
+	height: 60%;
+}
+
 .courses-div {
 	margin-top: 3rem;
 	display: flex;
@@ -108,14 +144,16 @@ body {
 	width: 90%;
 } 
 
-.course-div {
+.course-div, .create-course-div {
 	
 	background-color: rgb(11, 122, 206, 0.8);
 	border-radius: 15px;
 	box-shadow: 0 0 10px rgb(11, 122, 206);
 	justify-content: space-around;
-	height: 6rem;
 	margin: 1rem;
+}
+.course-div {
+	height: 6rem;
 }
 
 .course-header-div {

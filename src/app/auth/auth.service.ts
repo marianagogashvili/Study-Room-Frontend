@@ -34,6 +34,10 @@ export class AuthService {
 			}));
 	}
 
+	getGroups() {
+		return this.http.get('http://localhost:8000/group/getGroups');
+	}
+
 	// checkIfUserExists(param: Params) {
 	// 	return this.http.post(
 	// 		'http://localhost:8000/auth/checkUser',

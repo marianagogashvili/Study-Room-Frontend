@@ -123,17 +123,13 @@
 			required
 			#className="ngModel"
 			/>
+			
 			<span class="classErrSpan" *ngIf="className.touched && !className.valid">
 				Please select class
 			</span>
-			<datalist id="className">
-			
-			  <option>1-M</option>
-			  <option>23-F</option>
-			  <option>44-G</option>
-			  <option>12-DR</option>
-			  <option>111-M</option>
 
+			<datalist id="className">
+			  <option *ngFor="let group of groups" >{{ group.name }}</option>
 			</datalist> 
 		</div> 
 		 

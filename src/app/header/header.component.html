@@ -11,7 +11,9 @@
 		<span><fa-icon [icon]="gradesIcon" class="icon"></fa-icon></span><p>Grades </p>
 		<span><fa-icon [icon]="editIcon" class="icon"></fa-icon></span><p>Edit profile</p>
 
-		<div class="logout-icon"><span><fa-icon [icon]="logOutIcon" class="icon"></fa-icon></span><p>Log out</p></div>
+		<div class="logout-icon" *ngIf="loggedIn" (click)="logOut()"><span><fa-icon [icon]="logOutIcon" class="icon"></fa-icon></span><p>Log out</p></div>
+		<div class="logout-icon"  *ngIf="!loggedIn" (click)="logIn()"><span><fa-icon [icon]="logOutIcon" class="icon"></fa-icon></span><p>Log in</p></div>
+
 	</div>
 </body>
 </html>

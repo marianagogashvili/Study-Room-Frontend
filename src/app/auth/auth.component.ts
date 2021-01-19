@@ -40,10 +40,12 @@ import { catchError } from 'rxjs/operators';
   ]
 })
 export class AuthComponent implements OnInit {
-  
+
   loginState = "hidden";
   signupState = "shown";
   errorState = "hidden";
+
+  groups;
 
   user = {};
   errors;
@@ -52,6 +54,10 @@ export class AuthComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.authService.getGroups().subscribe(groups => {
+      this.groups = groups;
+      console.log(groups);
+    });
   }
 
   setUserType(value: string) {
@@ -68,8 +74,9 @@ export class AuthComponent implements OnInit {
     const className = form.value.className;
     const type = this.userType;
 
-    this.user = {login: login, password: password, fullName: fullName, className: className, type: type};
-    console.log(form);
+    const groupId = this.groups.find(group => group.name === className)._id;
+
+    this.user = {login: login, password: password, fullName: fullName, groupId: groupId, type: type};
 
     this.authService.register(this.user).subscribe((result: {token: string, id: string, type: string}) => {
       console.log(result);

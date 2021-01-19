@@ -19,7 +19,7 @@
 		<div class="first-row-div">
 			<p class="prop-title">Login <span class="prop-value">{{ student.login }}</span></p>
 
-			<p class="prop-title">Class<span class="prop-value">{{ student.class }}</span></p>				
+			<p class="prop-title">Group<span class="prop-value" *ngIf="!loading">{{ student.group.name }}</span></p>				
 		</div>
 		<div class="second-row-div">
 

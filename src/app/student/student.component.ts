@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 export class StudentComponent implements OnInit {
   student = {};
+  loading;
 
   showEdit = false;
   constructor(private studentService: StudentService,
@@ -21,13 +22,14 @@ export class StudentComponent implements OnInit {
   		if (result !== null) {
   			this.student = result;
   		}
-  		console.log(this.student);
   	});
 
   	const id = localStorage.getItem('userId');
+  	this.loading = true;
   	this.studentService.getStudent({id: id}).subscribe(student => {
+  		console.log(student);
   		this.student = student;
-  		console.log(this.student);
+  		this.loading = false;
   	}, error => {
   		this.studentService.sendError(error);
   		this.router.navigate(['/']);
