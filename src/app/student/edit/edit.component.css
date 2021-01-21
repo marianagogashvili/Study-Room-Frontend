@@ -39,6 +39,9 @@ input.ng-invalid.ng-touched {
   border: 1px solid red;
   box-shadow: 0 0 7px red;
 }
+span {
+	color: red;
+}
 
 button:focus {
 	outline:0;
@@ -50,9 +53,7 @@ button:disabled:hover {
 	border: 0;
 }
 
-span {
-	color: red;
-}
+
 .container0 {
 	display: grid;
 	grid-column-start: col-1-start 1;

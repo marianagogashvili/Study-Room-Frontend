@@ -30,7 +30,7 @@
 
 	</div>
 
-	<div class="courses-div">
+	<div class="courses-div" *ngIf="!loading && student.courses.length > 0; else">
 		<div class="course-header-div">
 			<p class="course-header-title">Course title</p>
 			<p>your grade</p>
@@ -38,14 +38,17 @@
 			<p>work</p>
 			<p>view</p>
 		</div>
-		<div class="course-div">
-			<p class="course-title">Course title titletitle</p>
+		<div class="course-div" *ngFor="let course of student.courses">
+			<p class="course-title">{{ course.title }}</p>
 			<p class="course-grade">95</p>
 			<p class="course-grade">100</p>
 			<p>assignments</p>
 			<p>view</p>
 		</div>
+	</div>
 
+	<div #else>
+		browse courses
 	</div>
 	
 </body>

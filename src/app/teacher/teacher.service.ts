@@ -54,6 +54,20 @@ export class TeacherService {
 			}));
 	}
 
+	createCourse(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/createCourse', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			}).pipe(catchError(error => {
+				console.log(error);
+				return throwError(error.error);
+			}));
+	}
+
 	sendTeacher(teacher) {
 		this.teacher.next(teacher);
 	}

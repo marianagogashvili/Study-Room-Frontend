@@ -30,8 +30,9 @@
 		</div>
 
 	</div>
-
+	<button class="edit-btn" (click)="showCourseForm()">New course</button>
 	<div class="courses-div">
+		<!-- [hidden]="courseState === 'hidden'" [@courseState]="courseState"  -->
 		<form class="create-course-div" #courseForm="ngForm" (ngSubmit)="onSubmitCourse(courseForm)">
 			<div class="create-course-left-div">
 				<input 
@@ -45,6 +46,9 @@
 					#title = "ngModel"
 					minlength="3" 
 					>
+				<span class="errSpan" *ngIf="!title.valid && title.touched">
+					Title is invalid
+				</span>	
 				<textarea
 					class="loginInput" 
 					type="text" 
@@ -57,6 +61,9 @@
 					minlength="3"
 					style="height: 200px; padding-top: 10px; resize: none;" 
 					></textarea> 
+				<span class="errSpan" *ngIf="!description.valid && description.touched">
+					Description is invalid
+				</span>	
 				<input 
 					class="loginInput" 
 					type="text" 
@@ -68,25 +75,27 @@
 					#key = "ngModel"
 					minlength="3" 
 					>
+				<span class="errSpan" *ngIf="!key.valid && key.touched">
+					Key is invalid
+				</span>
 			</div>
 			<div class="create-course-right-div">
 				<div>
 					<input 
 					type="text" 
-					list="className" 
-					name="className"
+					list="groupName" 
+					name="groupName"
 					placeholder="select class"
 					ngModel
-					className
-					required
-					#className="ngModel"
+					groupName
+					#groupName="ngModel"
 					/>
 					
 					<!-- <span class="classErrSpan" *ngIf="className.touched && !className.valid">
 						Please select class
 					</span> -->
 
-					<datalist id="className">
+					<datalist id="groupName">
 					  <option *ngFor="let group of groups" >{{ group.name }}</option>
 					</datalist> 
 				</div> 
@@ -98,32 +107,39 @@
 					placeholder="input student's name"
 					ngModel
 					student
-					required
 					#student="ngModel"
 					(input)="findStudent($event.target.value)"
+					style="width: 60%" 
 					/>
-					
+					<button type="button" (click)="addStudent(student)">add</button>
+					<button type="button" (click)="clearStudents()">remove all</button>
 					<!-- <span class="classErrSpan" *ngIf="className.touched && !className.valid">
 						Please select class
 					</span> -->
 
 					<datalist id="student" *ngIf="students">
-					  <option *ngFor="let student of students" >{{ student.fullName }}</option>
+					  <option *ngFor="let student of students">{{ student.fullName }}</option>
 					</datalist> 
 				</div> 
+				<div style="margin: 20px">
+					Students:
+					<p *ngFor="let s of studentList">Login: {{s.login}}, Group: {{s.group.name}}</p>
+				</div>
+				<button type="submit" class="signupBtn" [disabled]="!courseForm.valid">Create</button>
+
 			</div>
+
+
 		</form>
 		<div class="course-header-div">
 			<p class="course-header-title">Course title</p>
-			<p>your grade</p>
-			<p>max grade</p>
+			<p>Num. of students</p>
 			<p>view</p>
 			<p>edit</p>
 		</div>
-		<div class="course-div">
-			<p class="course-title">Course title titletitle</p>
-			<p class="course-grade">95</p>
-			<p class="course-grade">100</p>
+		<div class="course-div" *ngFor="let course of teacher.courses">
+			<p class="course-title">{{ course.title }}</p>
+			<p class="course-grade">{{ course.students.length }} ppl</p>
 			<p>view</p>
 			<p>edit</p>
 		</div>

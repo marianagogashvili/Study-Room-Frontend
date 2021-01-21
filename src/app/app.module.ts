@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { DatePipe } from '@angular/common';
 import { EditComponent } from './student/edit/edit.component';
 import { EditTeacherComponent } from './teacher/edit-teacher/edit-teacher.component';
+import { CourseComponent } from './course/course.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EditTeacherComponent } from './teacher/edit-teacher/edit-teacher.compon
     TeacherComponent,
     HomeComponent,
     EditComponent,
-    EditTeacherComponent
+    EditTeacherComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,

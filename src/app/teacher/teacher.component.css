@@ -110,8 +110,6 @@ input, textarea {
 /*/////*/
 
 .create-course-div  {
-  height: 500px;
-
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -120,12 +118,12 @@ input, textarea {
 }
 
 .create-course-left-div, .create-course-right-div {
-	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-
 	margin-left: 20px;
+}
+.create-course-left-div input, .create-course-left-div textarea, .create-course-right-div input {
+	margin: 20px;
 }
 .create-course-right-div {
 	height: 60%;
@@ -182,6 +180,38 @@ input, textarea {
 .course-grade {
 	font-size: 20px;
 }
+
+.signupBtn {
+	margin: 20px;
+	width: 200px;
+	height: 40px;
+	border-radius: 20px;
+	font-size: 15px;
+	border: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+.signupBtn 
+{
+	background-image: linear-gradient(to right top, #5dfdcb, #0af3e9, #00e6fd, #4bd7ff, #7cc6fe);
+	color: #F4FAFF;
+}
+.signupBtn:hover  {
+	color: #00b5d4;
+	background-image: none ; 
+	background-color: white;
+	border: 1px solid #00b5d4;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 0 0 7px red;
+}
+.errSpan {
+	text-align: center;
+	color: red;
+	margin-bottom: 10px;
+}
+
 
 @media screen and (max-width: 890px) {
 	.title {
