@@ -17,13 +17,22 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         visibility: 'visible'
       })),
       state('hidden', style({
-        transform: 'translateY(-150px)',
+        transform: 'translateY(-200px)',
         opacity: 0,
-        visibility: 'hidden',
-        display: 'none'
+        visibility: 'hidden'
       })),
       transition('shown <=> hidden', animate(300)),
-    ])
+    ]),
+  trigger('courseState2', [
+	  state('shown', style({
+	 	display: 'block'
+	  })),
+	  state('hidden', style({
+		display: 'none'
+	  })),
+	  transition('shown => hidden', animate('0ms 200ms')),
+	  transition('hidden => shown', animate('0ms ease')),
+  	]),
   ]
 })
 export class TeacherComponent implements OnInit {
@@ -112,7 +121,7 @@ export class TeacherComponent implements OnInit {
   }
 
   showCourseForm() {
-  	this.courseState = 'shown';
+  	this.courseState = this.courseState === 'shown' ?  'hidden' : 'shown';
   }
 
   showEditPage() {

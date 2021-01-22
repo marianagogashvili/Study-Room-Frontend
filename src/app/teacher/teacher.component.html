@@ -32,8 +32,8 @@
 	</div>
 	<button class="edit-btn" (click)="showCourseForm()">New course</button>
 	<div class="courses-div">
-		<!-- [hidden]="courseState === 'hidden'" [@courseState]="courseState"  -->
-		<form class="create-course-div" #courseForm="ngForm" (ngSubmit)="onSubmitCourse(courseForm)">
+		<!-- [hidden]="courseState === 'hidden'"   -->
+		<form class="create-course-div" [@courseState]="courseState" [@courseState2]="courseState" #courseForm="ngForm" (ngSubmit)="onSubmitCourse(courseForm)">
 			<div class="create-course-left-div">
 				<input 
 					class="loginInput" 

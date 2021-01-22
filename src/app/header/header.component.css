@@ -1,41 +1,120 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 2;
+  /*display: none;*/
+}
 
-.main-header {
+.hamburger__header {
+	position: absolute; 
+	width: 100%; 
+	text-align: center; 
+	padding-top: 20px;
+	z-index: 3; 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.hamburger__header-main {
+	margin-bottom: 40px;
+	height: 47px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	width: 47px;
+	border-radius: 50%;
+	display: none;
+}
+
+.hamburger__header-main span {
+	width: 26px;
+	height: 2px;
+	background-color: black;
+	display: block;
+	margin-top: 3px ;
+	margin-bottom: 3px ;
+}
+
+.hamburger__header-links{
+ 	border-radius: 12px;
+	width: 60%; 
+	text-align: center; 
+	padding: 20px 0 20px 0; 
+	background-color: white;
+}
+
+.hamburger__header-link {
+	display: block; 
+	text-decoration: none; 
+	color: black;
+	font-size: 20px;
+	padding: 17px;
+	text-transform: uppercase;
+}
+
+.hamburger__header-link:hover, 
+.hamburger__header-link:active {
+	color:  #00b5d4;
+}
+
+.main__header {
 	width: 90%;
 	margin-left: 50px;
+	margin-top: 7px; 
 	position: absolute;
 }
-p {
+
+.main__header-link {
+	text-decoration: none;
 	display: inline-block;
+	text-transform: uppercase;
 	color: white;
-	font-size: 18px;
-	padding: 0 10px;
-}
-span {
-	margin-left: 25px;
-}
-
-.icon {
-	font-size: 25px; 
-	color: white; 
-	margin: 0 8px;
+	font-size: 17px;
+	margin-top: 10px;
+	line-height: 45px;
+	padding: 0 24px;
 }
 
-.logout-icon {
-	float: right !important;
+
+.link__span:after {
+  display:block;
+  content: '';
+  border-bottom: solid 2px white;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
 }
 
-p:hover {
-	text-shadow: 0 0 7px white;
+.link__span:hover:after { transform: scaleX(1); }
+
+.log-link {
+	color: white;
+	outline: none;
+	background-color: #226fbe;
+	border-radius: 30px;
+	float: right;
+	margin-top: 3px;
+	border: 2px solid transparent;
+}
+.log-link:active {
+	color: white;
+	background-color: transparent;
+	border: 2px solid white;
 }
 
 @media screen and (max-width: 800px) {
-	p {
+
+	.main__header {
 		display: none;
 	}
-
-	.main-header {
-		text-align: center;
-		margin: 20px 0 0 0;
+	.hamburger__header-main {
+		display: flex;
 	}
 
 }

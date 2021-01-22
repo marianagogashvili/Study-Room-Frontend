@@ -36,7 +36,7 @@ input, textarea {
 	color: white;
 	top: 0;
 	width: 100vw;
-	min-height: 220px;
+	min-height: 250px;
 	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
 	display: grid;
 	grid-template-columns: [col-1-start] 40% [col-2-start] 30% [col-2-end col-3-start] 30% [col-3-end];

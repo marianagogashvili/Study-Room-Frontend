@@ -5,15 +5,33 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<div class="main-header">
-		<span><fa-icon [icon]="accountIcon" class="icon"></fa-icon></span>
-		<span><fa-icon [icon]="aboutIcon" class="icon"></fa-icon></span><p>About</p>
-		<span><fa-icon [icon]="gradesIcon" class="icon"></fa-icon></span><p>Grades </p>
-		<span><fa-icon [icon]="editIcon" class="icon"></fa-icon></span><p>Edit profile</p>
+	<div class="main__header">
 
-		<div class="logout-icon" *ngIf="loggedIn" (click)="logOut()"><span><fa-icon [icon]="logOutIcon" class="icon"></fa-icon></span><p>Log out</p></div>
-		<div class="logout-icon"  *ngIf="!loggedIn" (click)="logIn()"><span><fa-icon [icon]="logOutIcon" class="icon"></fa-icon></span><p>Log in</p></div>
+		<a href="" class="main__header-link"><span class="link__span">About</span></a>
+		<a href="" class="main__header-link"><span class="link__span">Grades</span></a>
+		<a href="" class="main__header-link"><span class="link__span">Edit Profile</span></a>
+
+		<button href="" *ngIf="loggedIn" (click)="logOut()" class="main__header-link log-link">Log out</button>
+		<button href="" *ngIf="!loggedIn" (click)="logIn()" class="main__header-link log-link">Log in</button>
 
 	</div>
+	<div class="backdrop" [hidden]="!displayHeader" (click)="onShowHeader()"></div>
+	<div class="hamburger__header">
+		<div class="hamburger__header-main"  (click)="onShowHeader()">
+			<span [@burgerChild1]="showHeaderState"></span>
+			<span [@burgerChild2]="showHeaderState"></span>
+			<span [@burgerChild3]="showHeaderState"></span>
+			
+		</div>
+		<div class="hamburger__header-links" [@showHeader]="showHeaderState" [@showHeader2]="showHeaderState">
+			<a href="" class="hamburger__header-link">About</a>
+			<a href="" class="hamburger__header-link">Grades</a>
+			<a href="" class="hamburger__header-link">Edit Profile</a>
+			<a href="" class="hamburger__header-link" *ngIf="!loggedIn" >Log in</a>
+			<a href="" class="hamburger__header-link" *ngIf="loggedIn" >Log out</a>
+
+		</div>
+	</div>
+	
 </body>
 </html>

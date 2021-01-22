@@ -13,11 +13,13 @@ import { catchError } from 'rxjs/operators';
     trigger('loginState', [
       state('shown', style({
         transform: 'translateX(0px)',
+        // transformOrigin:'bottom right',
         opacity: 1,
         visibility: 'visible'
       })),
       state('hidden', style({
         transform: 'translateX(-200px)',
+        // transformOrigin:'bottom right',
         opacity: 0,
         visibility: 'hidden'
       })),
