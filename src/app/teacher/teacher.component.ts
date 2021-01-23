@@ -43,11 +43,14 @@ export class TeacherComponent implements OnInit {
   studentList = [];
   courseState = 'hidden';
 
+  loading;
+
   constructor(private teacherService: TeacherService,
   			  private authService: AuthService,
   			  private router: Router) { }
 
   ngOnInit() {
+  	this.loading = true;
   	this.authService.getGroups().subscribe(groups => {
       this.groups = groups;
       console.log(groups);
@@ -55,6 +58,7 @@ export class TeacherComponent implements OnInit {
   	this.teacherService.teacher.subscribe(result => {
   		if (result !== null) {
   			this.teacher = result;
+  			this.loading = false;
   		}
   		console.log(this.teacher);
   	});
@@ -62,11 +66,14 @@ export class TeacherComponent implements OnInit {
   	const id = localStorage.getItem('userId');
   	this.teacherService.getTeacher({id: id}).subscribe(teacher => {
   		this.teacher = teacher;
+  		this.loading = false;
   		console.log(this.teacher);
   	}, error => {
   		this.teacherService.sendError(error);
   		this.router.navigate(['/']);
   	});
+
+
   }
 
   onSubmitCourse(form: NgForm) {

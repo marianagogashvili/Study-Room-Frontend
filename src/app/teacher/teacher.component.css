@@ -1,12 +1,157 @@
+.main__div {
+	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
+	width: 100%;
+	height: 20rem;
+	padding-top: 90px;
+	padding-left: 17%;
+	color: white;
+}
+
+.main__table {
+	margin-top: 15px;
+
+}
+
+td {
+	padding: 8px 20px 8px 0;
+}
+
 body {
 	width: 100vw;
 	height: 100vh;
-	/*display: grid;*/
+	display: grid;
 	top: 0;
 	margin: 0 !important;
 	padding: 0 !important;
 
 }
+
+.edit__btn , .add-course__btn, .create-course__btn {
+	height: 2rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+}
+
+.edit__btn {
+	width: 5rem;
+	color: #0b7ace;
+	background-color: #EEEEEE;
+}
+
+.add-course__btn {
+	width: 7rem;
+	color: white;
+	background-color: #0b7ace;
+	margin: 1rem 5rem;
+}
+
+.create-course__btn {
+	font-size: 14px;
+	width: 9rem;
+	color: white;
+	background-color: #0b7ace;
+	margin: 1rem 5rem;
+}
+
+.courses__div {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding-top: 20px;
+	margin: auto;
+	/*width: 100%;*/
+}
+
+.course__div {
+	width: 30vw;
+	border: 1px solid  #0b7ace;
+	max-width: 320px;
+	min-width: 262px;
+	height: 261px;
+	margin: 20px;
+}
+
+.course__div-info {
+	padding: 10px 25px;
+}
+
+.course__div-grades {
+	width: 100%;
+}
+
+.course__div-grade {
+	display: inline-block;
+	width: 50%;
+}
+
+.grade__span {
+	font-size: 25px;
+	padding-left: 15px;
+}
+
+.course__btns {
+	border-top: 1px solid  #0b7ace;
+	border-bottom: 1px solid  #0b7ace;
+	margin-top: 14px;
+}
+
+.course__btn {
+	width:50%;
+	border: 0;
+	height: 3rem;
+	outline: none;
+	text-transform: uppercase;
+}
+
+.course__btn-one {
+	background-color: #0b7ace; 
+	color: white;
+}
+
+.course__btn-two {
+	color:  #0b7ace; 
+	background-color: white; 
+}
+
+.course__btn-one:active, .course__btn-two:active {
+	color:  #0b7ace; 
+	background-color: rgb(239, 239, 239);
+}
+
+@media screen and (min-width: 1100px) {
+
+	.courses__div {
+		width: 90%;
+		justify-content: space-between;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	.courses__div {
+		margin-top: 0;
+	}
+	.main__div {
+		padding-left: 0;
+		height: 15rem;
+		justify-content: center;
+		display: flex;
+	}
+	.main__div-info {
+		flex: 0 0 30%;
+	}
+	.main-table {
+		flex: 2;
+	}
+	table {
+		font-size: 17px;
+	}
+	td {
+		padding: 1rem 5rem 1rem 0;
+	}
+}
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -15,6 +160,21 @@ body {
   height: 100vh;
   background: rgba(0, 0, 0, 0.75);
   z-index: 50;
+}
+
+.create-course__div {
+	display: flex;
+	width: 500px;
+	height: 700px;
+
+	flex-direction: column;
+	justify-content: space-around;
+}
+.create-course__div-left, .create-course__div-right {
+	display: flex;
+	height: 500px;
+	flex-direction: column;
+	justify-content: space-around;
 }
 
 input, textarea {
@@ -32,6 +192,47 @@ input, textarea {
 	padding-left: 12px;
 }
 
+@media screen and (min-width: 900px) {
+	.create-course__div {
+		display: flex;
+		width: 100%;
+		height: 550px;
+		flex-direction: row;
+	}
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 0 0 7px red;
+}
+.errSpan {
+	text-align: center;
+	color: red;
+	margin-bottom: 10px;
+}
+/*
+.signupBtn {
+	margin: 20px;
+	width: 200px;
+	height: 40px;
+	border-radius: 20px;
+	font-size: 15px;
+	border: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+.signupBtn 
+{
+	background-image: linear-gradient(to right top, #5dfdcb, #0af3e9, #00e6fd, #4bd7ff, #7cc6fe);
+	color: #F4FAFF;
+}
+.signupBtn:hover  {
+	color: #00b5d4;
+	background-image: none ; 
+	background-color: white;
+	border: 1px solid #00b5d4;
+}
+*/
+/*
 .top-div {
 	color: white;
 	top: 0;
@@ -107,7 +308,7 @@ input, textarea {
 	margin-left: 10px;
 	font-weight: 300;
 }
-/*/////*/
+
 
 .create-course-div  {
   display: flex;
@@ -181,36 +382,8 @@ input, textarea {
 	font-size: 20px;
 }
 
-.signupBtn {
-	margin: 20px;
-	width: 200px;
-	height: 40px;
-	border-radius: 20px;
-	font-size: 15px;
-	border: 0;
-	font-family: 'Montserrat', sans-serif;
-}
-.signupBtn 
-{
-	background-image: linear-gradient(to right top, #5dfdcb, #0af3e9, #00e6fd, #4bd7ff, #7cc6fe);
-	color: #F4FAFF;
-}
-.signupBtn:hover  {
-	color: #00b5d4;
-	background-image: none ; 
-	background-color: white;
-	border: 1px solid #00b5d4;
-}
 
-input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
-  border: 1px solid red;
-  box-shadow: 0 0 7px red;
-}
-.errSpan {
-	text-align: center;
-	color: red;
-	margin-bottom: 10px;
-}
+
 
 
 @media screen and (max-width: 890px) {
@@ -247,3 +420,4 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
 	}
 }
 
+*/

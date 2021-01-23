@@ -18,14 +18,15 @@ export class StudentComponent implements OnInit {
   			  private datePipe: DatePipe) { }
 
   ngOnInit() {
+  	this.loading = true;
   	this.studentService.student.subscribe(result => {
   		if (result !== null) {
   			this.student = result;
+  			this.loading = false;
   		}
   	});
 
   	const id = localStorage.getItem('userId');
-  	this.loading = true;
   	this.studentService.getStudent({id: id}).subscribe(student => {
   		console.log(student);
   		this.student = student;

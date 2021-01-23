@@ -78,16 +78,18 @@ export class HeaderComponent implements OnInit {
   aboutIcon = faAddressCard;
   logOutIcon = faDoorOpen;
 
-  displayHeader;
-  showHeaderState;
+  loading = true;
+  displayHeader = false;
+  showHeaderState = 'hidden';
 
   loggedIn = localStorage.getItem('userId');
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.displayHeader = false;
-    this.showHeaderState = 'hidden';
+    this.loading = false;
+    // this.displayHeader = false;
+    // this.showHeaderState = 'hidden';
   }
 
   logOut() {

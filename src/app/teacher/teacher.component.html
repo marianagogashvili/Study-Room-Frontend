@@ -1,5 +1,166 @@
-<!-- <app-header></app-header> -->
 <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<app-header></app-header>
+<div *ngIf="showEdit" class="backdrop" (click)="showEdit = false"></div>
+<app-edit-teacher (showEditVal)="getEditVal($event)" *ngIf="showEdit"></app-edit-teacher>
+
+<form class="create-course__div" #courseForm="ngForm" (ngSubmit)="onSubmitCourse(courseForm)">
+	<div class="create-course__div-left">
+		<input 
+			class="loginInput" 
+			type="text" 
+			name="title" 
+			title
+			placeholder="Course title"
+			ngModel
+			required
+			#title = "ngModel"
+			minlength="3" 
+			>
+		<span class="errSpan" *ngIf="!title.valid && title.touched">
+			Title is invalid
+		</span>	
+		<textarea
+			class="loginInput" 
+			type="text" 
+			name="description" 
+			description
+			placeholder="Description"
+			ngModel
+			required
+			#description = "ngModel"
+			minlength="3"
+			style="height: 200px; padding-top: 10px; resize: none;" 
+			></textarea> 
+		<span class="errSpan" *ngIf="!description.valid && description.touched">
+			Description is invalid
+		</span>	
+		<input 
+			class="loginInput" 
+			type="text" 
+			name="key" 
+			key
+			placeholder="Secret key"
+			ngModel
+			required
+			#key = "ngModel"
+			minlength="3" 
+			>
+		<span class="errSpan" *ngIf="!key.valid && key.touched">
+			Key is invalid
+		</span>
+	</div>
+	<div class="create-course__div-right">
+		<div>
+			<input 
+			type="text" 
+			list="groupName" 
+			name="groupName"
+			placeholder="select class"
+			ngModel
+			groupName
+			#groupName="ngModel"
+			/>
+			
+
+			<datalist id="groupName">
+			  <option *ngFor="let group of groups" >{{ group.name }}</option>
+			</datalist> 
+		</div> 
+		<div>
+			<input 
+			type="text" 
+			list="student" 
+			name="student"
+			placeholder="input student's name"
+			ngModel
+			student
+			#student="ngModel"
+			(input)="findStudent($event.target.value)"
+			style="width: 60%" 
+			/>
+			<button type="button" (click)="addStudent(student)">add</button>
+			<button type="button" (click)="clearStudents()">remove all</button>
+
+			<datalist id="student" *ngIf="students">
+			  <option *ngFor="let student of students">{{ student.fullName }}</option>
+			</datalist> 
+		</div> 
+		<div style="margin: 20px">
+			Students:
+			<p *ngFor="let s of studentList">Login: {{s.login}}, Group: {{s.group.name}}</p>
+		</div>
+		<button type="submit" class="create-course__btn" [disabled]="!courseForm.valid">Create</button>
+
+	</div>
+</form>
+
+<body *ngIf="!loading">
+	<div class="main__div">
+		<div class="main__div-info">
+			<h1>{{ teacher.fullName }}</h1>
+			<p> <span>{{ teacher.login }}</span></p>
+			<button class="edit__btn" (click)="showEditPage()">Edit</button>
+		</div>
+		
+		<table class="main__table">
+			<tr>
+				<td>Courses</td>
+				<td>5</td>
+			</tr>
+			<tr>
+				<td>First log in</td>
+				<td>{{ teacher.firstLogin | date: 'd LLL y, h:mm'}}</td>
+			</tr>
+			<tr>
+				<td>Last log in</td>
+				<td>{{ teacher.lastLogin | date: 'd LLL y,  h:mm'}}</td>
+			</tr>
+		</table>
+	</div>
+	<button class="add-course__btn" (click)="showEditPage()">Add course</button>
+
+	<div class="courses__div" *ngIf="!loading && teacher.courses.length > 0; else">
+		<div class="course__div" *ngFor="let course of teacher.courses">
+			<div class="course__div-info">
+				<h1>{{ course.title}}</h1>
+				<p>40ppl</p>
+				<div class="course__div-grades">
+					<p class="course__div-grade">my <span class="grade__span">99</span></p>
+					<p class="course__div-grade">max <span class="grade__span">100</span></p>
+				</div>
+				
+			</div>
+			<div class="course__btns">
+				<button class="course__btn course__btn-one">assignments</button>
+				<button class="course__btn course__btn-two">view</button>
+			</div>
+		</div>
+		<div class="course__div" *ngFor="let course of teacher.courses">
+			<div class="course__div-info">
+				<h1>{{ course.title}}</h1>
+				<p>40ppl</p>
+				<div class="course__div-grades">
+					<p class="course__div-grade">my <span class="grade__span">99</span></p>
+					<p class="course__div-grade">max <span class="grade__span">100</span></p>
+				</div>
+				
+			</div>
+			<div class="course__btns">
+				<button class="course__btn course__btn-one">assignments</button>
+				<button class="course__btn course__btn-two">view</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -32,7 +193,6 @@
 	</div>
 	<button class="edit-btn" (click)="showCourseForm()">New course</button>
 	<div class="courses-div">
-		<!-- [hidden]="courseState === 'hidden'"   -->
 		<form class="create-course-div" [@courseState]="courseState" [@courseState2]="courseState" #courseForm="ngForm" (ngSubmit)="onSubmitCourse(courseForm)">
 			<div class="create-course-left-div">
 				<input 
@@ -91,9 +251,6 @@
 					#groupName="ngModel"
 					/>
 					
-					<!-- <span class="classErrSpan" *ngIf="className.touched && !className.valid">
-						Please select class
-					</span> -->
 
 					<datalist id="groupName">
 					  <option *ngFor="let group of groups" >{{ group.name }}</option>
@@ -113,9 +270,6 @@
 					/>
 					<button type="button" (click)="addStudent(student)">add</button>
 					<button type="button" (click)="clearStudents()">remove all</button>
-					<!-- <span class="classErrSpan" *ngIf="className.touched && !className.valid">
-						Please select class
-					</span> -->
 
 					<datalist id="student" *ngIf="students">
 					  <option *ngFor="let student of students">{{ student.fullName }}</option>
@@ -146,4 +300,4 @@
 	</div>
 	
 </body>
-</html>
+</html> -->
