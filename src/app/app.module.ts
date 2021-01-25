@@ -18,6 +18,9 @@ import { DatePipe } from '@angular/common';
 import { EditComponent } from './student/edit/edit.component';
 import { EditTeacherComponent } from './teacher/edit-teacher/edit-teacher.component';
 import { CourseComponent } from './course/course.component';
+import { AddCourseComponent } from './teacher/add-course/add-course.component';
+import { StudentsComponent } from './course/students/students.component';
+import { MainComponent } from './course/main/main.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { CourseComponent } from './course/course.component';
     HomeComponent,
     EditComponent,
     EditTeacherComponent,
-    CourseComponent
+    CourseComponent,
+    AddCourseComponent,
+    StudentsComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

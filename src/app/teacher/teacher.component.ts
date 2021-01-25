@@ -9,38 +9,39 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   selector: 'app-teacher',
   templateUrl: './teacher.component.html',
   styleUrls: ['./teacher.component.css'],
-  animations: [
-  trigger('courseState', [
-      state('shown', style({
-        transform: 'translateX(0px)',
-        opacity: 1,
-        visibility: 'visible'
-      })),
-      state('hidden', style({
-        transform: 'translateY(-200px)',
-        opacity: 0,
-        visibility: 'hidden'
-      })),
-      transition('shown <=> hidden', animate(300)),
-    ]),
-  trigger('courseState2', [
-	  state('shown', style({
-	 	display: 'block'
-	  })),
-	  state('hidden', style({
-		display: 'none'
-	  })),
-	  transition('shown => hidden', animate('0ms 200ms')),
-	  transition('hidden => shown', animate('0ms ease')),
-  	]),
-  ]
+  // animations: [
+  // trigger('courseState', [
+  //     state('shown', style({
+  //       transform: 'translateX(0px)',
+  //       opacity: 1,
+  //       visibility: 'visible'
+  //     })),
+  //     state('hidden', style({
+  //       transform: 'translateY(-200px)',
+  //       opacity: 0,
+  //       visibility: 'hidden'
+  //     })),
+  //     transition('shown <=> hidden', animate(300)),
+  //   ]),
+  // trigger('courseState2', [
+	 //  state('shown', style({
+	 // 	display: 'block'
+	 //  })),
+	 //  state('hidden', style({
+		// display: 'none'
+	 //  })),
+	 //  transition('shown => hidden', animate('0ms 200ms')),
+	 //  transition('hidden => shown', animate('0ms ease')),
+  // 	]),
+  // ]
 })
 export class TeacherComponent implements OnInit {
   teacher = {};
-  groups;
+  courses;
+  
   showEdit = false;
-  students;
-  studentList = [];
+  showCourse = false;
+
   courseState = 'hidden';
 
   loading;
@@ -51,21 +52,20 @@ export class TeacherComponent implements OnInit {
 
   ngOnInit() {
   	this.loading = true;
-  	this.authService.getGroups().subscribe(groups => {
-      this.groups = groups;
-      console.log(groups);
-    });
+
   	this.teacherService.teacher.subscribe(result => {
+  		console.log(result);
   		if (result !== null) {
   			this.teacher = result;
+  			this.courses = result.courses;
   			this.loading = false;
   		}
-  		console.log(this.teacher);
   	});
 
   	const id = localStorage.getItem('userId');
-  	this.teacherService.getTeacher({id: id}).subscribe(teacher => {
+  	this.teacherService.getTeacher({id: id}).subscribe((teacher: {courses}) => {
   		this.teacher = teacher;
+  		this.courses = teacher.courses;
   		this.loading = false;
   		console.log(this.teacher);
   	}, error => {
@@ -76,59 +76,9 @@ export class TeacherComponent implements OnInit {
 
   }
 
-  onSubmitCourse(form: NgForm) {
-  	const teacherId = localStorage.getItem('userId');
-  	const title = form.value.title;
-  	const description = form.value.description;
-  	const key = form.value.key;
-  	const groupName = form.value.groupName;
-
-  	const course = {title: title, description: description, key: key, teacherId: teacherId, groupName: groupName, students: this.studentList};
-  	this.teacherService.createCourse(course).subscribe(result =>{ 
-  		console.log(result);
-  	});
-
-  }
-
-  findStudent(name: string) {
-  	// setTimeout(() => {
-  		if (name !== '') {
-  			this.teacherService.findStudent({name: name}).subscribe(students => {
-		  		console.log(students);
-		  		this.students = students;
-		  	});
-  		} 
-  	// }, 3000);
-  }
-
-  addStudent(student) {
-  	console.log("sdfdsfds");
-  	if (student.value !== '') {
-  		let foundStudent = this.students.find((s) => {
-  			if (s.fullName === student.value) {
-  				return s;
-  			}
-  		});
-  		let st = this.studentList.find((st) => {
-  			if (st._id === foundStudent._id) {
-  				return true;
-  			}
-  		});
-
-  		if (!st) {
-  			this.studentList.push(foundStudent);
-  		}
-  		
-  	}
-  	
-  }
-
-  clearStudents(student) {
-  	this.studentList = [];
-  }
 
   showCourseForm() {
-  	this.courseState = this.courseState === 'shown' ?  'hidden' : 'shown';
+  	this.showCourse = !this.showCourse;
   }
 
   showEditPage() {
@@ -137,6 +87,13 @@ export class TeacherComponent implements OnInit {
 
   getEditVal(val) {
   	this.showEdit = val;
+  }
+
+  getCourseVal(val) {
+  	if (val !== '') {
+  		this.showCourse = false;
+  		this.courses.push(val);
+  	}
   }
 
 }

@@ -6,8 +6,14 @@
 	<title>Document</title>
 </head>
 <app-header></app-header>
-<body *ngIf="!loading" style="background-color: blue; width: 100vw; height: 100vh;">
-	{{ course.title }}
-
+<body *ngIf="!loading">
+	<div class="main__div">
+		<h1>{{course.title}}</h1>
+		<button class="edit__btn">Edit</button>
+		<div>
+			<p class="main__link">main</p><p class="main__link">students</p>
+		</div>
+		
+	</div>
 </body>
 </html>

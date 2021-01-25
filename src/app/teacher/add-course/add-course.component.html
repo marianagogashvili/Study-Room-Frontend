@@ -1,0 +1,110 @@
+<div class="add-course__div">
+
+<form class="create-course__div" #courseForm="ngForm" (ngSubmit)="onSubmitCourse(courseForm)">
+	<div class="create-course__div-left">
+		<input 
+			class="loginInput" 
+			type="text" 
+			name="title" 
+			title
+			placeholder="Course title"
+			ngModel
+			required
+			#title = "ngModel"
+			minlength="3" 
+			>
+		<span class="errSpan" *ngIf="!title.valid && title.touched">
+			Title is invalid
+		</span>	
+		<textarea
+			class="loginInput" 
+			type="text" 
+			name="description" 
+			description
+			placeholder="Description"
+			ngModel
+			required
+			#description = "ngModel"
+			minlength="3"
+			style="height: 200px; padding-top: 10px; resize: none;" 
+			></textarea> 
+		<span class="errSpan" *ngIf="!description.valid && description.touched">
+			Description is invalid
+		</span>	
+		<input 
+			class="loginInput" 
+			type="text" 
+			name="key" 
+			key
+			placeholder="Secret key"
+			ngModel
+			required
+			#key = "ngModel"
+			minlength="3" 
+			>
+		<span class="errSpan" *ngIf="!key.valid && key.touched">
+			Key is invalid
+		</span>
+		<div>
+			<input 
+			type="text" 
+			list="groupName" 
+			name="groupName"
+			placeholder="select class"
+			ngModel
+			groupName
+			#groupName="ngModel"
+			/>
+			
+
+			<datalist id="groupName">
+			  <option *ngFor="let group of groups" >{{ group.name }}</option>
+			</datalist> 
+		</div> 
+	</div>
+	<div class="create-course__div-right">
+		<div>
+			<input 
+			type="text" 
+			list="student" 
+			name="student"
+			placeholder="input student's name"
+			ngModel
+			student
+			#student="ngModel"
+			(input)="findStudent($event.target.value)"
+
+			/>
+
+			<datalist id="student" *ngIf="students">
+			  <option *ngFor="let student of students">{{ student.fullName }}</option>
+			</datalist> 
+		</div> 
+		<div class="icons">
+			<fa-icon class="check__icon" [icon]="checkIcon" (click)="addStudent(student)"></fa-icon>
+			<fa-icon class="cross__icon" [icon]="crossIcon" (click)="clearStudents()"></fa-icon>
+		</div>
+
+		<div class="students__list">
+			Students:
+			<table>
+				<tr>
+					<th style="width: 40%">login</th>
+					<th style="width: 30%">grade</th>
+					<th style="width: 30%">remove</th>
+				</tr>
+				<tr *ngFor="let s of studentList; index as i">
+
+			      <td align="center"><div class="table__login">{{s.login}}</div></td>
+
+			      <td align="center">{{s.group.name}}</td>
+			      <td align="center"><fa-icon class="cross__icon" [icon]="crossIcon" (click)="removeStudent(i)"></fa-icon></td>
+			    </tr>
+			</table>		
+			<!-- <p >Login: {{s.login}}, Group: {{s.group.name}}</p> -->
+		</div>
+		<button type="submit" class="create-course__btn" [disabled]="!courseForm.valid">Create</button>
+
+	</div>
+</form>
+</div>

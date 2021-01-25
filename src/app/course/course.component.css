@@ -1,0 +1,26 @@
+.main__div {
+	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
+	height: 11rem;
+	padding-top: 90px;
+	padding-left: 17%;
+	color: white;
+}
+
+.edit__btn {
+	font-size: 14px;
+	width: 5rem;
+	color: white;
+	background-color: #0b7ace;
+	height: 2rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+}
+
+.main__link {
+	display: inline-block;
+	padding: 0 15px;
+	font-size: 18px;
+	margin-top: 25px;
+}

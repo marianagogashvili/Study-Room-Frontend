@@ -79,6 +79,7 @@ export class EditTeacherComponent implements OnInit {
     	const user = {id: id, fullName: fullName, login: login, oldPassword: oldPassword, newPassword: newPassword};
 
 	  	this.teacherService.editTeacher(user).subscribe((result: {message: string, teacher: Teacher}) => {
+			console.log(result);
 			this.teacherService.sendTeacher(result.teacher);
 			this.showEditVal.emit(false);
 	  	}, error => {
