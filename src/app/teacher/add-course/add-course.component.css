@@ -113,6 +113,10 @@ td {
 	outline: none;
 }
 
+.create-course__btn:disabled {
+	background-color: #bbbfca;
+}
+
 @media screen and (min-width: 900px) {
 	.create-course__div {
 		display: flex;

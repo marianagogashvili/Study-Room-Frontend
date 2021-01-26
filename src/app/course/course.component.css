@@ -1,10 +1,12 @@
-.main__div {
+.main__div, .main__div-edit {
 	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
-	height: 11rem;
+	height: 20rem;
 	padding-top: 90px;
 	padding-left: 17%;
 	color: white;
+
 }
+
 
 .edit__btn {
 	font-size: 14px;
@@ -17,10 +19,152 @@
 	border: 0;
 	outline: none;
 }
+input, textarea {
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
 
-.main__link {
+	font-size: 17px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+
+}
+input {
+	height: 40px;
+	width: 240px;
+	margin-top: 10px;
+
+}
+textarea {
+	padding-top: 12px;
+	outline: none;
+	resize: none;
+	width: 310px;
+	height: 70px;
+
+}
+
+.main__links {
+
+}
+.main__link-one, .main__link-two {
 	display: inline-block;
-	padding: 0 15px;
+	padding: 8px 15px;
 	font-size: 18px;
-	margin-top: 25px;
+	margin: 0 0 0 10px;
+	color: #0b7ace;
+	/*border-top: 1px solid #0b7ace;*/
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	
+}
+
+.main__link-one {
+	background-color: white;
+	border: 1px solid  #0b7ace;
+	border-top: 0;
+	outline: none;
+}
+
+.main__link-two {
+	background-color: #99e3cc;
+	outline: none;
+	color: white;
+	border: 1px solid  #99e3cc;
+}
+
+.main__div-descr, .main__div-descr-edit {
+	margin-top: 1.6rem;
+	margin-right: 0.5rem;
+	font-size: 18px;
+	max-width: 350px;
+	max-height: 200px;
+	overflow-x: scroll;
+}
+
+
+.errorsDiv {
+	position: absolute; 
+	background-color: rgb(237, 70, 47, 0.9); 
+	top: 1rem; 
+	padding: 20px; 
+	color: white; 
+	border-radius: 10px; 
+	box-shadow: 0 0 7px rgb(237, 70, 47);
+}
+
+.errorTitle {
+	text-align: center; 
+	text-transform: uppercase;
+}
+
+.errorDiv {
+	font-size: 18px; 
+	line-height: 40px; 
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 0 0 7px red;
+}
+
+@media screen and (min-width: 600px) {
+	.main__div {
+		display: flex;
+		justify-content: space-around;
+		height: 13rem;
+	}
+
+	.main__div-title {
+		flex: 0 0 30%;
+	}
+
+
+	.main__div-descr {
+		max-width: 500px;
+		max-height: 200px;
+		height: 150px;
+		flex: 1;
+	}
+
+
+}
+
+@media screen and (min-width: 800px) {
+	.main__div-edit {
+		display: flex;
+		justify-content: space-around;
+		height: 13rem;
+	}
+
+	.main__div-title-edit {
+		flex: 0 0 30%;
+	}
+
+	.main__div-descr-edit {
+		max-width: 700px;
+		max-height: 300px;
+		height: 150px;
+		flex: 1;
+		margin-left: 30px;
+	}
+
+	input {
+		height: 40px;
+		width: 240px;
+		margin-top: 10px;
+
+	}
+	.key__input {
+		width:50%;
+		max-width: 200px;
+	}
+	textarea {
+		padding-top: 12px;
+		outline: none;
+		resize: none;
+		width:80%;
+		max-width: 550px;
+		height: 70px;
+	}
 }

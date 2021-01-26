@@ -7,13 +7,48 @@
 </head>
 <app-header></app-header>
 <body *ngIf="!loading">
-	<div class="main__div">
-		<h1>{{course.title}}</h1>
-		<button class="edit__btn">Edit</button>
-		<div>
-			<p class="main__link">main</p><p class="main__link">students</p>
+	<div *ngIf="!editMode" class="main__div">
+		<div class="main__div-title">
+			<h1>{{course.title}}</h1>
+			<button class="edit__btn" (click)="switchToEditMode()">Edit</button>
 		</div>
+		<div class="main__div-descr">
+			{{course.description}}
+		</div>
+
+	</div>
+
+
+	<form *ngIf="editMode" class="main__div-edit" [formGroup]="editForm" (ngSubmit)="updateCourse()" action="">
 		
+	<div [@errorState]="errorState" class="errorsDiv">
+		<h3 class="errorTitle">Error</h3>
+		<div *ngFor="let error of errors" class="errorDiv">{{ error.msg }}</div>
+	</div>
+		<div class="main__div-title-edit">
+			<h1><input             
+				type="text"
+            	id="title"
+            	formControlName="title"></h1>
+			<button class="edit__btn" type="submit">Submit</button><button style="margin-left: 10px;" class="edit__btn" (click)="switchToEditMode()">Back</button>
+		</div>
+		<div class="main__div-descr-edit">
+			<textarea 
+				type="text"
+            	id="description"
+            	formControlName="description"></textarea>
+           <div><input             
+				type="text"
+            	id="key"
+            	formControlName="key" class="key__input"></div> 
+		</div>
+	</form>
+	
+
+	<div class="main__links">
+		<p  routerLink="main"  class="main__link-one" routerLinkActive="main__link-two">main</p>
+		<p routerLink="students" routerLinkActive="main__link-two" class="main__link-one">students</p>
 	</div>
 </body>
+<router-outlet></router-outlet>
 </html>

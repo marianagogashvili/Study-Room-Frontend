@@ -1,0 +1,24 @@
+table {
+	width: 90%;
+	padding-left: 2rem;
+}
+th {
+	padding: 20px;
+	color: #bbbfca;
+
+}
+td {
+	padding: 20px;
+	text-align: center;
+	border-bottom: 1px solid #cdd0cb;
+	max-width: 40px;
+}
+
+.cross__icon {
+	font-size: 27px;
+	color: #C34A36;
+}
+
+.cross__icon:active {
+	color: #8b0000;
+}

@@ -7,6 +7,8 @@ import { AuthGuard } from './auth-guard.service';
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './student/edit/edit.component';
 import { CourseComponent } from './course/course.component';
+import { StudentsComponent } from './course/students/students.component';
+import { MainComponent } from './course/main/main.component';
 
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
@@ -20,7 +22,10 @@ const appRoutes:Routes = [
 		// { path: 'edit', component: EditComponent }
 		// edit, grades
 	]},
-	{ path: 'course/:id', canActivate: [AuthGuard], component: CourseComponent }
+	{ path: 'course/:id', canActivate: [AuthGuard], canActivateChild:[AuthGuard], component: CourseComponent, children: [
+		{ path: 'students', component:  StudentsComponent },
+		{ path: 'main', component:  MainComponent },
+	]}
 ];
 
 @NgModule({
