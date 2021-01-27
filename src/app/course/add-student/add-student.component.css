@@ -1,0 +1,105 @@
+.main__div {
+	margin-top: 3rem;
+	padding: 20px;
+}
+
+.inputs__div {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 350px;
+	align-items: center;
+}
+
+.inputs__div input {
+	height: 50px;
+	width: 70%;
+	min-width: 240px;
+	min-height: 40px;
+	max-width: 330px;
+
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 20px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+
+}
+
+.find__btn, .add-students__btn {
+	height: 2.5rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+	
+	color: white;
+	background-color: #0b7ace;
+	margin: 1rem 1rem;
+}
+
+.find__btn {
+ 	width: 4rem;
+}
+
+.add-students__btn {
+ 	width: 8rem;
+}
+ 
+.student-list {
+	margin-top: 3rem;
+	max-height: 1000px;
+	overflow-x: scroll;
+}
+
+.student-list__table {
+	width: 90%;
+	text-align: center;
+	word-break: break-all;
+	font-size: 14px;
+	
+}
+.student-list__head {
+	padding-bottom: 1.5rem;
+	text-transform: uppercase;
+}
+
+.student-list__row {
+	height: 3.5rem;
+}
+
+.list__value {
+	border-right: 1px solid #f0f0f0;
+}
+
+.minus__icon {
+	font-size: 25px;
+	color: #ff3d33;
+}
+
+.minus__icon:active {
+	color: #ff7a73;
+}
+
+@media screen and (min-width: 900px) {
+	.main__div {
+		display: flex;
+		column-gap: 20px;
+		margin-top: 1rem;
+	}
+
+	.inputs__div {
+		flex: 0 0 35%;
+	}
+
+	.student-list {
+		flex: 1;
+		margin-top: 0;
+	}
+
+	.student-list__table {
+		font-size: 16px;
+	}
+}

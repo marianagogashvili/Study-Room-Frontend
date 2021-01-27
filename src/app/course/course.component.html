@@ -20,7 +20,7 @@
 
 
 	<form *ngIf="editMode" class="main__div-edit" [formGroup]="editForm" (ngSubmit)="updateCourse()" action="">
-		
+
 	<div [@errorState]="errorState" class="errorsDiv">
 		<h3 class="errorTitle">Error</h3>
 		<div *ngFor="let error of errors" class="errorDiv">{{ error.msg }}</div>
@@ -48,6 +48,7 @@
 	<div class="main__links">
 		<p  routerLink="main"  class="main__link-one" routerLinkActive="main__link-two">main</p>
 		<p routerLink="students" routerLinkActive="main__link-two" class="main__link-one">students</p>
+		<p routerLink="add-student" routerLinkActive="main__link-two" class="main__link-one">add student</p>
 	</div>
 </body>
 <router-outlet></router-outlet>

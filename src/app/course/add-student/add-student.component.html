@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div class="main__div">
+		<form class="inputs__div" [formGroup]="findStudentForm" (ngSubmit)="findStudents()">
+			<input 
+				type="text" 
+				formControlName="fullName"
+				placeholder="name">
+			<input 
+				type="text" 
+				formControlName="login"
+				placeholder="login">
+
+			<input 
+				type="text" 
+				list="groupName"
+				formControlName="group"
+				placeholder="group">
+
+			<datalist id="groupName">
+			  <option *ngFor="let group of groups" >{{ group.name }}</option>
+			</datalist> 
+			
+			<div style="display: inline-block;">
+				<button class="find__btn" type="submit">Find</button>
+				<button [attr.disabled]="formDisabled" class="add-students__btn" (click)="addStudents()">Add students</button>
+			</div>
+		</form>
+		<div class="student-list">
+			<table cellspacing="0" class="student-list__table">
+				<tr class="student-list__head">
+					<th>Name</th>
+					<th>Login</th>
+					<th>Group</th>
+					<th>Remove</th>
+				</tr>
+				<tr class="student-list__row" *ngFor="let student of foundStudents">
+					<td class="list__value">{{ student.fullName }}</td>
+					<td class="list__value">{{ student.login }}</td>
+					<td class="list__value">{{ student.group.name }}</td>
+					<td><fa-icon class="minus__icon" [icon]="minusIcon"></fa-icon></td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+	
+
+</body>
+</html>

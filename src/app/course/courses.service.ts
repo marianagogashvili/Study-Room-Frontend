@@ -19,7 +19,9 @@ export class CoursesService {
 					'Content-Type': 'application/json',
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
-			});
+			}).pipe(catchError(error => {
+				return throwError(error.error);
+			}));
 	}
 
 	editCourse(param: Params) {
@@ -55,6 +57,32 @@ export class CoursesService {
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
 			});
+	}
+
+	findStudents(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/findStudentsByParams', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
+	addStudentsToCourse(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/addStudents', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
+	getGroups() {
+		return this.http.get('http://localhost:8000/group/getGroups');
 	}
 
 	sendStudentsToSelf(students) {

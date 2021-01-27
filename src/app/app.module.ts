@@ -21,6 +21,7 @@ import { CourseComponent } from './course/course.component';
 import { AddCourseComponent } from './teacher/add-course/add-course.component';
 import { StudentsComponent } from './course/students/students.component';
 import { MainComponent } from './course/main/main.component';
+import { AddStudentComponent } from './course/add-student/add-student.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MainComponent } from './course/main/main.component';
     CourseComponent,
     AddCourseComponent,
     StudentsComponent,
-    MainComponent
+    MainComponent,
+    AddStudentComponent
   ],
   imports: [
     BrowserModule,

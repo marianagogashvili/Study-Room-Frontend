@@ -23,7 +23,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
   ngOnInit() {
   	this.studentsSub = this.courseService.oldStudents.subscribe(students => {
   		this.students = students;
-  	})
+  	});
   	// this.loading = true;
   	this.route.parent.params.subscribe(params => {
   		this.courseService.getStudentsOfCourse({id: params['id']})
@@ -43,7 +43,9 @@ export class StudentsComponent implements OnInit, OnDestroy {
   	this.courseService.deleteStudentFromCourse(
   		{studentId: student._id, courseId: this.courseId})
   		.subscribe(result => {
-  			console.log(result);
+  			let newStudents = this.students.filter(stud => stud._id !== student._id);
+  			console.log(newStudents);
+  			this.courseService.sendStudentsToSelf(newStudents);
   	});
   }
 

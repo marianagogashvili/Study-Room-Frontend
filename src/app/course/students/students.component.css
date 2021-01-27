@@ -2,16 +2,11 @@ table {
 	width: 90%;
 	padding-left: 2rem;
 }
-th {
-	padding: 20px;
-	color: #bbbfca;
 
-}
 td {
-	padding: 20px;
 	text-align: center;
+	padding: 10px;
 	border-bottom: 1px solid #cdd0cb;
-	max-width: 40px;
 }
 
 .cross__icon {
@@ -21,4 +16,18 @@ td {
 
 .cross__icon:active {
 	color: #8b0000;
+}
+
+@media screen and (min-width: 600px) {
+	th {
+		padding: 20px;
+		color: #bbbfca;
+
+	}
+
+	td {
+		padding: 20px;
+		max-width: 40px;
+	}
+
 }

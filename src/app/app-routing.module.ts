@@ -9,6 +9,7 @@ import { EditComponent } from './student/edit/edit.component';
 import { CourseComponent } from './course/course.component';
 import { StudentsComponent } from './course/students/students.component';
 import { MainComponent } from './course/main/main.component';
+import { AddStudentComponent } from './course/add-student/add-student.component';
 
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
@@ -25,6 +26,8 @@ const appRoutes:Routes = [
 	{ path: 'course/:id', canActivate: [AuthGuard], canActivateChild:[AuthGuard], component: CourseComponent, children: [
 		{ path: 'students', component:  StudentsComponent },
 		{ path: 'main', component:  MainComponent },
+		{ path: 'add-student', component:  AddStudentComponent },
+
 	]}
 ];
 
