@@ -29,7 +29,9 @@
 			
 			<div style="display: inline-block;">
 				<button class="find__btn" type="submit">Find</button>
-				<button [attr.disabled]="formDisabled" class="add-students__btn" (click)="addStudents()">Add students</button>
+				<button [attr.disabled]="
+				(foundStudents.length === 0) ? true : null" class="add-students__btn" (click)="addStudents()">Add students</button>
+				<div class="redo__icon" ><fa-icon (click)="removeAllStudents()" [icon]="redoIcon"></fa-icon></div>
 			</div>
 		</form>
 		<div class="student-list">
@@ -40,11 +42,11 @@
 					<th>Group</th>
 					<th>Remove</th>
 				</tr>
-				<tr class="student-list__row" *ngFor="let student of foundStudents">
+				<tr class="student-list__row" *ngFor="let student of foundStudents; index as i">
 					<td class="list__value">{{ student.fullName }}</td>
 					<td class="list__value">{{ student.login }}</td>
 					<td class="list__value">{{ student.group.name }}</td>
-					<td><fa-icon class="minus__icon" [icon]="minusIcon"></fa-icon></td>
+					<td><fa-icon (click)="removeStudent(i)" class="minus__icon" [icon]="minusIcon"></fa-icon></td>
 				</tr>
 
 			</table>

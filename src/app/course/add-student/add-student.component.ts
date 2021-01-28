@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
 import { CoursesService } from '../courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-student',
@@ -10,13 +12,15 @@ import { CoursesService } from '../courses.service';
 })
 export class AddStudentComponent implements OnInit {
   groups;
-  foundStudents;
+  foundStudents:any = [];
 
   findStudentForm: FormGroup;
 
   minusIcon = faMinusCircle;
+  redoIcon = faRedo;
 
-  constructor(private courseService: CoursesService) { }
+  constructor(private courseService: CoursesService,
+  	private router: Router) { }
 
   ngOnInit() {
   	this.courseService.getGroups().subscribe(groups => {
@@ -36,10 +40,27 @@ export class AddStudentComponent implements OnInit {
   	const group = this.findStudentForm.value.group;
 
 	this.courseService.findStudents(
-		{fullName: fullName, login: login, group: group})
-		.subscribe(foundStudents => {
-			this.foundStudents = foundStudents;
+		{fullName: fullName, login: login, group: group, courseId: this.courseService.courseId})
+		.subscribe(students => {
+			this.foundStudents = students;
 	});
+  }
+
+  addStudents() {
+  	this.courseService.addStudentsToCourse(
+  		{courseId: this.courseService.courseId, 
+  		 students: this.foundStudents}).subscribe(result => {
+  		 	this.router.navigate(['/course/' + this.courseService.courseId + '/students']);
+  		 });
+  }
+
+  removeStudent(index) {
+  	this.foundStudents.splice(index, 1);
+  	console.log(this.foundStudents);
+  }
+
+  removeAllStudents() {
+  	this.foundStudents = [];
   }
 
 }

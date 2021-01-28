@@ -3,6 +3,7 @@ import { CoursesService } from '../courses.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,8 +14,10 @@ import { Subscription } from 'rxjs';
 export class StudentsComponent implements OnInit, OnDestroy {
   // loading;
   studentsSub;
+
   courseId;
   students;
+
   crossIcon = faTimesCircle;
 
   constructor(private courseService: CoursesService,
@@ -37,20 +40,26 @@ export class StudentsComponent implements OnInit, OnDestroy {
   			})
   	});
   	
-  }
+  } 
 
   removeStudent(student) {
   	this.courseService.deleteStudentFromCourse(
   		{studentId: student._id, courseId: this.courseId})
   		.subscribe(result => {
   			let newStudents = this.students.filter(stud => stud._id !== student._id);
-  			console.log(newStudents);
   			this.courseService.sendStudentsToSelf(newStudents);
   	});
   }
 
+  deleteAllStudents() {
+  	this.courseService.deleteAllStudents(
+  		{courseId: this.courseId})
+  		.subscribe(result => {
+  			this.students = [];
+  	});
+  }
+
   ngOnDestroy() {
-  	console.log('use');
   	this.studentsSub.unsubscribe();
   }
 }

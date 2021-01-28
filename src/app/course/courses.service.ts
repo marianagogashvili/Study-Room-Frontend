@@ -9,7 +9,7 @@ export class CoursesService {
 	constructor(private http: HttpClient) {}
 	error = new BehaviorSubject<string>(null);
 	oldStudents = new BehaviorSubject<string>(null);
-
+	courseId;
 
 	getCourse(param: Params) {
 		return this.http.post(
@@ -73,6 +73,17 @@ export class CoursesService {
 	addStudentsToCourse(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/course/addStudents', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
+	deleteAllStudents(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/deleteStudents', 
 			JSON.stringify(param), {
 				headers: new HttpHeaders({
 					'Content-Type': 'application/json',

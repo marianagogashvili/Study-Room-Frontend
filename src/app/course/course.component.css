@@ -19,6 +19,11 @@
 	border: 0;
 	outline: none;
 }
+
+.edit__btn:active {
+	background-color: #0f92f5;
+}
+
 input, textarea {
 	border-radius: 17px;
 	border: 1px solid #00b5d4;

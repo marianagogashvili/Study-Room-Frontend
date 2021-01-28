@@ -47,7 +47,11 @@
 .add-students__btn {
  	width: 8rem;
 }
- 
+
+.add-students__btn:disabled {
+ 	background-color: #c4c4c4;
+}
+
 .student-list {
 	margin-top: 3rem;
 	max-height: 1000px;
@@ -79,7 +83,14 @@
 	color: #ff3d33;
 }
 
-.minus__icon:active {
+.redo__icon {
+	font-size: 21px;
+	margin: 1rem;
+	color: #ff3d33;
+	display: inline
+}
+
+.minus__icon:active, .redo__icon:active {
 	color: #ff7a73;
 }
 

@@ -9,6 +9,10 @@ td {
 	border-bottom: 1px solid #cdd0cb;
 }
 
+.student__div {
+	margin-top: 2rem;
+}
+
 .cross__icon {
 	font-size: 27px;
 	color: #C34A36;
@@ -16,6 +20,26 @@ td {
 
 .cross__icon:active {
 	color: #8b0000;
+}
+
+.delete__btn {
+	height: 2.5rem;
+	width: 8rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+	
+	color: white;
+	background-color: #C34A36;
+	margin: 1rem 2rem;
+}
+	
+.delete__btn:active {
+	background-color: #ff7a73;
+}
+.delete__btn:disabled {
+	color: red;
 }
 
 @media screen and (min-width: 600px) {

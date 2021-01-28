@@ -49,6 +49,7 @@ export class CourseComponent implements OnInit {
   	this.route.params.subscribe(result => {
   		this.courseService.getCourse({id: result['id']}).subscribe(result => {
   			this.course = result;
+  			this.courseService.courseId = this.course._id;
   			this.loading = false;
   		}, error => { 
   			let err;
