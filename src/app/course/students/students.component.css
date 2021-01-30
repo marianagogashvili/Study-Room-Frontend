@@ -38,9 +38,6 @@ td {
 .delete__btn:active {
 	background-color: #ff7a73;
 }
-.delete__btn:disabled {
-	color: red;
-}
 
 @media screen and (min-width: 600px) {
 	th {

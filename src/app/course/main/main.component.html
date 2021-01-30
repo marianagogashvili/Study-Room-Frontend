@@ -1,1 +1,52 @@
-<p>main works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body >
+	<form *ngIf="newTopicMode" [formGroup]="topicForm" (ngSubmit)="createTopic()">
+		<input 
+			class="title__input" 
+			type="text"
+			name="title"
+			required
+			formControlName="title"
+			>
+		<div class="hidden__div">
+			<label 
+			class="hidden__label" 
+			for="hide">hidden</label>
+			<input 
+				type="checkbox"
+				class="hidden__input"
+				id="hide"
+				name="hide"
+				formControlName="hidden">
+		</div>
+		<button 
+			type="submit" 
+			class="topic__btn">Create Topic</button>	
+		<button 
+			type="button" 
+			class="back__btn" (click)="topicMode()">Back</button>		
+	</form>
+	<button 
+		type="submit" 
+		class="new-topic__btn" (click)="topicMode()">New topic</button>	
+	<div id="topicId" class="topics__div" *ngFor="let topic of topics;  index as i">
+		<h1 class="title__p" [id]="'topic'+i">{{ topic.title }}</h1>
+		<p class="date__p">{{ topic.createdAt | date: 'd, MMM yyyy' }}</p>
+		<button class="delete__icon" (click)="removeTopic(topic._id, i)">
+			<fa-icon [icon]="removeIcon"></fa-icon></button>
+	</div>
+	<div class="scroll__div">
+		<button class="scroll__btn">
+			<fa-icon (click)="goUp()" [icon]="upIcon"></fa-icon></button> 
+		<button class="scroll__btn">
+			<fa-icon (click)="goDown()" [icon]="downIcon"></fa-icon></button>
+	</div>
+</body>
+
+</html>

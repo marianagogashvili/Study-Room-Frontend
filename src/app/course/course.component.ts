@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CoursesService } from './courses.service';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
@@ -33,10 +33,13 @@ export class CourseComponent implements OnInit {
 
   errors;
   errorState = 'hidden';
+  deleteCourseState = 'hidden';
 
   constructor(private route: ActivatedRoute,
   			  private router: Router,
-  			  private courseService: CoursesService) { }
+  			  private courseService: CoursesService) { 
+  	router.events.subscribe((val) => this.editMode = false);
+}
 
   ngOnInit() {
   	this.editForm = new FormGroup({
@@ -53,7 +56,7 @@ export class CourseComponent implements OnInit {
   			this.loading = false;
   		}, error => { 
   			let err;
-  			if (error.status === 500) {
+  			if (error === null) {
   				err = "Internal Server error, please try later"
   			} else {
   				err = error;
@@ -97,6 +100,16 @@ export class CourseComponent implements OnInit {
   			key: this.course.key
   		});
   	}
+  }
+
+  showDeleteCourse() {
+  	this.deleteCourseState = this.deleteCourseState === 'shown' ? 'hidden' : 'shown';
+  }
+
+  deleteCourse() {
+  	this.courseService.deleteCourse({id: this.course._id}).subscribe(result => {
+  		this.router.navigate(['/']);
+  	});
   }
 
   showError(value) {

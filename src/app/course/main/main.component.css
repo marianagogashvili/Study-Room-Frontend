@@ -1,0 +1,161 @@
+body {
+	margin-top: 3rem;
+	padding-left: 4%;
+}
+
+.scroll__div {
+	display: inline-block;
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+}
+
+.scroll__btn, .delete__icon {
+	background-color: transparent;
+	border: 0;
+	outline: none;
+}
+
+.scroll__btn {
+	margin: 0.1rem;
+	font-size: 32px;
+	color: #687cf7;
+}
+
+.delete__icon {
+	margin-left: 1rem;
+	font-size: 25px;
+	color: #d6473e;
+}
+
+.scroll__btn:active {
+	color: #8c9cff; 
+} 
+.delete__icon:active {
+	color: #f5928c; 
+} 
+
+
+.title__input {
+	height: 30px;
+	width: 270px;
+	min-width: 240px;
+	min-height: 40px;
+
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 20px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+	margin-right: 2rem;
+	display: inline;
+}
+
+.hidden__input {
+	width: 20px;
+	height: 20px;
+}
+
+.hidden__label {
+	margin-left: 0.5rem;
+}
+
+.hidden__div {
+	display: inline;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+
+}
+
+input.ng-touched.ng-invalid {
+	border: 1px solid red;
+	box-shadow: 0 0 7px red;
+}
+
+.topic__btn, .back__btn, .new-topic__btn {
+	height: 2.5rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+	color: white;
+	margin: 1rem 0;
+}
+
+.topic__btn {
+	background-color: #0b7ace;
+	width: 8rem;
+}
+
+.back__btn {
+	background-color: #b5b5b5;
+	width: 5rem;
+}
+
+.new-topic__btn {
+	background-color: #0b7ace;
+	width: 7rem;
+}
+
+.topic__btn:active, .new-topic__btn:active {
+	background-color: #26a2ff;
+}
+
+.back__btn:active {
+	background-color: #dedede;
+}
+
+
+.topic__btn:disabled {
+	background-color: #b6cdde;
+}
+
+.topics__div {
+	display: flex;
+	align-items: center;
+}
+
+.title__p {
+	font-size: 23px;
+}
+
+.date__p {
+	font-size: 14px;
+	padding-left: 20px;
+	margin-top: 20px;
+	vertical-align: bottom;
+}
+
+@media screen and (min-width: 600px) {
+	form {
+		display: flex;
+		align-items: center;
+	}
+	.title__p {
+		font-size: 30px;
+	}
+
+	.date__p {
+		font-size: 16px;
+	}
+
+	.hidden__div {
+		margin-top: 0;
+	}
+
+	.topic__btn {
+		margin: 0 1rem;
+	}
+
+	.scroll__div {
+		bottom: 2rem;
+		right: 3rem;
+	}
+
+	.scroll__btn {
+		margin: 0.5rem;
+	}
+}

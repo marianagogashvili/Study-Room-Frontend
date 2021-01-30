@@ -6,10 +6,22 @@
 	<title>Document</title>
 </head>
 <app-header></app-header>
+
 <body *ngIf="!loading">
+	<div [hidden]="deleteCourseState === 'hidden'" class="backdrop"></div>
+	<div [@errorState]="deleteCourseState" class="delete__div">
+		<div class="delete__alert-box">
+			<h1>Are you sure you want to delete this course ?</h1>
+			<div class="delete__btns">
+				<button (click)="deleteCourse()" class="yes__btn">Yes</button>
+				<button (click)="showDeleteCourse()">No</button>
+			</div>
+		</div>
+	</div>
+	
 	<div *ngIf="!editMode" class="main__div">
 		<div class="main__div-title">
-			<h1>{{course.title}}</h1>
+			<h1 id="courseTitle">{{course.title}}</h1>
 			<button class="edit__btn" (click)="switchToEditMode()">Edit</button>
 		</div>
 		<div class="main__div-descr">
@@ -17,7 +29,6 @@
 		</div>
 
 	</div>
-
 
 	<form *ngIf="editMode" class="main__div-edit" [formGroup]="editForm" (ngSubmit)="updateCourse()" action="">
 
@@ -37,10 +48,11 @@
 				type="text"
             	id="description"
             	formControlName="description"></textarea>
-           <div><input             
+           <div style="display: inline-block"><input             
 				type="text"
             	id="key"
-            	formControlName="key" class="key__input"></div> 
+            	formControlName="key" class="key__input">
+            	<button type="button" class="delete__btn" (click)="showDeleteCourse()">Delete course</button></div> 
 		</div>
 	</form>
 	

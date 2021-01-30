@@ -92,6 +92,17 @@ export class CoursesService {
 			});
 	}
 
+	deleteCourse(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/deleteCourse', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
 	getGroups() {
 		return this.http.get('http://localhost:8000/group/getGroups');
 	}
