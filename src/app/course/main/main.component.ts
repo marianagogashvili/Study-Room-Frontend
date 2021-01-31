@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -16,14 +18,19 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class MainComponent implements OnInit, OnDestroy {
   topicForm: FormGroup;
+  editForm: FormGroup;
+
   topics;
   scrollEl = null;
 
   upIcon = faArrowCircleUp;
   downIcon = faArrowCircleDown;
   removeIcon = faTimesCircle;
+  editIcon = faEdit;
 
   newTopicMode = false;
+  editIndex = null;
+  beforeTopicNum = null;
 
   sub: Subscription;
 
@@ -37,8 +44,15 @@ export class MainComponent implements OnInit, OnDestroy {
   		'hidden': new FormControl(''),
   	});
 
-  	this.sub = this.topicService.oldTopics.subscribe(topics => {
+  	this.editForm = new FormGroup({
+  		'title': new FormControl('', [Validators.required]),
+  		'hidden': new FormControl(''),
+  	});
+
+  	this.sub = this.topicService.oldTopics
+  		.subscribe(topics => {
   		this.topics = topics;
+
   	});
 
   	this.route.parent.params.subscribe(params => {
@@ -65,26 +79,62 @@ export class MainComponent implements OnInit, OnDestroy {
   	const topic = { 
   			title: title, 
   			hidden: hidden, 
-  			courseId: this.courseService.courseId 
+  			courseId: this.courseService.courseId,
+  			beforeTopic: this.beforeTopicNum 
   		};
   	this.topicService.createTopic(topic)
   		.subscribe(result => {
-  			this.topicForm.controls['title'].setValue('')
-  			this.topicForm.controls['title'].setErrors(null);
-  			this.topicService.sendTopics([...this.topics, result]);
-  			let id = ("topic" + (this.topics.length-1));
-  			this.scrollEl = id;
+  			this.newTopicMode = false;
+  			this.topicForm.controls['title'].setValue(' ');
+  			if (!this.beforeTopicNum) {
+	  			this.topics = [...this.topics, result];
+	  			let id = ("topic" + (this.topics.length-1));
+	  			this.scrollEl = id;
+  			} else {
+  				this.topics.splice((this.beforeTopicNum-1), 0, result);
+	  			this.scrollEl = "topic" + (this.beforeTopicNum-1);
+	  			this.beforeTopicNum = null;
+  			}
+  			
   		});
   }
 
-  editTopic(topicId) {
 
+  editTopic(id) {
+  	const topicId = id;
+  	const title = this.editForm.value.title;
+  	const hidden = this.editForm.value.hidden;
+	console.log(this.editForm.value);
+  	this.topicService
+  		.editTopic({id: topicId, title: title, hidden: hidden})
+  		.subscribe(topic => {
+  			this.topics[this.editIndex] = topic;
+  			this.editIndex = null;
+  		});
+  }
+
+  addBefore(topic) {
+  	this.newTopicMode = true;
+  	this.beforeTopicNum = topic.num;
+  	console.log(this.beforeTopicNum);
   }
 
   removeTopic(topicId, index) {
   	this.topicService.deleteTopic({id: topicId}).subscribe(result => {
   		this.topics.splice(index, 1);
+  		this.topics.filter(topic => {
+  			if (topic.num > index) {
+  				topic.num -= 1;
+  			}
+  		});
   	});
+  }
+
+
+
+  showEditTopic(topic, i) {
+  	this.editIndex = i;
+  	this.editForm.patchValue({title: topic.title, hidden: topic.hidden});
   }
 
   topicMode() {

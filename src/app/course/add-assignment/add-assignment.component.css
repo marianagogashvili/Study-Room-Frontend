@@ -1,0 +1,167 @@
+* {
+	box-sizing: border-box;
+}
+
+.editDiv {
+	position: absolute;
+	width: 100vw; 
+	height: 100vh;
+	display: grid; 
+	grid-auto-flow: column;
+	justify-content: center; 
+	align-items: center; 
+	justify-items: center;
+}
+
+.container {
+	border-radius: 20px;
+	box-shadow: 0 0 12px white;
+	margin-bottom: 1rem; 
+	grid-column-start: col-2-start 1;
+	grid-row-start: row-start 1;
+	display: flex; 
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	background-color: white;
+	margin-right: 20px;
+	position: absolute;
+	width: 60vw;
+	height: 40vh;
+	max-width: 600px;
+	min-width: 500px;
+	min-height: 600px;
+	z-index: 100;
+}
+
+.title__input, .descr__input {
+	height: 50px;
+	width: 330px;
+	min-width: 240px;
+	min-height: 40px;
+
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 20px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+}
+
+.date__input {
+	font-family: 'Montserrat', sans-serif;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 3px #00b5d4;
+	padding: 2px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 0 0 7px red;
+}
+
+.create__btn {
+	height: 2.5rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+	color: white;
+	margin: 1rem 0;
+
+	background-color: #0b7ace;
+	width: 8rem;
+}
+
+.create__btn:active {
+	background-color: #26a2ff;
+}
+
+.file__div {
+	display: flex; 
+	width: 100%; 
+	justify-content: center; 
+	align-items: center;
+}
+
+.file__btn {
+	background-color: #bababa;
+	border: 0;
+	text-transform: uppercase;
+	color: white;
+	padding: 0.5rem 1rem;
+	border-radius: 10px;
+	outline: none;
+}
+
+.file__input {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.file__icon {
+	color: #7dcc5e;
+	font-size: 30px;
+	margin-left: 15px;
+}
+
+.fileName__span {
+ 	margin-left: 10px; 
+ 	max-width: 140px;
+ 	max-height: 50px; 
+ 	overflow: hidden;
+ }
+
+.date__div {
+ 	display: flex;
+ }
+
+.date__span {
+	margin: 5px 15px;
+}
+
+input::placeholder, textarea::placeholder {
+	color: #BEBEBE;
+}
+
+.title {
+	color: #00b5d4;
+}
+
+
+.classErrSpan {
+	display: block; 
+	text-align: center; 
+	margin-top: 1rem;
+}
+
+
+
+.errorsDiv {
+	position: absolute; 
+	background-color: rgb(237, 70, 47, 0.9); 
+	top: 1rem; 
+	padding: 20px; 
+	color: white; 
+	border-radius: 10px; 
+	box-shadow: 0 0 7px rgb(237, 70, 47);
+}
+
+.errorTitle {
+	text-align: center; 
+	text-transform: uppercase;
+}
+
+.errorDiv {
+	font-size: 18px; 
+	line-height: 40px; 
+}
+
+
+

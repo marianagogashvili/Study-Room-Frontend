@@ -10,7 +10,7 @@ body {
 	right: 1rem;
 }
 
-.scroll__btn, .delete__icon {
+.scroll__btn, .delete__icon, .edit__icon, .add-before__btn {
 	background-color: transparent;
 	border: 0;
 	outline: none;
@@ -22,17 +22,44 @@ body {
 	color: #687cf7;
 }
 
-.delete__icon {
+.delete__icon, .edit__icon {
 	margin-left: 1rem;
 	font-size: 25px;
+	
+}
+
+.add-before__btn {
+	border: 1px solid #687cf7;
+	color:#687cf7;
+	border-radius: 10px;
+	padding: 4px 6px;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.add-before__btn:active {
+	background-color:  #687cf7;
+	color: white;
+}
+
+.delete__icon {
 	color: #d6473e;
+}
+
+.edit__icon {
+	color: #fcd12a;
 }
 
 .scroll__btn:active {
 	color: #8c9cff; 
 } 
+
 .delete__icon:active {
 	color: #f5928c; 
+} 
+
+.edit__icon:active {
+	color: #fcf4a3; 
 } 
 
 
@@ -83,6 +110,7 @@ input.ng-touched.ng-invalid {
 	outline: none;
 	color: white;
 	margin: 1rem 0;
+
 }
 
 .topic__btn {
@@ -93,6 +121,7 @@ input.ng-touched.ng-invalid {
 .back__btn {
 	background-color: #b5b5b5;
 	width: 5rem;
+	margin-left: 1rem;
 }
 
 .new-topic__btn {
@@ -114,6 +143,7 @@ input.ng-touched.ng-invalid {
 }
 
 .topics__div {
+	margin-left: 20px;
 	display: flex;
 	align-items: center;
 }
@@ -148,6 +178,10 @@ input.ng-touched.ng-invalid {
 
 	.topic__btn {
 		margin: 0 1rem;
+	}
+
+	.back_btn {
+		margin-left: 0;
 	}
 
 	.scroll__div {

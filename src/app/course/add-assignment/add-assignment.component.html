@@ -1,0 +1,72 @@
+
+<div class="editDiv"> 
+	
+<form class="container" #assignmentForm="ngForm" (ngSubmit)="createAssignment(assignmentForm)">
+	<div [@errorState]="errorState" class="errorsDiv">
+		<h3 class="errorTitle">Error</h3>
+		<div class="errorDiv">{{ error }}</div>
+	</div>
+	<h1 class="title" name="title">Add assignment</h1>
+	<input 
+		class="title__input" 
+		type="text" 
+		name="title" 
+		title
+		ngModel
+		placeholder="Title"
+		required
+		#title="ngModel"
+		>
+<!-- 	<span *ngIf="!title.valid  && title.touched">
+		Name has to be at least 3 characters long
+	</span> -->
+
+	<textarea
+			class="descr__input" 
+			type="text" 
+			name="description" 
+			description
+			placeholder="Description"
+			ngModel
+			required
+			#description="ngModel"
+			minlength="3"
+			style="height: 200px; padding-top: 10px; resize: none;" 
+			></textarea> 
+
+	<div class="file__div">
+		<label [ngStyle]="fileName && {'background-color':'#7dcc5e'}" for="fileName" class="file__btn">Select file</label>
+		<input 
+			type="file" 
+			id="fileName" 
+			name="fileName"
+			class="file__input" 
+			(change)="saveFile($event)"
+			accept=".pdf, .docx" 
+			>
+		<span *ngIf="fileName" class="file__icon" ><fa-icon [icon]="fileIcon"></fa-icon></span>
+		<span class="fileName__span">{{ fileName }}</span>
+	</div>
+
+	<div class="date__div">
+		<p class="date__span">From</p>
+			<input 
+				type="date"
+				name="availableFrom"
+				class="date__input"
+				[(ngModel)]="availableFrom"
+				>
+		<p class="date__span">Until</p>
+			<input 
+				type="date"
+				name="deadline"
+				class="date__input"
+				[min]="availableFrom"
+				ngModel>
+	</div>
+	
+	<button type="submit" class="create__btn" [disabled]="">Create</button>
+
+</form>
+
+</div>

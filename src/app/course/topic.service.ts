@@ -30,6 +30,17 @@ export class TopicService {
 			});
 	}
 
+	editTopic(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/topic/editTopic', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
 	deleteTopic(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/topic/deleteTopic', 

@@ -6,7 +6,8 @@
 	<title>Document</title>
 </head>
 <app-header></app-header>
-
+<app-add-assignment></app-add-assignment>
+<div class="backdrop"></div>
 <body *ngIf="!loading">
 	<div [hidden]="deleteCourseState === 'hidden'" class="backdrop"></div>
 	<div [@errorState]="deleteCourseState" class="delete__div">

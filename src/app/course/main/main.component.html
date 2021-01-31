@@ -33,14 +33,57 @@
 			class="back__btn" (click)="topicMode()">Back</button>		
 	</form>
 	<button 
+		*ngIf="!newTopicMode"
 		type="submit" 
 		class="new-topic__btn" (click)="topicMode()">New topic</button>	
-	<div id="topicId" class="topics__div" *ngFor="let topic of topics;  index as i">
-		<h1 class="title__p" [id]="'topic'+i">{{ topic.title }}</h1>
-		<p class="date__p">{{ topic.createdAt | date: 'd, MMM yyyy' }}</p>
-		<button class="delete__icon" (click)="removeTopic(topic._id, i)">
-			<fa-icon [icon]="removeIcon"></fa-icon></button>
+	
+
+	<div id="topicId" *ngFor="let topic of topics;  index as i">
+		<form *ngIf="i === editIndex " [formGroup]="editForm" (ngSubmit)="editTopic(topic._id)">
+			<input 
+				class="title__input" 
+				type="text"
+				name="title"
+				required
+				formControlName="title"
+				>
+			<div class="hidden__div">
+				<label 
+				class="hidden__label" 
+				for="hide">hidden</label>
+				<input 
+					type="checkbox"
+					class="hidden__input"
+					id="hide"
+					name="hide"
+					formControlName="hidden">
+			</div>
+			<button 
+				type="submit" 
+				class="topic__btn">Update</button>	
+			<button 
+				type="button" 
+				class="back__btn" (click)="editIndex = null">Back</button>	
+		</form>
+		
+		<div *ngIf="i !== editIndex ">
+			<button 
+			type="button" 
+			class="add-before__btn" (click)="addBefore(topic)">add before</button>	
+
+			<div class="topics__div" >
+				<h1 [ngStyle]="topic.hidden === true && {'color':'grey'}" class="title__p" [id]="'topic'+i">{{ topic.title }}</h1>
+				<p class="date__p">{{ topic.createdAt | date: 'd, MMM yyyy' }}</p>
+				<button class="edit__icon" (click)="showEditTopic(topic, i)">
+					<fa-icon [icon]="editIcon"></fa-icon></button>
+				<button class="delete__icon" (click)="removeTopic(topic._id, i)">
+					<fa-icon [icon]="removeIcon"></fa-icon></button>
+			</div>
+			
+		</div>
+		
 	</div>
+
 	<div class="scroll__div">
 		<button class="scroll__btn">
 			<fa-icon (click)="goUp()" [icon]="upIcon"></fa-icon></button> 
