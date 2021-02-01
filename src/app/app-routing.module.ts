@@ -27,7 +27,6 @@ const appRoutes:Routes = [
 		{ path: 'students', component:  StudentsComponent },
 		{ path: 'main', component:  MainComponent },
 		{ path: 'add-student', component:  AddStudentComponent },
-
 	]}
 ];
 

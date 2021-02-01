@@ -30,6 +30,8 @@ export class CourseComponent implements OnInit {
 
   editMode = false;
   editForm: FormGroup;
+  addAssignment = false;
+  assignmentTopicId;
 
   errors;
   errorState = 'hidden';
@@ -42,6 +44,11 @@ export class CourseComponent implements OnInit {
 }
 
   ngOnInit() {
+  	this.courseService.assignmentMode.subscribe((topicId) => {
+  		this.assignmentTopicId = topicId;
+  		this.addAssignment = !this.addAssignment;
+  	});
+
   	this.editForm = new FormGroup({
   		'title': new FormControl('', [Validators.required]),
   		'description': new FormControl('', [Validators.required]),

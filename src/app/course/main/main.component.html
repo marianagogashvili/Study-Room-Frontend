@@ -66,7 +66,7 @@
 				class="back__btn" (click)="editIndex = null">Back</button>	
 		</form>
 		
-		<div *ngIf="i !== editIndex ">
+		<div class="topic__div" *ngIf="i !== editIndex ">
 			<button 
 			type="button" 
 			class="add-before__btn" (click)="addBefore(topic)">add before</button>	
@@ -78,8 +78,22 @@
 					<fa-icon [icon]="editIcon"></fa-icon></button>
 				<button class="delete__icon" (click)="removeTopic(topic._id, i)">
 					<fa-icon [icon]="removeIcon"></fa-icon></button>
+
+				<button 
+					type="button" 
+					class="add-assignment__btn" (click)="showAssignment(topic._id)">assignment</button>
 			</div>
-			
+			<div class="assignments__div" *ngIf="topic.assignments && topic.assignments.length > 0; else elseBlock">
+				<div class="assignment__div" *ngFor="let assignment of topic.assignments">
+					<span class="pdf__icon" *ngIf="assignment.fileUrl[assignment.fileUrl.length - 1] === 'f'"><fa-icon [icon]="pdfIcon"></fa-icon></span>
+					<span class="word__icon" *ngIf="assignment.fileUrl[assignment.fileUrl.length - 1] === 'x'"><fa-icon [icon]="wordIcon"></fa-icon></span>
+
+					<span class="assignment__title">{{ assignment.title }}</span>
+				</div>
+			</div>
+			<ng-template #elseBlock>
+				<p class="nothing__p">No assignments yet</p>
+			</ng-template>
 		</div>
 		
 	</div>

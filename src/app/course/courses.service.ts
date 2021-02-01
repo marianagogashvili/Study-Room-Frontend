@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Params } from '@angular/router';
 import { catchError } from 'rxjs/operators';
-import { throwError, BehaviorSubject } from 'rxjs';
+import { throwError, BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class CoursesService {
 	constructor(private http: HttpClient) {}
+	assignmentMode = new EventEmitter();
+	newAssignment = new Subject<any>();
+
 	error = new BehaviorSubject<string>(null);
 	oldStudents = new BehaviorSubject<string>(null);
 	courseId;
@@ -101,6 +104,14 @@ export class CoursesService {
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
 			});
+	}
+
+	showAssignment(val) {
+		this.assignmentMode.emit(val);
+	}
+
+	sendNewAssignment(assignment) {
+		this.newAssignment.next(assignment);
 	}
 
 	getGroups() {

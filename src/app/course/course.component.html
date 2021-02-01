@@ -6,8 +6,8 @@
 	<title>Document</title>
 </head>
 <app-header></app-header>
-<app-add-assignment></app-add-assignment>
-<div class="backdrop"></div>
+<app-add-assignment [topicId]="assignmentTopicId" *ngIf="addAssignment"></app-add-assignment>
+<div class="backdrop" *ngIf="addAssignment" (click)="addAssignment = false"></div>
 <body *ngIf="!loading">
 	<div [hidden]="deleteCourseState === 'hidden'" class="backdrop"></div>
 	<div [@errorState]="deleteCourseState" class="delete__div">
@@ -22,7 +22,7 @@
 	
 	<div *ngIf="!editMode" class="main__div">
 		<div class="main__div-title">
-			<h1 id="courseTitle">{{course.title}}</h1>
+			<h1>{{course.title}}</h1>
 			<button class="edit__btn" (click)="switchToEditMode()">Edit</button>
 		</div>
 		<div class="main__div-descr">

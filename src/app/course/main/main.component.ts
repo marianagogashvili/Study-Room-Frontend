@@ -8,9 +8,12 @@ import { Subscription } from 'rxjs';
 import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { map } from 'rxjs/operators';
+import { faFileWord } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { map, mergeMap } from 'rxjs/operators';
+import { AssignmentService } from '../assignment.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -27,16 +30,22 @@ export class MainComponent implements OnInit, OnDestroy {
   downIcon = faArrowCircleDown;
   removeIcon = faTimesCircle;
   editIcon = faEdit;
+  pdfIcon = faFilePdf;
+  wordIcon = faFileWord;
+
 
   newTopicMode = false;
   editIndex = null;
   beforeTopicNum = null;
+  assignments;
 
   sub: Subscription;
+  sub2: Subscription;
 
   constructor(private topicService: TopicService,
   			  private courseService: CoursesService,
-  			  private route: ActivatedRoute) { }
+  			  private route: ActivatedRoute,
+  			  private assignmentService: AssignmentService) { }
 
   ngOnInit() {
   	this.topicForm = new FormGroup({
@@ -56,14 +65,40 @@ export class MainComponent implements OnInit, OnDestroy {
   	});
 
   	this.route.parent.params.subscribe(params => {
-		this.topicService.getTopics(
+  		this.sub2 = this.assignmentService.getAssignmentsByCourse(
 	  		{courseId: params['id']})
-	  		.subscribe(topics => {
-	  			console.log(topics);
-	  			this.topics = topics;
+  			.pipe(map(a => {
+  				console.log('1');
+  				this.assignments = a;
+  				return a;
+  			}), mergeMap((assignment):any => {
+  				console.log('2');
+  				return this.topicService.getTopics({courseId: params['id']})
+  			}), mergeMap((topics: any[]) => {
+				topics.forEach(topic => {
+					topic.assignments = this.assignments.filter(as => as.topic === topic._id);
+				});
+
+				return [topics];
+  			}), mergeMap((topics: any[])  => {
+  				console.log('3');
+  				this.topics = topics;
 	  			this.topicService.sendTopics(topics);
-	  	});
+
+  				return this.courseService.newAssignment;
+  			}), mergeMap((assignment): any => {
+  				console.log('4');
+  				let sub = assignment;
+  				let topic = this.topics.filter(t => t._id === assignment.topic);
+				topic[0].assignments[topic[0].assignments.length] = assignment;
+				return topic;
+  			})).subscribe((topic:any)  => {
+
+  			});
+
   	});
+
+
   	
   }
   ngAfterViewChecked() {
@@ -84,17 +119,23 @@ export class MainComponent implements OnInit, OnDestroy {
   		};
   	this.topicService.createTopic(topic)
   		.subscribe(result => {
+  			console.log(result);
+  			// result.assignments = [];
   			this.newTopicMode = false;
   			this.topicForm.controls['title'].setValue(' ');
   			if (!this.beforeTopicNum) {
 	  			this.topics = [...this.topics, result];
-	  			let id = ("topic" + (this.topics.length-1));
-	  			this.scrollEl = id;
+	  			if (this.topics.length >= 2) {
+	  				this.scrollEl = ("topic" + (this.topics.length-2));
+	  			}
   			} else {
   				this.topics.splice((this.beforeTopicNum-1), 0, result);
-	  			this.scrollEl = "topic" + (this.beforeTopicNum-1);
+	  			if (this.beforeTopicNum >= 2) {
+	  				this.scrollEl = "topic" + (this.beforeTopicNum-2);
+	  			}
 	  			this.beforeTopicNum = null;
-  			}
+  			}  			
+
   			
   		});
   }
@@ -104,7 +145,7 @@ export class MainComponent implements OnInit, OnDestroy {
   	const topicId = id;
   	const title = this.editForm.value.title;
   	const hidden = this.editForm.value.hidden;
-	console.log(this.editForm.value);
+	// console.log(this.editForm.value);
   	this.topicService
   		.editTopic({id: topicId, title: title, hidden: hidden})
   		.subscribe(topic => {
@@ -130,7 +171,10 @@ export class MainComponent implements OnInit, OnDestroy {
   	});
   }
 
-
+  showAssignment(topic) {
+  	this.courseService.showAssignment(topic);
+  	document.getElementById('header').scrollIntoView({ behavior: 'smooth' });	
+  }
 
   showEditTopic(topic, i) {
   	this.editIndex = i;
@@ -142,7 +186,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   goUp() {
-  	this.scrollEl = 'courseTitle';
+  	this.scrollEl = 'header';
   }
 
   goDown() {
@@ -152,5 +196,6 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   	this.sub.unsubscribe();
+  	this.sub2.unsubscribe();
   }
 }

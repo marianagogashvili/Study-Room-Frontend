@@ -51,14 +51,15 @@
 	<div class="date__div">
 		<p class="date__span">From</p>
 			<input 
-				type="date"
+				type="datetime-local"
 				name="availableFrom"
 				class="date__input"
+
 				[(ngModel)]="availableFrom"
 				>
 		<p class="date__span">Until</p>
 			<input 
-				type="date"
+				type="datetime-local"
 				name="deadline"
 				class="date__input"
 				[min]="availableFrom"
