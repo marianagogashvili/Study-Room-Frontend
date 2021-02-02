@@ -8,8 +8,7 @@ import { Subscription } from 'rxjs';
 import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { faFileWord } from '@fortawesome/free-solid-svg-icons';
-import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { faFile } from '@fortawesome/free-regular-svg-icons';
 
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { map, mergeMap } from 'rxjs/operators';
@@ -30,9 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
   downIcon = faArrowCircleDown;
   removeIcon = faTimesCircle;
   editIcon = faEdit;
-  pdfIcon = faFilePdf;
-  wordIcon = faFileWord;
-
+  fileIcon = faFile;
 
   newTopicMode = false;
   editIndex = null;
@@ -68,11 +65,9 @@ export class MainComponent implements OnInit, OnDestroy {
   		this.sub2 = this.assignmentService.getAssignmentsByCourse(
 	  		{courseId: params['id']})
   			.pipe(map(a => {
-  				console.log('1');
   				this.assignments = a;
   				return a;
   			}), mergeMap((assignment):any => {
-  				console.log('2');
   				return this.topicService.getTopics({courseId: params['id']})
   			}), mergeMap((topics: any[]) => {
 				topics.forEach(topic => {
@@ -81,16 +76,20 @@ export class MainComponent implements OnInit, OnDestroy {
 
 				return [topics];
   			}), mergeMap((topics: any[])  => {
-  				console.log('3');
+
   				this.topics = topics;
 	  			this.topicService.sendTopics(topics);
 
   				return this.courseService.newAssignment;
   			}), mergeMap((assignment): any => {
-  				console.log('4');
   				let sub = assignment;
   				let topic = this.topics.filter(t => t._id === assignment.topic);
-				topic[0].assignments[topic[0].assignments.length] = assignment;
+				if (topic[0].assignments) {
+					topic[0].assignments[topic[0].assignments.length] = assignment;
+				} else {
+					topic[0].assignments =[ assignment];			
+				}
+				
 				return topic;
   			})).subscribe((topic:any)  => {
 
@@ -148,8 +147,10 @@ export class MainComponent implements OnInit, OnDestroy {
 	// console.log(this.editForm.value);
   	this.topicService
   		.editTopic({id: topicId, title: title, hidden: hidden})
-  		.subscribe(topic => {
-  			this.topics[this.editIndex] = topic;
+  		.subscribe((topic: {title, hidden}) => {
+  			this.topics[this.editIndex].title = topic.title;
+  			this.topics[this.editIndex].hidden = topic.hidden;
+
   			this.editIndex = null;
   		});
   }

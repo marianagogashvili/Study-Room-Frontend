@@ -1,6 +1,6 @@
 .main__div, .main__div-edit {
 	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
-	height: 20rem;
+	height: 17rem;
 	padding-top: 90px;
 	padding-left: 17%;
 	color: white;
@@ -205,7 +205,7 @@ input.ng-invalid.ng-touched {
 	.main__div {
 		display: flex;
 		justify-content: space-around;
-		height: 13rem;
+		height: 10rem;
 	}
 
 	.main__div-title {
@@ -216,7 +216,7 @@ input.ng-invalid.ng-touched {
 	.main__div-descr {
 		max-width: 500px;
 		max-height: 200px;
-		height: 150px;
+		height: 100px;
 		flex: 1;
 	}
 

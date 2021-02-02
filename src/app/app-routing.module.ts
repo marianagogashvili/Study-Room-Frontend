@@ -10,6 +10,7 @@ import { CourseComponent } from './course/course.component';
 import { StudentsComponent } from './course/students/students.component';
 import { MainComponent } from './course/main/main.component';
 import { AddStudentComponent } from './course/add-student/add-student.component';
+import { AssignmentComponent } from './course/assignment/assignment.component';
 
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
@@ -27,6 +28,7 @@ const appRoutes:Routes = [
 		{ path: 'students', component:  StudentsComponent },
 		{ path: 'main', component:  MainComponent },
 		{ path: 'add-student', component:  AddStudentComponent },
+		{ path: 'assignment/:assignmentId', component:  AssignmentComponent },
 	]}
 ];
 

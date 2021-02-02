@@ -31,11 +31,11 @@
 			required
 			#description="ngModel"
 			minlength="3"
-			style="height: 200px; padding-top: 10px; resize: none;" 
+			style="height: 200px; width: 450px; padding-top: 10px; resize: none;" 
 			></textarea> 
 
 	<div class="file__div">
-		<label [ngStyle]="fileName && {'background-color':'#7dcc5e'}" for="fileName" class="file__btn">Select file</label>
+		<label [ngStyle]="files.length > 0 && {'background-color':'#7dcc5e'}" for="fileName" class="file__btn">Select file</label>
 		<input 
 			type="file" 
 			id="fileName" 
@@ -44,9 +44,12 @@
 			(change)="saveFile($event)"
 			accept=".pdf, .docx" 
 			>
-		<span *ngIf="fileName" class="file__icon" ><fa-icon [icon]="fileIcon"></fa-icon></span>
-		<span class="fileName__span">{{ fileName }}</span>
+
 	</div>
+	<div class="file__names">
+		<span *ngFor="let file of files" class="fileName__span">{{ file.name }}</span>
+	</div>
+	
 
 	<div class="date__div">
 		<p class="date__span">From</p>

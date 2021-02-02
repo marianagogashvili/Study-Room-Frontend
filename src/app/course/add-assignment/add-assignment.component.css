@@ -28,10 +28,12 @@
 	margin-right: 20px;
 	position: absolute;
 	width: 60vw;
-	height: 40vh;
+	/*height: 90vh;*/
 	max-width: 600px;
 	min-width: 600px;
-	min-height: 600px;
+	min-height: 90vh;
+	max-height: 120vh;
+
 	z-index: 100;
 }
 
@@ -58,6 +60,10 @@
 }
 
 input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 0 0 7px red;
+}
+textarea.ng-invalid.ng-touched {
   border: 1px solid red;
   box-shadow: 0 0 7px red;
 }
@@ -111,11 +117,17 @@ input.ng-invalid.ng-touched {
 	margin-left: 15px;
 }
 
+.file__names {
+	display: flex;
+	max-width: 500px;
+    max-height: 200px;
+    overflow-x: overlay;
+    flex-wrap: wrap;
+    line-height: 30px;
+}
+
 .fileName__span {
  	margin-left: 10px; 
- 	max-width: 140px;
- 	max-height: 50px; 
- 	overflow: hidden;
  }
 
 .date__div {

@@ -180,6 +180,14 @@ input.ng-touched.ng-invalid {
 .assignment__title {
 	padding-left: 15px;
 	font-size: 18px;
+	outline: none;
+	cursor: pointer;
+}
+.assignment__title:hover {
+	color: #8a8a8a;
+}
+.assignment__title:active {
+	color: #5c5c5c;
 }
 
 .pdf__icon, .word__icon { 
@@ -206,6 +214,7 @@ input.ng-touched.ng-invalid {
 
 .topic__div {
 	margin-bottom: 3rem;
+	min-width: 365px;
 }
 @media screen and (min-width: 600px) {
 	form {

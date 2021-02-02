@@ -31,8 +31,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   errorState = 'hidden';
   availableFrom = new Date().toISOString().slice(0, 16);
 
-  file;
-  fileName = null;
+  files = [];
 
   error;
   constructor(private assignmentService: AssignmentService,
@@ -45,21 +44,26 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 
   saveFile(event) {
   	let files: FileList = event.target.files;
-  	this.file = files[0];
-  	this.fileName = this.file.name;
-  	if (this.file.size / 1000000 > 10) {
-  		this.error = "File is too big";
+
+  	this.files.push(files[0]);
+
+  	let size = 0;
+	this.files.forEach(file => {
+		size += file.size;
+	});
+  	if (size / 1000000 > 10) {
+  		this.error = "Files are too big";
   		this.errorState = 'shown';
   		setTimeout(() => {
   			this.errorState = 'hidden';
   		}, 2000);
-  		this.fileName = null;
+  		// this.files = [];
   	}
-  	console.log(this.file);
+  	console.log(this.files);
   }
 
   createAssignment(form: NgForm){ 
-  	if (this.fileName === null) {
+  	if (this.files.length === 0) {
   		this.error = "Please choose a file";
   		this.errorState = 'shown';
   		setTimeout(() => {
@@ -79,7 +83,10 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 	  		}, 2000);
   		} else {
   			let formData: FormData = new FormData();
-	  		formData.append('file', this.file, this.fileName);
+	  		// formData.append('file', this.file, this.fileName);
+	  		this.files.forEach(file => {
+	  			formData.append('file', file, file.name);
+	  		});
 	  		formData.append('title', title);
 	  		formData.append('description', descr);
 	  		formData.append('availableFrom', availableFrom);

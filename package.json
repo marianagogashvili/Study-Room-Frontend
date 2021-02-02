@@ -25,7 +25,10 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@types/file-saver": "^2.0.1",
+    "file-saver": "^2.0.5",
     "jwt-decode": "^3.1.2",
+    "ngx-filesaver": "^11.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

@@ -117,3 +117,14 @@
 	}
 
 }
+
+@media screen and (min-width: 800px) {
+
+	.hamburger__header {
+		display: none;
+	}
+	.backdrop {
+		display: none;
+	}
+
+}

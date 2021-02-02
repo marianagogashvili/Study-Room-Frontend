@@ -31,4 +31,27 @@ export class AssignmentService {
 			});
 	}
 
+	getAssignmentById(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/assignment/getAssignmentById', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
+	deleteAssignment(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/assignment/deleteAssignment', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
+
 }

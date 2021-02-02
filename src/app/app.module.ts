@@ -23,6 +23,7 @@ import { StudentsComponent } from './course/students/students.component';
 import { MainComponent } from './course/main/main.component';
 import { AddStudentComponent } from './course/add-student/add-student.component';
 import { AddAssignmentComponent } from './course/add-assignment/add-assignment.component';
+import { AssignmentComponent } from './course/assignment/assignment.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AddAssignmentComponent } from './course/add-assignment/add-assignment.c
     StudentsComponent,
     MainComponent,
     AddStudentComponent,
-    AddAssignmentComponent
+    AddAssignmentComponent,
+    AssignmentComponent
   ],
   imports: [
     BrowserModule,
