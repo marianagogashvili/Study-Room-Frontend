@@ -14,8 +14,131 @@ body  {
 	justify-content: space-between;
 }
 
+form {
+	margin-bottom: 10px;
+}
 
-.btns button {
+.edit__form {
+	display: flex;
+	flex-direction: column;
+}
+
+.form__one, .form__two  {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2rem;
+}
+
+.form__one	{
+	flex: 1;
+}
+
+.form__two {
+	flex: 0 0 40%;
+}
+
+input.ng-touched.ng-invalid, 
+textarea.ng-touched.ng-invalid {
+	border: 1px solid red;
+	box-shadow: 0 0 7px red;
+}
+
+@media screen and (min-width: 800px) {
+	.edit__form {
+		flex-direction: row;
+	}
+	.form__one {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.form__two {
+		display: flex;
+		flex-direction: column;
+		flex: 0 0 40%;
+	}
+}
+
+.title__input, textarea, .date__input {
+	height: 40px;
+	width: 270px;
+	min-width: 240px;
+	min-height: 40px;
+
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 20px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+	margin-right: 2rem;
+	margin: 20px 10px;
+}
+
+.date__input {
+	height: 50px;
+	width: 300px;
+	padding: 0 12px;
+}
+
+textarea {
+	width: 70%;
+	min-width: 300px;
+	height: 200px;
+	padding: 10px;
+	max-width: 450px;
+    max-height: 250px;
+}
+
+.filelist__div {
+	margin-left: 10px;
+	line-height: 35px;
+}
+
+.file__input {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.file__btn {
+	background-color: #4242f5;
+	border: 0;
+	text-transform: uppercase;
+	color: white;
+	padding: 0.7rem 1rem;
+	border-radius: 10px;
+	outline: none;
+	width: 7rem;
+	text-align: center;
+	margin: 16px 10px;
+}
+
+.file__btn:hover { 
+	background-color: #9191ff;
+}
+
+.file__btn:active { 
+	background-color: #242491;
+}
+
+.err__div {
+	margin: 20px;
+    color: red;
+    font-size: 20px;
+}
+
+.filelist__span {
+	font-size: 20px;
+	margin: 10px;
+}
+
+.btns button, .save__btn {
 	width: 5rem;
 	height: 2rem;
 	border: 0;
@@ -28,6 +151,24 @@ body  {
 	outline: none;
 } 
 
+.save__btn {
+	width: 6rem;
+	height: 2.5rem;
+	font-size: 18px;
+	background-color: #8ab446;
+}
+
+.save__btn:hover {
+	background-color: #d3e29d;
+}
+
+.save__btn:active {
+	background-color: #acc864;
+}
+
+.save__btn:disabled {
+	background-color: #c6dea6;
+}
 
 .pdf__icon, .word__icon { 
 	font-size: 25px;
@@ -54,8 +195,24 @@ body  {
 	background-color: #ffc821;
 }
 
+.edit__btn:hover {
+	background-color: #ffdd75;
+}
+
+.edit__btn:active {
+	background-color: #d4a619;
+}
+
 .delete__btn {
 	background-color: #ff5526;
+}
+
+.delete__btn:hover {
+	background-color: #ed896d;
+}
+
+.delete__btn:active {
+	background-color: #b53b19;
 }
 
 .info__div {

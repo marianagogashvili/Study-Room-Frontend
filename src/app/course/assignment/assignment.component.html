@@ -9,18 +9,82 @@
 	<div class="topic__div">
 		<h2 class="topic__h2">{{assignment.topic.title}}</h2>
 		<div class="btns">
-			<button class="edit__btn">Edit</button>
+			<button *ngIf="!editMode" class="edit__btn" (click)="showEditMode()">Edit</button>
+			<button *ngIf="editMode" class="edit__btn" (click)="showEditMode()">Back</button>
 			<button class="delete__btn" (click)="delete()">Delete</button>
 		</div>
 		
 	</div>
-	<div class="info__div">
+	<div class="err__div" *ngIf="error">
+		{{ error }}
+	</div> 
+	<form *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="updateAssignment()">
+		<div class="edit__form">
+			<div class="form__one">
+				<input
+				required
+				class="title__input" 
+				type="text"
+				formControlName="title">
+				<textarea 
+					required
+					formControlName="description">
+				</textarea>
+				Available from <input 
+					class="date__input" 
+					type="datetime-local"
+					formControlName="availableFrom"
+					>
+				Deadline <input 
+					class="date__input" 
+					type="datetime-local"
+					formControlName="deadline"
+					[min]="editForm.value.availableFrom.slice(0, 16)">
+
+				<div class="filelist__div" *ngFor="let file of filesList; index as i">
+					<span (click)="removeFileFromList(file, i)" class="pdf__icon" ><fa-icon [icon]="minusIcon"></fa-icon></span>
+					<span class="filelist__span">{{ file.split('-')[3] }}</span>
+				</div>
+				
+			</div>
+			
+			<div class="form__two">
+				<label for="fileName" class="file__btn">Select file</label>
+				<input 
+					(change)="saveFile($event)"
+					class="file__input" 
+					id="fileName" 
+					type="file"
+					accept=".pdf, .docx">
+				<div class="filelist__div" *ngFor="let file of addFilesList; index as i">
+					<span (click)="removeFileFromAddList(file, i)" class="pdf__icon" ><fa-icon [icon]="minusIcon"></fa-icon></span>
+					<span class="filelist__span">{{ file.name }}</span>
+				</div>
+			</div>
+		</div>
+		<button [disabled]="!editForm.valid" type="submit" class="save__btn">Save</button>
+	</form>
+
+	
+	<div *ngIf="!editMode" class="info__div">
 		<h1>{{assignment.title}}</h1>
 		<p>{{assignment.description}}</p>
 		<div class="file__div" *ngFor="let file of assignment.fileUrl">
-			<span class="pdf__icon" *ngIf="file[file.length - 1] === 'f'"><fa-icon [icon]="pdfIcon"></fa-icon></span>
-			<span class="word__icon" *ngIf="file[file.length - 1] ===  'x'"><fa-icon [icon]="wordIcon"></fa-icon></span>
-			<a class="file__url" [name]="fileName" (click)="downloadImage(file)" download target="_blank">{{ file.split('-')[3] }}</a>
+			<span 
+				class="pdf__icon" 
+				*ngIf="file[file.length - 1] === 'f'">
+				<fa-icon [icon]="pdfIcon"></fa-icon>
+			</span>
+			<span 
+				class="word__icon" 
+				*ngIf="file[file.length - 1] ===  'x'">
+				<fa-icon [icon]="wordIcon"></fa-icon>
+			</span>
+			<a 
+				class="file__url" 
+				[name]="fileName" 
+				(click)="downloadImage(file)" 
+				download target="_blank">{{ file.split('-')[3] }}</a>
 		</div>
 		
 	</div>

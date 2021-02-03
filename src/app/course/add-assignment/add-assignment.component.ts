@@ -29,7 +29,10 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   @Input() topicId;
   fileIcon = faFile;
   errorState = 'hidden';
-  availableFrom = new Date().toISOString().slice(0, 16);
+
+  currentDate = new Date();
+
+  availableFrom;
 
   files = [];
 
@@ -39,7 +42,12 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   		      private router: Router) { }
 
   ngOnInit() {
-  	console.log(this.topicId);
+  	this.currentDate.setHours(this.currentDate.getHours() + 2);
+  	this.availableFrom = this.currentDate.toISOString().slice(0, 16);
+  }
+
+  removeFile(index) {
+  	this.files.splice(index, 1);
   }
 
   saveFile(event) {
@@ -74,7 +82,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   		const descr = form.value.description;
   		const availableFrom = form.value.availableFrom;
   		const deadline = form.value.deadline;
-
+  		
   		if (deadline !== '' && deadline < availableFrom) {
   			this.error = "Please choose correct deadline";
 	  		this.errorState = 'shown';
@@ -83,7 +91,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 	  		}, 2000);
   		} else {
   			let formData: FormData = new FormData();
-	  		// formData.append('file', this.file, this.fileName);
+
 	  		this.files.forEach(file => {
 	  			formData.append('file', file, file.name);
 	  		});
@@ -100,7 +108,6 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 	  			.subscribe(result => {
 	  				this.courseService.showAssignment(null);
 	  				this.courseService.sendNewAssignment(result);
-	  				// this.router.navigate(['/course/' + this.courseService.courseId + '/main']);
 	  			});
 	  		}
   	}

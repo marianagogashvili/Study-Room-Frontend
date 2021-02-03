@@ -5,10 +5,10 @@ import { map, mergeMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/';
 import { faFileWord } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
-// import {saveAs as importedSaveAs} from "file-saver";
-import { saveAs } from 'file-saver';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-assignment',
@@ -22,12 +22,29 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 
   pdfIcon = faFilePdf;
   wordIcon = faFileWord;
+  minusIcon = faMinusCircle;
+  editMode = false;
+
+  editForm: FormGroup;
+  filesList;
+  removeFilesList = [];
+  addFilesList = [];
+
+  error;
 
   constructor(private assignmentService: AssignmentService,
   			  private route: ActivatedRoute,
   			  private router: Router) { }
 
   ngOnInit() {
+  	this.editForm = new FormGroup({
+  		'title': new FormControl('', [Validators.required]),
+  		'description': new FormControl('', [Validators.required]),
+  		'availableFrom': new FormControl('', [Validators.required]),
+  		'deadline': new FormControl(''),
+
+  	});
+
   	console.log(this.route.parent.snapshot);
   	this.loading = true;
   	this.sub = this.route.params.pipe(map(params => {
@@ -42,9 +59,90 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 
   }
 
+  showEditMode() {
+  	this.editMode = !this.editMode;
+  	this.editForm.patchValue({
+  		'title': this.assignment.title, 
+  		'description': this.assignment.description,
+  		'availableFrom': this.assignment.availableFrom.slice(0, 16),
+  		'deadline':  this.assignment.deadline ? this.assignment.deadline.slice(0, 16) : '',
+  	});
+  	this.filesList = [...this.assignment.fileUrl];
+
+  	this.addFilesList = [];
+  	this.removeFilesList = [];
+  }
+
+
+  saveFile(event) {
+  	let files: FileList = event.target.files;
+  	let file = files[0];
+
+  	this.addFilesList.push(file);
+  	let size = 0;
+  	this.addFilesList.forEach(file => {
+  		size += file.size;
+  	});
+  	if (size / 1000000 > 10) {
+		this.error = "Files are too big";
+		setTimeout(() => {
+			this.error = null;
+		}, 3000);
+	}
+  }
+
+  removeFileFromList(file, i) {
+  	this.filesList.splice(i, 1);
+  	this.removeFilesList.push(file);
+  }
+
+ removeFileFromAddList(file, i) {
+  	this.addFilesList.splice(i, 1);
+  }
+
   downloadImage(url) {
   	let fileUrl =  "http://localhost:8000/" + url;
   	window.open(fileUrl, '_blank');
+  }
+
+  updateAssignment() {
+  	const title = this.editForm.value.title;
+  	const description = this.editForm.value.description;
+  	const availableFrom = this.editForm.value.availableFrom;
+  	const deadline = this.editForm.value.deadline;
+
+  	if (deadline !== '' && deadline < availableFrom) {
+		this.error = "Please choose correct deadline";
+		setTimeout(() => {
+			this.error = null;
+		}, 2000);
+	} else if (title === this.assignment.title && 
+  		description  === this.assignment.description &&
+  		availableFrom === this.assignment.availableFrom.slice(0, 16) &&
+  		deadline === this.assignment.deadline.slice(0, 16) &&
+  		this.addFilesList.length === 0 && this.removeFilesList.length === 0) {
+  		this.error = "You haven't changed anything";
+  		setTimeout(() => {
+  			this.error = null;
+  		}, 2000);
+  	} else {
+  		let formData: FormData = new FormData();
+  		formData.append('id', this.assignment._id);
+  		formData.append('title', title);
+  		formData.append('description', description);
+  		formData.append('availableFrom', availableFrom);
+  		formData.append('deadline', deadline);
+
+  		formData.append('remove', JSON.stringify(this.removeFilesList));
+  		this.addFilesList.forEach(file  => {
+  			formData.append('file', file, file.name);
+  		});
+  		this.assignmentService.updateAssignment(formData).subscribe(result  => {
+  			this.assignment = result;
+  			this.showEditMode();
+  		});
+  		console.log(formData);
+  	}
   }
 
   delete() {

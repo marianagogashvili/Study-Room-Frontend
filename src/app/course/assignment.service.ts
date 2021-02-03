@@ -42,6 +42,19 @@ export class AssignmentService {
 			});
 	}
 
+	updateAssignment(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/assignment/editAssignment', 
+			param, {
+				headers: new HttpHeaders({
+					// 'Content-Type': 'application/json',
+					'Accept': 'application/json',
+					// 'Content-Type': 'multipart/form-data',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
 	deleteAssignment(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/assignment/deleteAssignment', 

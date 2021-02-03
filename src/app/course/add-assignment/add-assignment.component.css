@@ -130,6 +130,10 @@ textarea.ng-invalid.ng-touched {
  	margin-left: 10px; 
  }
 
+.fileName__span:hover {
+	color: #e68383;
+}
+
 .date__div {
  	display: flex;
  }

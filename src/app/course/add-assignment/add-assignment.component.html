@@ -47,7 +47,7 @@
 
 	</div>
 	<div class="file__names">
-		<span *ngFor="let file of files" class="fileName__span">{{ file.name }}</span>
+		<span *ngFor="let file of files; index as i" (click)="removeFile(i)"  class="fileName__span">{{ file.name }}</span>
 	</div>
 	
 
@@ -57,7 +57,6 @@
 				type="datetime-local"
 				name="availableFrom"
 				class="date__input"
-
 				[(ngModel)]="availableFrom"
 				>
 		<p class="date__span">Until</p>
