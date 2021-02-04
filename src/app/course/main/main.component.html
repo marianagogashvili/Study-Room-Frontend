@@ -6,7 +6,7 @@
 	<title>Document</title>
 </head>
 <body >
-	<form *ngIf="newTopicMode" [formGroup]="topicForm" (ngSubmit)="createTopic()">
+	<form *ngIf="newTopicMode && userType === 'teacher'" [formGroup]="topicForm" (ngSubmit)="createTopic()">
 		<input 
 			class="title__input" 
 			type="text"
@@ -27,19 +27,20 @@
 		</div>
 		<button 
 			type="submit" 
-			class="topic__btn">Create Topic</button>	
+			class="topic__btn"
+			[disabled]="!topicForm.valid">Create Topic</button>	
 		<button 
 			type="button" 
 			class="back__btn" (click)="topicMode()">Back</button>		
 	</form>
 	<button 
-		*ngIf="!newTopicMode"
+		*ngIf="!newTopicMode && userType === 'teacher'"
 		type="submit" 
 		class="new-topic__btn" (click)="topicMode()">New topic</button>	
 	
-
+	<!-- <div *ngIf="userType === 'teacher' || (userType === 'student' && topic.hidden === false)"></div> -->
 	<div id="topicId" *ngFor="let topic of topics;  index as i">
-		<form *ngIf="i === editIndex " [formGroup]="editForm" (ngSubmit)="editTopic(topic._id)">
+		<form *ngIf="i === editIndex && userType === 'teacher'" [formGroup]="editForm" (ngSubmit)="editTopic(topic._id)">
 			<input 
 				class="title__input" 
 				type="text"
@@ -60,7 +61,8 @@
 			</div>
 			<button 
 				type="submit" 
-				class="topic__btn">Update</button>	
+				class="topic__btn"
+				[disabled]="!editForm.valid">Update</button>	
 			<button 
 				type="button" 
 				class="back__btn" (click)="editIndex = null">Back</button>	
@@ -68,28 +70,37 @@
 		
 		<div class="topic__div" *ngIf="i !== editIndex ">
 			<button 
+			*ngIf="userType==='teacher'"
 			type="button" 
 			class="add-before__btn" (click)="addBefore(topic)">add before</button>	
 
-			<div class="topics__div" >
+			<div class="topics__div" *ngIf="userType === 'teacher' || (userType === 'student' && topic.hidden === false)">
+				
 				<h1 [ngStyle]="topic.hidden === true && {'color':'grey'}" class="title__p" [id]="'topic'+i">{{ topic.title }}</h1>
 				<p class="date__p">{{ topic.createdAt | date: 'd, MMM yyyy' }}</p>
-				<button class="edit__icon" (click)="showEditTopic(topic, i)">
+				
+				<div class="teacher__btns" *ngIf="userType==='teacher'">
+					<button class="edit__icon" (click)="showEditTopic(topic, i)">
 					<fa-icon [icon]="editIcon"></fa-icon></button>
-				<button class="delete__icon" (click)="removeTopic(topic._id, i)">
-					<fa-icon [icon]="removeIcon"></fa-icon></button>
+					<button class="delete__icon" (click)="removeTopic(topic._id, i)">
+						<fa-icon [icon]="removeIcon"></fa-icon></button>
 
-				<button 
-					type="button" 
-					class="add-assignment__btn" (click)="showAssignment(topic._id)">assignment</button>
+					<button 
+						type="button" 
+						class="add-assignment__btn" (click)="showAssignment(topic._id)">assignment</button>
+				</div>
+				
 			</div>
-			<div class="assignments__div" *ngIf="topic.assignments && topic.assignments.length > 0; else elseBlock">
-				<div class="assignment__div" *ngFor="let assignment of topic.assignments">
-					<span class="pdf__icon"><fa-icon [icon]="fileIcon"></fa-icon></span>
+			<div *ngIf="userType === 'teacher' || (userType === 'student' && topic.hidden === false)">
+				<div class="assignments__div" *ngIf="topic.assignments && topic.assignments.length > 0; else elseBlock">
+					<div class="assignment__div" *ngFor="let assignment of topic.assignments" >
+						<span class="pdf__icon"><fa-icon [icon]="fileIcon"></fa-icon></span>
 
-					<span class="assignment__title" [routerLink]="['../assignment/', assignment._id]">{{ assignment.title }}</span>
+						<span class="assignment__title" [routerLink]="['../assignment/', assignment._id]">{{ assignment.title }}</span>
+					</div>
 				</div>
 			</div>
+			
 			<ng-template #elseBlock>
 				<p class="nothing__p">No assignments yet</p>
 			</ng-template>

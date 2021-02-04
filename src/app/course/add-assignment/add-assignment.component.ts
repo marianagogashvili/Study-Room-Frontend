@@ -4,7 +4,7 @@ import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AssignmentService } from '../assignment.service';
 import { CoursesService } from '../courses.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
@@ -39,6 +39,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   error;
   constructor(private assignmentService: AssignmentService,
   		      private courseService: CoursesService,
+  		      private route: ActivatedRoute,
   		      private router: Router) { }
 
   ngOnInit() {
@@ -108,6 +109,8 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 	  			.subscribe(result => {
 	  				this.courseService.showAssignment(null);
 	  				this.courseService.sendNewAssignment(result);
+	  			}, err => {
+	  				this.courseService.showAssignment(null);
 	  			});
 	  		}
   	}

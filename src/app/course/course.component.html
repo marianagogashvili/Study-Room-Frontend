@@ -60,8 +60,8 @@
 
 	<div class="main__links">
 		<p  routerLink="main"  class="main__link-one" routerLinkActive="main__link-two">main</p>
-		<p routerLink="students" routerLinkActive="main__link-two" class="main__link-one">students</p>
-		<p routerLink="add-student" routerLinkActive="main__link-two" class="main__link-one">add student</p>
+		<p routerLink="students" routerLinkActive="main__link-two" class="main__link-one" *ngIf="userType === 'teacher'">students</p>
+		<p routerLink="add-student" routerLinkActive="main__link-two" class="main__link-one" *ngIf="userType === 'teacher'">add student</p>
 	</div>
 </body>
 <router-outlet></router-outlet>

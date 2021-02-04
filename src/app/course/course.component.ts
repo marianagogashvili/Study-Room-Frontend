@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CoursesService } from './courses.service';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-course',
@@ -24,7 +25,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
     ])
   ]
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit,  OnDestroy {
   loading;
   course;
 
@@ -32,14 +33,20 @@ export class CourseComponent implements OnInit {
   editForm: FormGroup;
   addAssignment = false;
   assignmentTopicId;
+  userType;
 
   errors;
   errorState = 'hidden';
   deleteCourseState = 'hidden';
 
+  sub: Subscription;
+
   constructor(private route: ActivatedRoute,
   			  private router: Router,
   			  private courseService: CoursesService) { 
+    this.sub = this.courseService.userType.subscribe(type => {
+      this.userType = type;
+    });
   	router.events.subscribe((val) => this.editMode = false);
 }
 
@@ -121,10 +128,14 @@ export class CourseComponent implements OnInit {
 
   showError(value) {
   	this.errors = [{msg: value}];
-	this.errorState = 'shown';
-	setTimeout(() => {
-		this.errorState = 'hidden';
-	}, 2000);
+  	this.errorState = 'shown';
+  	setTimeout(() => {
+  		this.errorState = 'hidden';
+  	}, 2000);
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

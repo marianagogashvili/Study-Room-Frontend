@@ -3,16 +3,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Params } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { throwError, BehaviorSubject, Subject } from 'rxjs';
+import jwt_decode from "jwt-decode";
 
 @Injectable({providedIn: 'root'})
 export class CoursesService {
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) {
+		this.checkType();
+	}
 	assignmentMode = new EventEmitter();
 	newAssignment = new Subject<any>();
 
 	error = new BehaviorSubject<string>(null);
 	oldStudents = new BehaviorSubject<string>(null);
+	userType = new BehaviorSubject<string>(null);
+
 	courseId;
+
+	checkType() {
+		const decodedToken: {type} = jwt_decode(localStorage.getItem('token'));
+		this.userType.next(decodedToken.type);  
+	}
 
 	getCourse(param: Params) {
 		return this.http.post(

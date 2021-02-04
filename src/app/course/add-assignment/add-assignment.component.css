@@ -52,6 +52,13 @@
 	padding-left: 12px;
 }
 
+.descr__input {
+	height: 200px; 
+	width: 450px; 
+	padding-top: 10px; 
+	resize: none;
+}
+
 .date__input {
 	font-family: 'Montserrat', sans-serif;
 	border: 1px solid #00b5d4;
@@ -127,6 +134,10 @@ textarea.ng-invalid.ng-touched {
 }
 
 .fileName__span {
+	color: black;
+}
+
+.fileName__span {
  	margin-left: 10px; 
  }
 
@@ -140,6 +151,10 @@ textarea.ng-invalid.ng-touched {
 
 .date__span {
 	margin: 5px 15px;
+}
+
+span {
+	color: red;
 }
 
 input::placeholder, textarea::placeholder {

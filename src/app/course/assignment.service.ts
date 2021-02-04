@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Params } from '@angular/router';
-import { throwError, BehaviorSubject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError, BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class AssignmentService {
@@ -17,7 +18,9 @@ export class AssignmentService {
 					// 'Content-Type': 'multipart/form-data',
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
-			});
+			}).pipe(catchError(error => {
+				return throwError(error);
+			}));
 	}
 
 	getAssignmentsByCourse(param: Params) {
@@ -39,7 +42,9 @@ export class AssignmentService {
 					'Content-Type': 'application/json',
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
-			});
+			}).pipe(catchError(error => {
+				return throwError(error);
+			}));
 	}
 
 	updateAssignment(param: Params) {
@@ -52,7 +57,9 @@ export class AssignmentService {
 					// 'Content-Type': 'multipart/form-data',
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
-			});
+			}).pipe(catchError(error => {
+				return throwError(error);
+			}));
 	}
 
 	deleteAssignment(param: Params) {
@@ -63,7 +70,9 @@ export class AssignmentService {
 					'Content-Type': 'application/json',
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
-			});
+			}).pipe(catchError(error => {
+				return throwError(error);
+			}));
 	}
 
 

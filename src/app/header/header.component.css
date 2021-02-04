@@ -101,6 +101,10 @@
 	margin-top: 3px;
 	border: 2px solid transparent;
 }
+.log-link:hover {
+	background-color: #4983bf;
+}
+
 .log-link:active {
 	color: white;
 	background-color: transparent;

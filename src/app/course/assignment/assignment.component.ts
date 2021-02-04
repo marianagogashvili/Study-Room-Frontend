@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AssignmentService } from '../assignment.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs/';
 import { faFileWord } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { CoursesService } from '../courses.service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
@@ -32,11 +33,20 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 
   error;
 
+  userType;
+  sub2: Subscription;
+
   constructor(private assignmentService: AssignmentService,
   			  private route: ActivatedRoute,
-  			  private router: Router) { }
+  			  private router: Router,
+  			  private courseService: CoursesService) { }
 
   ngOnInit() {
+  	this.sub2 = this.courseService.userType.subscribe(type => {
+  		this.userType =  type;
+  		console.log(this.userType);
+  	});
+
   	this.editForm = new FormGroup({
   		'title': new FormControl('', [Validators.required]),
   		'description': new FormControl('', [Validators.required]),
@@ -50,7 +60,12 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   	this.sub = this.route.params.pipe(map(params => {
   		return params['assignmentId'];
   	}), mergeMap((id):any => {
-		return this.assignmentService.getAssignmentById({id: id});
+		return this.assignmentService.getAssignmentById({id: id}).pipe(
+			catchError((err):any => {
+  				console.log(err);
+  				this.router.navigate(['../../main'], {relativeTo: this.route});
+  			})
+		);	
   	})).subscribe(assignment => {
   		this.assignment = assignment;
   		this.loading = false;
@@ -150,12 +165,14 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   		.deleteAssignment({id: this.assignment._id})
   		.subscribe(result => {
   			console.log(result);
-  				this.router.navigate(['../../main'], {relativeTo: this.route});
+  			this.router.navigate(['../../main'], {relativeTo: this.route});
+  		}, err => {
+  			this.router.navigate(['../../main'], {relativeTo: this.route});
   		});
   }
 
   ngOnDestroy() {
   	this.sub.unsubscribe();
-  	console.log(this.sub);
+  	this.sub2.unsubscribe();
   }
 }

@@ -4,6 +4,10 @@ import { AuthComponent } from './auth/auth.component';
 import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { AuthGuard } from './auth-guard.service';
+import { AuthGuardTeacher } from './auth-guard-teacher.service';
+import { AuthGuardStudent } from './auth-guard-student.service';
+
+
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './student/edit/edit.component';
 import { CourseComponent } from './course/course.component';
@@ -15,20 +19,20 @@ import { AssignmentComponent } from './course/assignment/assignment.component';
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
 	{ path: 'auth', component: AuthComponent },
-	{ path: 'student', canActivate: [AuthGuard], canActivateChild:[AuthGuard], component: StudentComponent, children: [
+	{ path: 'student', canActivate: [AuthGuardStudent], canActivateChild:[AuthGuardStudent], component: StudentComponent, children: [
 		// { path: 'edit', component: EditComponent }
 		// grades
 		
 	]},
-	{ path: 'teacher', canActivate: [AuthGuard], canActivateChild:[AuthGuard], component: TeacherComponent, children: [
+	{ path: 'teacher', canActivate: [AuthGuardTeacher], canActivateChild:[AuthGuardTeacher], component: TeacherComponent, children: [
 		// { path: 'edit', component: EditComponent }
 		// edit, grades
 	]},
-	{ path: 'course/:id', canActivate: [AuthGuard], canActivateChild:[AuthGuard], component: CourseComponent, children: [
-		{ path: 'students', component:  StudentsComponent },
-		{ path: 'main', component:  MainComponent },
-		{ path: 'add-student', component:  AddStudentComponent },
-		{ path: 'assignment/:assignmentId', component:  AssignmentComponent },
+	{ path: 'course/:id', canActivate: [AuthGuard], component: CourseComponent, children: [
+		{ path: 'students', canActivate: [AuthGuardTeacher], component:  StudentsComponent },
+		{ path: 'main', canActivate: [AuthGuard], component:  MainComponent },
+		{ path: 'add-student', canActivate: [AuthGuardTeacher], component:  AddStudentComponent },
+		{ path: 'assignment/:assignmentId', canActivate: [AuthGuard], component:  AssignmentComponent },
 	]}
 ];
 

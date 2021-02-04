@@ -138,6 +138,7 @@ textarea {
 	margin: 10px;
 }
 
+
 .btns button, .save__btn {
 	width: 5rem;
 	height: 2rem;
@@ -189,6 +190,14 @@ textarea {
 .file__url {
 	font-size: 20px;
     margin-left: 15px;
+}
+
+.file__url:hover {
+	color: #8a8a8a;
+}
+
+.file__url:active {
+	color: #5c5c5c;
 }
 
 .edit__btn {

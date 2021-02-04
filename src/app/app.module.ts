@@ -13,6 +13,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { AuthGuard } from './auth-guard.service';
+import { AuthGuardTeacher } from './auth-guard-teacher.service';
+import { AuthGuardStudent } from './auth-guard-student.service';
+
 import { HomeComponent } from './home/home.component';
 import { DatePipe } from '@angular/common';
 import { EditComponent } from './student/edit/edit.component';
@@ -52,7 +55,7 @@ import { AssignmentComponent } from './course/assignment/assignment.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe, AuthGuard, JwtHelperService],
+  providers: [DatePipe, AuthGuard, AuthGuardTeacher, AuthGuardStudent, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -36,6 +36,11 @@ body {
 	text-transform: uppercase;
 }
 
+.teacher__btns  {
+	display: flex; 
+	align-items: center;
+}
+
 .add-before__btn {
 	margin-bottom: 5px;
 	border: 1px solid #687cf7;

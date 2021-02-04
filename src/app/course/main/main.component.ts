@@ -30,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
   removeIcon = faTimesCircle;
   editIcon = faEdit;
   fileIcon = faFile;
+  userType;
 
   newTopicMode = false;
   editIndex = null;
@@ -38,6 +39,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
   sub2: Subscription;
+  sub3: Subscription;
 
   constructor(private topicService: TopicService,
   			  private courseService: CoursesService,
@@ -45,6 +47,11 @@ export class MainComponent implements OnInit, OnDestroy {
   			  private assignmentService: AssignmentService) { }
 
   ngOnInit() {
+  	this.sub3 = this.courseService.userType.subscribe(type => {
+  		this.userType =  type;
+  		console.log(this.userType);
+  	});
+
   	this.topicForm = new FormGroup({
   		'title': new FormControl('', [Validators.required]),
   		'hidden': new FormControl(''),
@@ -158,6 +165,7 @@ export class MainComponent implements OnInit, OnDestroy {
   addBefore(topic) {
   	this.newTopicMode = true;
   	this.beforeTopicNum = topic.num;
+  	document.getElementById('header').scrollIntoView({behavior: 'smooth'});
   	console.log(this.beforeTopicNum);
   }
 
@@ -198,5 +206,6 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   	this.sub.unsubscribe();
   	this.sub2.unsubscribe();
+  	this.sub3.unsubscribe();
   }
 }

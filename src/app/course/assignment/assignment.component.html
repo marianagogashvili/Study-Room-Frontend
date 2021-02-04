@@ -8,7 +8,7 @@
 <body *ngIf="!loading">
 	<div class="topic__div">
 		<h2 class="topic__h2">{{assignment.topic.title}}</h2>
-		<div class="btns">
+		<div class="btns" *ngIf="userType === 'teacher'">
 			<button *ngIf="!editMode" class="edit__btn" (click)="showEditMode()">Edit</button>
 			<button *ngIf="editMode" class="edit__btn" (click)="showEditMode()">Back</button>
 			<button class="delete__btn" (click)="delete()">Delete</button>
@@ -18,7 +18,7 @@
 	<div class="err__div" *ngIf="error">
 		{{ error }}
 	</div> 
-	<form *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="updateAssignment()">
+	<form *ngIf="editMode && userType === 'teacher'" [formGroup]="editForm" (ngSubmit)="updateAssignment()">
 		<div class="edit__form">
 			<div class="form__one">
 				<input
