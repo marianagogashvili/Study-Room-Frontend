@@ -37,6 +37,10 @@ export class StudentComponent implements OnInit {
   	});
   }
 
+  goToCourse(id) {
+  	this.router.navigate(['/course/',  id]);
+  }
+
   showEditPage() {
 	this.showEdit = true;
   }

@@ -1,0 +1,88 @@
+<div class="solution__div">
+	<h2 >Solution</h2>
+	<p *ngIf="assignment.deadline"><span style="margin-right: 15px;">until</span><span [ngStyle]="!available && {'color': '#e37878'}">{{ deadlineDate | date: 'd, MMM yyyy HH:mm' }}</span></p>
+	<p *ngIf="!assignment.deadline">No deadline</p>
+	<div class="btns" *ngIf="userType === 'student' && this.available">
+		<div *ngIf="!uploadMode && !editMode">
+			<button *ngIf="!solution" class="upload__btn" (click)="showUploadMode()">Upload</button>
+			<button *ngIf="solution" class="edit__btn" (click)="showEditMode()">Edit</button>
+			<button *ngIf="solution" class="delete__btn" (click)="delete()">Delete</button>		
+		</div>
+
+		<div *ngIf="uploadMode">
+			<button class="save__btn" (click)="saveUpload()" [disabled]="solutionFilesToCreate.length === 0">Save</button>
+			<button class="back__btn" (click)="showUploadMode()">Back</button>
+		</div>
+
+		<div *ngIf="editMode">
+			<button class="save__btn" (click)="saveEdit()">Save</button>
+			<button class="back__btn" (click)="showEditMode()">Back</button>
+		</div>
+	</div>
+
+	<div class="btns" *ngIf="userType === 'teacher'">
+		<button class="upload__btn" (click)="showEditMode()">Grade</button>
+	</div>
+	
+</div>
+<!-- 2021-02-04T23:33:00.000+00:00 -->
+<div *ngIf="!solution && !uploadMode && !editMode" class="files__div" >
+	You haven't uploaded solution yet
+</div>
+
+<div *ngIf="!uploadMode && !editMode && solution" class="files__div" >
+	<div class="filelist__div"  *ngFor="let file of solutionFiles">
+		<span 
+			class="pdf__icon" 
+			*ngIf="file[file.length - 1] === 'f'">
+			<fa-icon [icon]="pdfIcon"></fa-icon>
+		</span>
+		<span 
+			class="word__icon" 
+			*ngIf="file[file.length - 1] ===  'x'">
+			<fa-icon [icon]="wordIcon"></fa-icon>
+		</span>
+		<span (click)="downloadSolution(file)" class="filelist__span">{{ file.split('-')[3] }}</span>
+
+	</div>
+
+</div>	
+
+<div *ngIf="uploadMode" class="files__div">
+	<div class="filelist__div" *ngFor="let file of solutionFilesToCreate; index as i">
+		<span (click)="removeFileFromCreate(i)" class="pdf__icon" ><fa-icon [icon]="minusIcon"></fa-icon></span>
+		<span class="filelist__span">{{ file.name }}</span>
+	</div>
+
+	<div class="file__div">
+		<label  class="file__label" for="solution__file">Choose a file</label>
+		<input 
+			accept=".pdf, .docx" 
+			id="solution__file" 
+			(change)="addFileCreate($event)"
+			type="file">
+	</div>
+</div>
+
+<div *ngIf="editMode && solution" class="files__div">
+
+	<div class="filelist__div" *ngFor="let file of solutionFiles; index as i">
+		<span (click)="removeFileFromDefault(file, i)" class="pdf__icon" ><fa-icon [icon]="minusIcon"></fa-icon></span>
+		<span class="filelist__span">{{ file.split('-')[3] }}</span>
+	</div>
+
+	<div  class="filelist__div" *ngFor="let file of addFiles; index as i">
+		<span (click)="removeFileFromUpdate(i)" class="pdf__icon" ><fa-icon [icon]="minusIcon"></fa-icon></span>
+		<span class="filelist__span">{{ file.name }}</span>
+	</div>
+
+	<div class="file__div">
+		<label  class="file__label" for="solution__file">Choose a file</label>
+		<input 
+			accept=".pdf, .docx" 
+			id="solution__file" 
+			(change)="addFileUpdate($event)"
+			type="file">
+	</div>
+
+</div>

@@ -35,7 +35,7 @@
 	<div class="courses__div" *ngIf="!loading && student.courses.length > 0; else">
 		<div class="course__div" *ngFor="let course of student.courses">
 			<div class="course__div-info">
-				<h1>{{ course.title}}</h1>
+				<h1 (click)="goToCourse(course._id)">{{ course.title}}</h1>
 				<p>40ppl</p>
 				<div class="course__div-grades">
 					<p class="course__div-grade">my <span class="grade__span">99</span></p>

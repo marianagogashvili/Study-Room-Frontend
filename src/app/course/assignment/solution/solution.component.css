@@ -1,0 +1,183 @@
+.solution__div {
+	margin-top: 4rem;
+	padding: 0 20px;
+	display: flex;
+	align-items: center;
+	background-color: #f8f8f8;
+	width: 87%;
+	border-radius: 4px;
+	color: #6E6E6DFF;
+	justify-content: space-between;
+}
+
+.solution__div h2 {
+	display: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+.btns button, .save__btn, .file__label {
+
+	width: 5rem;
+	height: 2rem;
+	border: 0;
+	border-radius: 5px;
+	/*background-color: transparent;*/
+	color: white;
+	text-transform: uppercase;
+	margin: 0 10px;
+	font-weight: 600;
+	outline: none;
+} 
+
+.file__div {
+	margin: 3rem 1rem;
+}
+
+.file__label {
+	padding: 1rem 2rem;
+	background-color: #e37878;
+}
+
+.file__label:hover {
+	background-color: #ffa1a1;
+}
+
+.file__label:active {
+	background-color: #d47b7b;
+}
+
+.pdf__icon { 
+	font-size: 25px;
+	color: #e37878;
+}
+
+.filelist__span {
+	font-size: 20px;
+	margin: 10px;
+}
+
+.filelist__span:hover {
+	color: #8a8a8a;
+}
+
+.filelist__span:active {
+	color: #5c5c5c;
+}
+
+.files__div {
+	margin: 3rem 1rem;
+}
+
+.filelist__div {
+	margin-bottom: 15px;
+}
+
+#solution__file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.back__btn  {
+	background-color: #c9c9c9;
+}
+
+.back__btn:hover  {
+	background-color: #e6e6e6;
+}
+
+.back__btn:active  {
+	background-color: #b0b0b0;
+}
+
+.save__btn  {
+	background-color: #90ee90;
+}
+
+.save__btn:disabled {
+	background-color: #c9c9c9;
+}
+.save__btn:disabled:hover {
+	background-color: #c9c9c9;
+}
+
+.save__btn:hover  {
+	background-color: #c7ffc7;
+}
+
+.save__btn:active  {
+	background-color: #89cc89;
+}
+
+.upload__btn {
+	background-color: #89cfe0;
+}
+
+.upload__btn:hover {
+	background-color: #9cecff;
+}
+
+.upload__btn:active {
+	background-color: #80bfcf;
+}
+
+.edit__btn {
+	background-color: #ffc821;
+}
+
+.edit__btn:hover {
+	background-color: #ffdd75;
+}
+
+.edit__btn:active {
+	background-color: #d4a619;
+}
+
+.delete__btn {
+	background-color: #ff5526;
+}
+
+.delete__btn:hover {
+	background-color: #ed896d;
+}
+
+.delete__btn:active {
+	background-color: #b53b19;
+}
+
+.pdf__icon, .word__icon { 
+	font-size: 25px;
+}
+
+.pdf__icon {
+	color: #e37878;
+}
+
+.word__icon {
+	color: #78a1e3;
+}
+
+@media screen and (min-width: 700px) {
+	.solution__div h2 {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 100px)  and (max-width: 400px) {
+	.solution__div p {
+		font-size: 12px;
+	}
+
+	.btns button, .save__btn, .file__label {
+		font-size: 10px;
+		width: 3.5rem;
+		margin: 0 3px;
+		height: 1.5rem;
+	}
+}

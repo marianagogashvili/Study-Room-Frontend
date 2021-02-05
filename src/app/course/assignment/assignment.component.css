@@ -1,5 +1,5 @@
 body  {
-	padding-left: 3rem;
+	padding-left: 5%;
 	padding-top: 1rem;
 }
 
@@ -8,7 +8,7 @@ body  {
 	display: flex;
 	align-items: center;
 	background-color: #f8f8f8;
-	width: 90%;
+	width: 87%;
 	border-radius: 4px;
 	color: #6E6E6DFF;
 	justify-content: space-between;

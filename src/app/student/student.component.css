@@ -59,6 +59,14 @@ body {
 	padding: 10px 25px;
 }
 
+.course__div-info h1:hover {
+	color: #595959;
+	cursor: pointer; 
+}
+.course__div-info h1:active {
+	color: #383838;
+}
+
 .course__div-grades {
 	width: 100%;
 }
