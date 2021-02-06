@@ -1,0 +1,103 @@
+<div class="solution__div">
+	<h2>Solutions </h2>
+</div>
+
+<!-- <table>
+
+	<tr *ngFor="let student of groupSolutions; index as i">
+		<td>{{ student.fullName }}</td>
+		<td>{{ student.group.name }}</td>
+		<td style="text-align: left;" *ngIf="student.solutions; else elseDiv">
+			<p *ngFor="let file of student.solutions.fileUrl">
+				<span 
+					class="pdf__icon" 
+					*ngIf="file[file.length - 1] === 'f'">
+					<fa-icon [icon]="pdfIcon"></fa-icon>
+				</span>
+				<span 
+					class="word__icon" 
+					*ngIf="file[file.length - 1] ===  'x'">
+					<fa-icon [icon]="wordIcon"></fa-icon>
+				</span>
+				<span class="file__name" (click)="downloadSolution(file)">{{file.split('-')[3]}}</span>
+			</p>
+
+		</td>
+
+		<td  *ngIf="!student.solutions;">
+			No files
+		</td>
+		<td>
+			95
+		</td>
+		<td>
+			<button class="grade__btn" (click)="showGradeMode(i)">Grade</button>	
+		</td>
+	</tr>
+
+</table> -->
+<div class="info__row info__row__header">
+	<div>name</div>
+	<div>group</div>
+	<div style="text-align: center;">files</div>
+	<div>grade</div>
+	<div>max</div>
+	<div></div>
+</div>
+<div  *ngFor="let student of groupSolutions; index as i">
+
+	<div class="info__row">
+		<div>{{ student.fullName }}</div>
+		<div>{{ student.group.name }}</div>
+		<div style="text-align: left;" *ngIf="student.solutions; else elseDiv">
+			<p *ngFor="let file of student.solutions.fileUrl">
+				<span 
+					class="pdf__icon" 
+					*ngIf="file[file.length - 1] === 'f'">
+					<fa-icon [icon]="pdfIcon"></fa-icon>
+				</span>
+				<span 
+					class="word__icon" 
+					*ngIf="file[file.length - 1] ===  'x'">
+					<fa-icon [icon]="wordIcon"></fa-icon>
+				</span>
+				<span class="file__name" (click)="downloadSolution(file)">{{file.split('-')[3]}}</span>
+			</p>
+
+		</div>
+
+		<div  *ngIf="!student.solutions">
+			No files
+		</div>
+		<div *ngIf="student.solutions && student.solutions.grade">
+			{{ student.solutions.grade }}
+		</div>
+		<div *ngIf="!student.solutions || !student.solutions.grade">
+			-
+		</div>
+		<div>
+			{{ assignment.maxGrade }}
+		</div>
+		<div>
+			<button [disabled]="!student.solutions" class="grade__btn" *ngIf="!gradeMode || gradeIndex !== i" (click)="showGradeMode(i)">Grade</button>
+			<button class="back__btn" *ngIf="gradeMode && gradeIndex === i" (click)="hideGradeMode()">Back</button>	
+		</div>
+
+	</div>
+
+	<form  [formGroup]="gradeForm" (ngSubmit)="saveGrade(student._id)" class="edit__div-1" *ngIf="gradeMode && gradeIndex === i">
+		<textarea 
+			placeholder="comment"
+			formControlName="comment"></textarea>
+		<div class="edit__div-2">
+			<input 
+				required
+				formControlName="grade"
+				placeholder="grade" 
+				type="number"
+				[max]="assignment.maxGrade">
+			<button class="save__btn" type="submit" [disabled]="!gradeForm.valid">save</button>
+		</div>
+		
+	</form>
+</div>

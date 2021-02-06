@@ -83,6 +83,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   		const descr = form.value.description;
   		const availableFrom = form.value.availableFrom;
   		const deadline = form.value.deadline;
+  		const maxGrade = form.value.maxGrade;
   		
   		if (deadline !== '' && deadline < availableFrom) {
   			this.error = "Please choose correct deadline";
@@ -100,8 +101,11 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 	  		formData.append('description', descr);
 	  		formData.append('availableFrom', availableFrom);
 	  		formData.append('deadline', deadline);
+	  		formData.append('maxGrade', maxGrade);
+
 	  		formData.append('courseId', this.courseService.courseId);
 	  		formData.append('topicId', this.topicId);
+
 
 	  		console.log(formData);
 	  		this.assignmentService.createAssignment(

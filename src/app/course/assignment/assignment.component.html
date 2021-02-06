@@ -26,10 +26,18 @@
 				class="title__input" 
 				type="text"
 				formControlName="title">
+
 				<textarea 
 					required
 					formControlName="description">
 				</textarea>
+
+				<input
+				required
+				class="title__input" 
+				type="number"
+				formControlName="maxGrade">
+
 				Available from <input 
 					class="date__input" 
 					type="datetime-local"
@@ -89,7 +97,8 @@
 		
 	</div>
 
-	<app-solution [userType]="userType" [assignment]="assignment"></app-solution>
+	<app-solution *ngIf="userType === 'student'" [assignment]="assignment"></app-solution>
+	<app-solutions *ngIf="userType === 'teacher'" [assignment]="assignment"></app-solutions>
 	
 </body>
 </html>

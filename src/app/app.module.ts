@@ -28,6 +28,7 @@ import { AddStudentComponent } from './course/add-student/add-student.component'
 import { AddAssignmentComponent } from './course/add-assignment/add-assignment.component';
 import { AssignmentComponent } from './course/assignment/assignment.component';
 import { SolutionComponent } from './course/assignment/solution/solution.component';
+import { SolutionsComponent } from './course/assignment/solutions/solutions.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SolutionComponent } from './course/assignment/solution/solution.compone
     AddStudentComponent,
     AddAssignmentComponent,
     AssignmentComponent,
-    SolutionComponent
+    SolutionComponent,
+    SolutionsComponent
   ],
   imports: [
     BrowserModule,

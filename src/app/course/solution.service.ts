@@ -18,6 +18,18 @@ export class SolutionService {
 			});
 	}
 
+	getSolutions(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/solution/getSolutionsTeacher', 
+			param, {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
+
 	updateSolution(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/solution/updateSolutionStudent', 
@@ -29,6 +41,19 @@ export class SolutionService {
 				})
 			});
 	}
+
+	gradeSolution(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/solution/updateSolutionTeacher', 
+			param, {
+				headers: new HttpHeaders({
+					// 'Content-Type': 'application/json',
+					'Accept': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
 
 	deleteSolution(param: Params) {
 		return this.http.post(

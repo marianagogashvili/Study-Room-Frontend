@@ -2,11 +2,13 @@
 	<h2 >Solution</h2>
 	<p *ngIf="assignment.deadline"><span style="margin-right: 15px;">until</span><span [ngStyle]="!available && {'color': '#e37878'}">{{ deadlineDate | date: 'd, MMM yyyy HH:mm' }}</span></p>
 	<p *ngIf="!assignment.deadline">No deadline</p>
-	<div class="btns" *ngIf="userType === 'student' && this.available">
+	<!-- <div class="btns" *ngIf="userType === 'student' && this.available"> -->
+	<div class="btns" *ngIf="this.available">
+
 		<div *ngIf="!uploadMode && !editMode">
-			<button *ngIf="!solution" class="upload__btn" (click)="showUploadMode()">Upload</button>
-			<button *ngIf="solution" class="edit__btn" (click)="showEditMode()">Edit</button>
-			<button *ngIf="solution" class="delete__btn" (click)="delete()">Delete</button>		
+			<button *ngIf="!solution && !solution.grade" class="upload__btn" (click)="showUploadMode()">Upload</button>
+			<button *ngIf="solution && !solution.grade" class="edit__btn" (click)="showEditMode()">Edit</button>
+			<button *ngIf="solution && !solution.grade" class="delete__btn" (click)="delete()">Delete</button>		
 		</div>
 
 		<div *ngIf="uploadMode">
@@ -20,12 +22,7 @@
 		</div>
 	</div>
 
-	<div class="btns" *ngIf="userType === 'teacher'">
-		<button class="upload__btn" (click)="showEditMode()">Grade</button>
-	</div>
-	
 </div>
-<!-- 2021-02-04T23:33:00.000+00:00 -->
 <div *ngIf="!solution && !uploadMode && !editMode" class="files__div" >
 	You haven't uploaded solution yet
 </div>
@@ -85,4 +82,24 @@
 			type="file">
 	</div>
 
+</div>
+
+<div class="grade__div" *ngIf="solution && solution.grade">
+	<table>
+		<tr>
+			<td>Grade:</td>
+			<td>{{ solution.grade }}</td>
+		</tr>
+		<tr>
+			<td>Max grade:</td>
+			<td>{{ assignment.maxGrade }}</td>
+		</tr>
+		<tr>
+			<td>Comment:</td>
+			<td>{{ solution.comment }}</td>
+		</tr>
+	</table>
+<!-- 	<h2>Grade: {{ solution.grade }}</h2>
+	<h2>Max: {{ assignment.maxGrade }}</h2>
+	<p>Comment: {{ solution.comment }}</p> -->
 </div>

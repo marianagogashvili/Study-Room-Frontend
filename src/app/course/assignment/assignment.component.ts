@@ -51,6 +51,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   		'title': new FormControl('', [Validators.required]),
   		'description': new FormControl('', [Validators.required]),
   		'availableFrom': new FormControl('', [Validators.required]),
+  		'maxGrade': new FormControl('', [Validators.required]),
   		'deadline': new FormControl(''),
 
   	});
@@ -79,6 +80,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   	this.editForm.patchValue({
   		'title': this.assignment.title, 
   		'description': this.assignment.description,
+  		'maxGrade': this.assignment.maxGrade,
   		'availableFrom': this.assignment.availableFrom.slice(0, 16),
   		'deadline':  this.assignment.deadline ? this.assignment.deadline.slice(0, 16) : '',
   	});
@@ -124,6 +126,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   	const title = this.editForm.value.title;
   	const description = this.editForm.value.description;
   	const availableFrom = this.editForm.value.availableFrom;
+  	const maxGrade = this.editForm.value.maxGrade;
   	const deadline = this.editForm.value.deadline;
 
   	if (deadline !== '' && deadline < availableFrom) {
@@ -133,6 +136,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 		}, 2000);
 	} else if (title === this.assignment.title && 
   		description  === this.assignment.description &&
+  		maxGrade === this.assignment.maxGrade && 
   		availableFrom === this.assignment.availableFrom.slice(0, 16) &&
   		deadline === this.assignment.deadline.slice(0, 16) &&
   		this.addFilesList.length === 0 && this.removeFilesList.length === 0) {
@@ -145,6 +149,8 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   		formData.append('id', this.assignment._id);
   		formData.append('title', title);
   		formData.append('description', description);
+  		formData.append('maxGrade', maxGrade);
+
   		formData.append('availableFrom', availableFrom);
   		formData.append('deadline', deadline);
 

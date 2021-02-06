@@ -10,6 +10,17 @@
 	justify-content: space-between;
 }
 
+.grade__div {
+	margin-top: 4rem;
+	padding: 0 20px;
+
+	background-color: #f5fff5;
+	margin-bottom: 2rem;
+	width: 87%;
+	border-radius: 4px;
+	color: #6E6E6DFF;
+}
+
 .solution__div h2 {
 	display: none;
 }
@@ -161,6 +172,26 @@ button {
 
 .word__icon {
 	color: #78a1e3;
+}
+
+table {
+	padding: 2rem;
+	font-size: 18px;
+}
+
+tr {
+	line-height: 40px;
+}
+
+tr td:nth-child(2) {
+	color: black;
+}
+
+tr:nth-child(3) td {
+	vertical-align: top;
+}
+td {
+	padding-right: 1rem;
 }
 
 @media screen and (min-width: 700px) {

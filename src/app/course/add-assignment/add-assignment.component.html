@@ -35,6 +35,20 @@
 		Description should not be empty
 	</span>
 
+	<input 
+		class="title__input" 
+		type="number" 
+		name="maxGrade" 
+		maxGrade
+		ngModel
+		placeholder="Max grade"
+		required
+		#maxGrade="ngModel"
+		>
+	<span *ngIf="!maxGrade.valid  && maxGrade.touched">
+		Maximum grade should not be empty
+	</span>
+
 	<div class="file__div">
 		<label [ngStyle]="files.length > 0 && {'background-color':'#7dcc5e'}" for="fileName" class="file__btn">Select file</label>
 		<input 
@@ -47,7 +61,7 @@
 			>
 
 	</div>
-	<div class="file__names">
+	<div class="file__names" *ngIf="files">
 		<span *ngFor="let file of files; index as i" (click)="removeFile(i)"  class="fileName__span">{{ file.name }}</span>
 	</div>
 	
