@@ -31,11 +31,13 @@ export class SolutionComponent implements OnInit {
 
   uploadMode;
   editMode;
+  loading;
 
 
   constructor(private solutionService: SolutionService) { }
 
   ngOnInit() {
+  	this.loading = true;
   	this.uploadMode = false;
   	this.editMode = false;
 
@@ -55,7 +57,8 @@ export class SolutionComponent implements OnInit {
   		).subscribe((solution: {fileUrl}) => {
   			if (solution) {
   				this.solution = solution;
-	  			this.solutionFiles = solution.fileUrl;
+	  			this.solutionFiles = [...solution.fileUrl];
+	  			this.loading = false;
 	  			console.log(solution);
   			}
   			
@@ -68,6 +71,7 @@ export class SolutionComponent implements OnInit {
   }
 
   showEditMode() {
+  	this.solutionFiles = [...this.solution.fileUrl];
   	this.addFiles = [];
 	this.removeFiles = [];
   	this.editMode = !this.editMode;

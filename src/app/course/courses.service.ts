@@ -11,7 +11,11 @@ export class CoursesService {
 		this.checkType();
 	}
 	assignmentMode = new EventEmitter();
-	newAssignment = new Subject<any>();
+	postMode = new EventEmitter();
+
+	// newAssignment = new Subject<any>();
+	// newPost = new Subject<any>();
+	feedValue = new Subject<any>(); 
 
 	error = new BehaviorSubject<string>(null);
 	oldStudents = new BehaviorSubject<string>(null);
@@ -22,6 +26,19 @@ export class CoursesService {
 	checkType() {
 		const decodedToken: {type} = jwt_decode(localStorage.getItem('token'));
 		this.userType.next(decodedToken.type);  
+	}
+
+	getFeed(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/getFeed', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			}).pipe(catchError(error => {
+				return throwError(error.error);
+			}));
 	}
 
 	getCourse(param: Params) {
@@ -120,9 +137,22 @@ export class CoursesService {
 		this.assignmentMode.emit(val);
 	}
 
-	sendNewAssignment(assignment) {
-		this.newAssignment.next(assignment);
+	showPost(val) {
+		this.postMode.emit(val);
 	}
+
+	sendNewFeedPost(val) {
+		this.feedValue.next(val);
+	}
+
+	// sendNewAssignment(assignment) {
+	// 	this.newAssignment.next(assignment);
+	// }
+
+	// sendNewPost(post) {
+	// 	this.newPost.next(post);
+	// }
+
 
 	getGroups() {
 		return this.http.get('http://localhost:8000/group/getGroups');

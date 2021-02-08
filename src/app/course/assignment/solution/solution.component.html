@@ -1,4 +1,4 @@
-<div class="solution__div">
+<div *ngIf="!loading" class="solution__div">
 	<h2 >Solution</h2>
 	<p *ngIf="assignment.deadline"><span style="margin-right: 15px;">until</span><span [ngStyle]="!available && {'color': '#e37878'}">{{ deadlineDate | date: 'd, MMM yyyy HH:mm' }}</span></p>
 	<p *ngIf="!assignment.deadline">No deadline</p>
@@ -6,7 +6,7 @@
 	<div class="btns" *ngIf="this.available">
 
 		<div *ngIf="!uploadMode && !editMode">
-			<button *ngIf="!solution && !solution.grade" class="upload__btn" (click)="showUploadMode()">Upload</button>
+			<button *ngIf="!solution" class="upload__btn" (click)="showUploadMode()">Upload</button>
 			<button *ngIf="solution && !solution.grade" class="edit__btn" (click)="showEditMode()">Edit</button>
 			<button *ngIf="solution && !solution.grade" class="delete__btn" (click)="delete()">Delete</button>		
 		</div>
@@ -17,7 +17,7 @@
 		</div>
 
 		<div *ngIf="editMode">
-			<button class="save__btn" (click)="saveEdit()">Save</button>
+			<button class="save__btn" [disabled]="solutionFiles.length === 0 && addFiles.length === 0"  (click)="saveEdit()">Save</button>
 			<button class="back__btn" (click)="showEditMode()">Back</button>
 		</div>
 	</div>
@@ -28,7 +28,7 @@
 </div>
 
 <div *ngIf="!uploadMode && !editMode && solution" class="files__div" >
-	<div class="filelist__div"  *ngFor="let file of solutionFiles">
+	<div class="filelist__div"  *ngFor="let file of solution.fileUrl">
 		<span 
 			class="pdf__icon" 
 			*ngIf="file[file.length - 1] === 'f'">

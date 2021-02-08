@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+
 </head>
 <body >
 	<form *ngIf="newTopicMode && userType === 'teacher'" [formGroup]="topicForm" (ngSubmit)="createTopic()">
@@ -88,15 +90,58 @@
 					<button 
 						type="button" 
 						class="add-assignment__btn" (click)="showAssignment(topic._id)">assignment</button>
+					<button 
+						type="button" 
+						class="add-post__btn" (click)="showPost(topic._id)">post</button>
 				</div>
 				
 			</div>
 			<div *ngIf="userType === 'teacher' || (userType === 'student' && topic.hidden === false)">
-				<div class="assignments__div" *ngIf="topic.assignments && topic.assignments.length > 0; else elseBlock">
-					<div class="assignment__div" *ngFor="let assignment of topic.assignments" >
-						<span class="pdf__icon"><fa-icon [icon]="fileIcon"></fa-icon></span>
+				<div class="assignments__div" *ngIf="topic.feed && topic.feed.length > 0; else elseBlock">
+					<div class="assignment__div" *ngFor="let feedPost of topic.feed; index as postIndex" >
+						<span *ngIf="feedPost.fileUrl && !feedPost.maxGrade" class="pdf__icon">
+							<span 
+								class="pdf__icon" 
+								*ngIf="feedPost.fileUrl[feedPost.fileUrl.length - 1] === 'f'">
+								<fa-icon [icon]="pdfIcon"></fa-icon>
+							</span>
+							<span 
+								class="word__icon" 
+								*ngIf="feedPost.fileUrl[feedPost.fileUrl.length - 1] ===  'x'">
+								<fa-icon [icon]="wordIcon"></fa-icon>
+							</span>
+						</span>
 
-						<span class="assignment__title" [routerLink]="['../assignment/', assignment._id]">{{ assignment.title }}</span>
+						<span *ngIf="feedPost.fileUrl && !feedPost.maxGrade">
+							<span class="assignment__title" (click)="openLink(feedPost.fileUrl, true)">
+								{{ feedPost.title }}
+							</span>
+							<fa-icon 
+								*ngIf="userType === 'teacher'"
+								(click)="deletePost(i, postIndex, feedPost._id)" class="minus__icon" [icon]="minusIcon">
+							</fa-icon>
+						</span>
+
+						<span *ngIf="feedPost.link" class="link__icon" >
+							<fa-icon [icon]="linkIcon"></fa-icon>
+						</span>
+
+						<span *ngIf="feedPost.link" >
+							<span class="assignment__title link__icon__title" 
+							(click)="openLink(feedPost.link, false)">
+								{{ feedPost.title }}</span>
+							<fa-icon 
+								*ngIf="userType === 'teacher'" 
+								(click)="deletePost(i, postIndex, feedPost._id)" class="minus__icon" 
+								[icon]="minusIcon">
+							</fa-icon>
+						</span>
+
+						<span *ngIf="feedPost.maxGrade" class="file__icon">
+							<fa-icon [icon]="fileIcon"></fa-icon>
+						</span>
+
+						<span *ngIf="feedPost.maxGrade" class="assignment__title" [routerLink]="['../assignment/', feedPost._id]">{{ feedPost.title }}</span>
 					</div>
 				</div>
 			</div>

@@ -1,0 +1,58 @@
+
+<div class="editDiv"> 
+	
+<form class="container" #postForm="ngForm" (ngSubmit)="createPost(postForm)">
+	<div [@errorState]="errorState" class="errorsDiv">
+		<h3 class="errorTitle">Error</h3>
+		<div class="errorDiv">{{ error }}</div>
+	</div>
+	<h1 class="title" name="title">Add post</h1>
+	<input 
+		class="title__input" 
+		type="text" 
+		name="title" 
+		title
+		ngModel
+		placeholder="Title"
+		required
+		#title="ngModel"
+		>
+	<span *ngIf="!title.valid  && title.touched">
+		Title should not be empty
+	</span>
+
+	<div  class="file__div">
+		<label  [ngStyle]="link.value && {'background-color':'#bababa'}" for="fileName" class="file__btn">Select one file</label>
+		<input 
+			[disabled]="link.value"
+			type="file" 
+			id="fileName" 
+			name="fileName"
+			class="file__input" 
+			(change)="saveFile($event)"
+			accept=".pdf, .docx" 
+			>
+
+	</div>
+	<div class="file__names" *ngIf="file">
+		<span (click)="removeFile()"  class="fileName__span">{{ file.name }}</span>
+	</div>
+
+	OR
+	<input 
+		[disabled]="file"
+		class="title__input" 
+		type="text" 
+		name="link" 
+		link
+		ngModel
+		placeholder="Paste external link"
+		required
+		#link="ngModel"
+		>
+
+	<button type="submit" class="create__btn" [disabled]="!postForm.valid">Create</button>
+
+</form>
+
+</div>

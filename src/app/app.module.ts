@@ -29,6 +29,11 @@ import { AddAssignmentComponent } from './course/add-assignment/add-assignment.c
 import { AssignmentComponent } from './course/assignment/assignment.component';
 import { SolutionComponent } from './course/assignment/solution/solution.component';
 import { SolutionsComponent } from './course/assignment/solutions/solutions.component';
+import { AddPostComponent } from './course/add-post/add-post.component';
+import { GradesComponent } from './student/grades/grades.component';
+import { AssignmentsComponent } from './student/assignments/assignments.component';
+import { MainStudentComponent } from './student/main-student/main-student.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +53,12 @@ import { SolutionsComponent } from './course/assignment/solutions/solutions.comp
     AddAssignmentComponent,
     AssignmentComponent,
     SolutionComponent,
-    SolutionsComponent
+    SolutionsComponent,
+    AddPostComponent,
+    GradesComponent,
+    AssignmentsComponent,
+    MainStudentComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,

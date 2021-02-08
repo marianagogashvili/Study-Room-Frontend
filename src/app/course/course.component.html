@@ -6,8 +6,15 @@
 	<title>Document</title>
 </head>
 <app-header></app-header>
+
 <app-add-assignment [topicId]="assignmentTopicId" *ngIf="addAssignment"></app-add-assignment>
+
+<app-add-post [topicId]="postTopicId" [courseId]="course._id" *ngIf="addPost"></app-add-post>
+
 <div class="backdrop" *ngIf="addAssignment" (click)="addAssignment = false"></div>
+
+<div class="backdrop" *ngIf="addAssignment || addPost" (click)="addAssignment = false; addPost = false"></div>
+
 <body *ngIf="!loading">
 	<div [hidden]="deleteCourseState === 'hidden'" class="backdrop"></div>
 	<div [@errorState]="deleteCourseState" class="delete__div">

@@ -1,18 +1,26 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { TopicService } from '../topic.service';
-import { CoursesService } from '../courses.service';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { Subscription } from 'rxjs';
+
+import { TopicService } from '../topic.service';
+import { CoursesService } from '../courses.service';
+import { AssignmentService } from '../assignment.service';
+import { PostsService } from '../posts.service';
+
+import { map, mergeMap } from 'rxjs/operators';
+import { pipe, Subscription } from 'rxjs';
+
 import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-regular-svg-icons';
-
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { map, mergeMap } from 'rxjs/operators';
-import { AssignmentService } from '../assignment.service';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFileWord } from '@fortawesome/free-regular-svg-icons';
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -29,13 +37,22 @@ export class MainComponent implements OnInit, OnDestroy {
   downIcon = faArrowCircleDown;
   removeIcon = faTimesCircle;
   editIcon = faEdit;
+
+  pdfIcon = faFilePdf;
+  wordIcon = faFileWord;
   fileIcon = faFile;
+  linkIcon = faExternalLinkAlt;
+  minusIcon = faMinusCircle;
+
   userType;
 
   newTopicMode = false;
   editIndex = null;
   beforeTopicNum = null;
+
   assignments;
+
+  feed;
 
   sub: Subscription;
   sub2: Subscription;
@@ -43,6 +60,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(private topicService: TopicService,
   			  private courseService: CoursesService,
+  			  private postService: PostsService,
   			  private route: ActivatedRoute,
   			  private assignmentService: AssignmentService) { }
 
@@ -69,34 +87,35 @@ export class MainComponent implements OnInit, OnDestroy {
   	});
 
   	this.route.parent.params.subscribe(params => {
-  		this.sub2 = this.assignmentService.getAssignmentsByCourse(
-	  		{courseId: params['id']})
-  			.pipe(map(a => {
-  				this.assignments = a;
-  				return a;
-  			}), mergeMap((assignment):any => {
+  		this.sub2 = this.courseService.getFeed({courseId: params['id']})
+  			.pipe(map(feed => {
+  				console.log(feed);
+  				this.feed = feed;
+  				return feed;
+  			}), mergeMap((feed):any => {
   				return this.topicService.getTopics({courseId: params['id']})
   			}), mergeMap((topics: any[]) => {
 				topics.forEach(topic => {
-					topic.assignments = this.assignments.filter(as => as.topic === topic._id);
+					topic.feed = this.feed.filter(as => as.topic === topic._id);
 				});
 
 				return [topics];
   			}), mergeMap((topics: any[])  => {
 
   				this.topics = topics;
+  				console.log(topics);
 	  			this.topicService.sendTopics(topics);
 
-  				return this.courseService.newAssignment;
+  				return this.courseService.feedValue;
   			}), mergeMap((assignment): any => {
-  				let sub = assignment;
+  				console.log(assignment);
   				let topic = this.topics.filter(t => t._id === assignment.topic);
-				if (topic[0].assignments) {
-					topic[0].assignments[topic[0].assignments.length] = assignment;
+				if (topic[0].feed) {
+					topic[0].feed[topic[0].feed.length] = assignment;
 				} else {
-					topic[0].assignments =[ assignment];			
+					topic[0].feed =[ assignment ];			
 				}
-				
+
 				return topic;
   			})).subscribe((topic:any)  => {
 
@@ -180,8 +199,29 @@ export class MainComponent implements OnInit, OnDestroy {
   	});
   }
 
+  deletePost(index, postIndex, postId) {
+  	this.topics[index].feed.splice(postIndex, 1);
+  	this.postService.deletePost({id: postId}).subscribe(result =>{ 
+  		
+  	});
+  }
+
+  openLink(url, file) {
+  	let fileUrl = url;
+  	if (file) {
+  		fileUrl =  "http://localhost:8000/" + url;
+  	}
+  	
+  	window.open(fileUrl, '_blank');
+  }
+
   showAssignment(topic) {
   	this.courseService.showAssignment(topic);
+  	document.getElementById('header').scrollIntoView({ behavior: 'smooth' });	
+  }
+
+  showPost(topic) {
+  	this.courseService.showPost(topic);
   	document.getElementById('header').scrollIntoView({ behavior: 'smooth' });	
   }
 

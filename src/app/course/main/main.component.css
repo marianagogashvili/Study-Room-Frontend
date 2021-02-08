@@ -10,7 +10,7 @@ body {
 	right: 1rem;
 }
 
-.scroll__btn, .delete__icon, .edit__icon, .add-before__btn, .add-assignment__btn {
+.scroll__btn, .delete__icon, .edit__icon, .add-before__btn, .add-assignment__btn, .add-post__btn {
 	background-color: transparent;
 	border: 0;
 	outline: none;
@@ -28,8 +28,8 @@ body {
 	
 }
 
-.add-before__btn, .add-assignment__btn {
-
+.add-before__btn, .add-assignment__btn, .add-post__btn {
+	cursor: pointer;
 	border-radius: 10px;
 	padding: 4px 6px;
 	font-size: 12px;
@@ -53,10 +53,21 @@ body {
 	color: white;
 }
 
+.add-post__btn {
+	margin-left: 15px;
+	background-color: #3247c9;
+	color: white;
+}
+
 .add-before__btn:active {
 	background-color:  #687cf7;
 	color: white;
 }
+
+.scroll__btn:active {
+	color: #8c9cff; 
+} 
+
 
 .delete__icon {
 	color: #d6473e;
@@ -65,10 +76,6 @@ body {
 .edit__icon {
 	color: #fcd12a;
 }
-
-.scroll__btn:active {
-	color: #8c9cff; 
-} 
 
 .delete__icon:active {
 	color: #f5928c; 
@@ -183,7 +190,7 @@ input.ng-touched.ng-invalid {
 }
 
 .assignment__title {
-	padding-left: 15px;
+	padding-left: 20px;
 	font-size: 18px;
 	outline: none;
 	cursor: pointer;
@@ -195,9 +202,40 @@ input.ng-touched.ng-invalid {
 	color: #5c5c5c;
 }
 
-.pdf__icon, .word__icon { 
+.pdf__icon, .word__icon, .link__icon, .file__icon { 
 	font-size: 25px;
+}
 
+.minus__icon {
+	font-size: 20px;
+	padding-left: 10px;
+	color: #e37878;
+}
+
+.minus__icon:active {
+	color: #ffc7c7;
+}
+
+.file__icon {
+	color: #FFC82A;
+
+}
+
+.link__icon__title {
+	padding-left: 9px;
+
+}
+
+.pdf__icon {
+	color: #e37878;
+}
+
+.word__icon {
+	color: #78a1e3;
+}
+
+.link__icon {
+	color: #424236;
 }
 
 .assignment__div {
@@ -209,13 +247,6 @@ input.ng-touched.ng-invalid {
 	margin: 1.5rem 3rem;
 }
 
-.pdf__icon {
-	color: #e37878;
-}
-
-.word__icon {
-	color: #78a1e3;
-}
 
 .topic__div {
 	margin-bottom: 3rem;

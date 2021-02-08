@@ -1,0 +1,17 @@
+<div class="courses__div" *ngIf="!loading && student.courses.length > 0; else">
+	<div class="course__div" *ngFor="let course of student.courses">
+		<div class="course__div-info">
+			<h1 (click)="goToCourse(course._id)">{{ course.title}}</h1>
+			<p>40ppl</p>
+			<div class="course__div-grades">
+				<p class="course__div-grade">my <span class="grade__span">99</span></p>
+				<p class="course__div-grade">max <span class="grade__span">100</span></p>
+			</div>
+			
+		</div>
+		<div class="course__btns">
+			<button class="course__btn course__btn-one">assignments</button>
+			<button class="course__btn course__btn-two">view</button>
+		</div>
+	</div>
+</div>

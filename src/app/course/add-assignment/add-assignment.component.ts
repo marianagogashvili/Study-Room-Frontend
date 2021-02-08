@@ -112,7 +112,8 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 	  			formData)
 	  			.subscribe(result => {
 	  				this.courseService.showAssignment(null);
-	  				this.courseService.sendNewAssignment(result);
+	  				// this.courseService.sendNewAssignment(result);
+	  				this.courseService.sendNewFeedPost(result);
 	  			}, err => {
 	  				this.courseService.showAssignment(null);
 	  			});

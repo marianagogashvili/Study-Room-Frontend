@@ -8,46 +8,39 @@
 <app-header></app-header>
 <div *ngIf="showEdit" class="backdrop" (click)="showEdit = false"></div>
 <app-edit (showEditVal)="getEditVal($event)" *ngIf="showEdit"></app-edit>
+<app-side-nav></app-side-nav>
 <body *ngIf="!loading">
-	<div class="main__div">
-		<div class="main__div-info">
-			<h1>{{ student.fullName }}</h1>
-			<p> <span>{{ student.login }}</span></p>
-			<button class="edit__btn" (click)="showEditPage()">Edit</button>
+	<div  id="main">
+		<div class="main__div">
+			<div class="main__div-info">
+				<h1>{{ student.fullName }}</h1>
+				<p> <span>{{ student.login }}</span></p>
+				<button class="edit__btn" (click)="showEditPage()">Edit</button>
+			</div>
+			
+			<table class="main__table">
+				<tr>
+					<td>Group</td>
+					<td>{{ student.group.name }}</td>
+				</tr>
+				<tr>
+					<td>First log in</td>
+					<td>{{ student.firstLogin | date: 'd LLL y, h:mm'}}</td>
+				</tr>
+				<tr>
+					<td>Last log in</td>
+					<td>{{ student.lastLogin | date: 'd LLL y,  h:mm'}}</td>
+				</tr>
+			</table>
 		</div>
-		
-		<table class="main__table">
-			<tr>
-				<td>Group</td>
-				<td>{{ student.group.name }}</td>
-			</tr>
-			<tr>
-				<td>First log in</td>
-				<td>{{ student.firstLogin | date: 'd LLL y, h:mm'}}</td>
-			</tr>
-			<tr>
-				<td>Last log in</td>
-				<td>{{ student.lastLogin | date: 'd LLL y,  h:mm'}}</td>
-			</tr>
-		</table>
+		<div class="main__links">
+			<p  [routerLink]="['/student/']"  class="main__link-one" routerLinkActive="main__link-two" [routerLinkActiveOptions]="{exact:true}">main</p>
+			<p routerLink="grades" routerLinkActive="main__link-two" class="main__link-one">grades</p>
+			<p routerLink="assignments" routerLinkActive="main__link-two" class="main__link-one">assignments</p>
+		</div>
+		<router-outlet></router-outlet>
 	</div>
+	
 
-	<div class="courses__div" *ngIf="!loading && student.courses.length > 0; else">
-		<div class="course__div" *ngFor="let course of student.courses">
-			<div class="course__div-info">
-				<h1 (click)="goToCourse(course._id)">{{ course.title}}</h1>
-				<p>40ppl</p>
-				<div class="course__div-grades">
-					<p class="course__div-grade">my <span class="grade__span">99</span></p>
-					<p class="course__div-grade">max <span class="grade__span">100</span></p>
-				</div>
-				
-			</div>
-			<div class="course__btns">
-				<button class="course__btn course__btn-one">assignments</button>
-				<button class="course__btn course__btn-two">view</button>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

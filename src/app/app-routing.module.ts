@@ -15,13 +15,17 @@ import { StudentsComponent } from './course/students/students.component';
 import { MainComponent } from './course/main/main.component';
 import { AddStudentComponent } from './course/add-student/add-student.component';
 import { AssignmentComponent } from './course/assignment/assignment.component';
+import { GradesComponent } from './student/grades/grades.component';
+import { AssignmentsComponent } from './student/assignments/assignments.component';
+import { MainStudentComponent } from './student/main-student/main-student.component';
 
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
 	{ path: 'auth', component: AuthComponent },
 	{ path: 'student', canActivate: [AuthGuardStudent], canActivateChild:[AuthGuardStudent], component: StudentComponent, children: [
-		// { path: 'edit', component: EditComponent }
-		// grades
+		{ path: 'main', component: MainStudentComponent },
+		{ path: 'grades', component: GradesComponent },
+		{ path: 'assignments', component: AssignmentsComponent },
 		
 	]},
 	{ path: 'teacher', canActivate: [AuthGuardTeacher], canActivateChild:[AuthGuardTeacher], component: TeacherComponent, children: [

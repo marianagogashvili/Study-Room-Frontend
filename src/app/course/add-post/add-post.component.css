@@ -31,12 +31,12 @@
 	/*height: 90vh;*/
 	max-width: 600px;
 	min-width: 600px;
-	height: 700px;
+	height: 500px;
 
 	z-index: 100;
 }
 
-.title__input, .descr__input {
+.title__input {
 	height: 50px;
 	width: 330px;
 	min-width: 240px;
@@ -49,20 +49,6 @@
 	outline: none;
 	font-family: 'Montserrat', sans-serif;
 	padding-left: 12px;
-}
-
-.descr__input {
-	height: 200px; 
-	width: 450px; 
-	padding-top: 10px; 
-	resize: none;
-}
-
-.date__input {
-	font-family: 'Montserrat', sans-serif;
-	border: 1px solid #00b5d4;
-	box-shadow: 0 0 3px #00b5d4;
-	padding: 2px;
 }
 
 input.ng-invalid.ng-touched {
@@ -99,7 +85,7 @@ textarea.ng-invalid.ng-touched {
 }
 
 .file__btn {
-	background-color: #bababa;
+	background-color: #0b7ace;
 	border: 0;
 	text-transform: uppercase;
 	color: white;
@@ -107,6 +93,7 @@ textarea.ng-invalid.ng-touched {
 	border-radius: 10px;
 	outline: none;
 }
+
 
 .file__input {
 	width: 0.1px;
@@ -163,14 +150,6 @@ input::placeholder, textarea::placeholder {
 .title {
 	color: #00b5d4;
 }
-
-
-.classErrSpan {
-	display: block; 
-	text-align: center; 
-	margin-top: 1rem;
-}
-
 
 
 .errorsDiv {
