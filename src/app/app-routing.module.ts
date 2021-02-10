@@ -33,7 +33,7 @@ const appRoutes:Routes = [
 		// edit, grades
 	]},
 	{ path: 'course/:id', canActivate: [AuthGuard], component: CourseComponent, children: [
-		{ path: 'students', canActivate: [AuthGuardTeacher], component:  StudentsComponent },
+		{ path: 'students', canActivate: [AuthGuard], component:  StudentsComponent },
 		{ path: 'main', canActivate: [AuthGuard], component:  MainComponent },
 		{ path: 'add-student', canActivate: [AuthGuardTeacher], component:  AddStudentComponent },
 		{ path: 'assignment/:assignmentId', canActivate: [AuthGuard], component:  AssignmentComponent },

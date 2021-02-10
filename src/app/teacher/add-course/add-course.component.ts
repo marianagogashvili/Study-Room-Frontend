@@ -72,13 +72,12 @@ export class AddCourseComponent implements OnInit {
   }
 
   onSubmitCourse(form: NgForm) {
-  	const teacherId = localStorage.getItem('userId');
   	const title = form.value.title;
   	const description = form.value.description;
   	const key = form.value.key;
   	const groupName = form.value.groupName;
 
-  	const course = {title: title, description: description, key: key, teacherId: teacherId, groupName: groupName, students: this.studentList};
+  	const course = {title: title, description: description, key: key, groupName: groupName, students: this.studentList};
   	this.teacherService.createCourse(course).subscribe(result =>{ 
   		this.getCourse.emit(course);
   	}, error => {

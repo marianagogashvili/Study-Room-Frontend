@@ -44,7 +44,8 @@ export class MainComponent implements OnInit, OnDestroy {
   linkIcon = faExternalLinkAlt;
   minusIcon = faMinusCircle;
 
-  userType;
+  userType = null;
+  allowedUser;
 
   newTopicMode = false;
   editIndex = null;
@@ -65,10 +66,11 @@ export class MainComponent implements OnInit, OnDestroy {
   			  private assignmentService: AssignmentService) { }
 
   ngOnInit() {
-  	this.sub3 = this.courseService.userType.subscribe(type => {
-  		this.userType =  type;
-  		console.log(this.userType);
-  	});
+  	this.sub3 = 
+  		this.courseService.allowedUser.subscribe((allowedUserType):any => {
+  			this.userType = allowedUserType;
+  			console.log(this.userType);
+  		});
 
   	this.topicForm = new FormGroup({
   		'title': new FormControl('', [Validators.required]),
@@ -202,7 +204,7 @@ export class MainComponent implements OnInit, OnDestroy {
   deletePost(index, postIndex, postId) {
   	this.topics[index].feed.splice(postIndex, 1);
   	this.postService.deletePost({id: postId}).subscribe(result =>{ 
-  		
+
   	});
   }
 

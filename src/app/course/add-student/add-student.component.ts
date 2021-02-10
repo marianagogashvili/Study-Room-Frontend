@@ -48,7 +48,7 @@ export class AddStudentComponent implements OnInit {
 
   addStudents() {
   	this.courseService.addStudentsToCourse(
-  		{courseId: this.courseService.courseId, 
+  		{courseId: this.courseService.courseId,
   		 students: this.foundStudents}).subscribe(result => {
   		 	this.router.navigate(['/course/' + this.courseService.courseId + '/students']);
   		 });

@@ -18,8 +18,9 @@ export class CoursesService {
 	feedValue = new Subject<any>(); 
 
 	error = new BehaviorSubject<string>(null);
-	oldStudents = new BehaviorSubject<string>(null);
-	userType = new BehaviorSubject<string>(null);
+	oldStudents = new BehaviorSubject<any>(null);
+	userType = new BehaviorSubject<any>(null);
+	allowedUser = new BehaviorSubject<any>(null);
 
 	courseId;
 
@@ -144,6 +145,14 @@ export class CoursesService {
 	sendNewFeedPost(val) {
 		this.feedValue.next(val);
 	}
+
+	sendAllowedUser(type) {
+		this.allowedUser.next(type);
+	}
+
+	// sendCourse(course) {
+	// 	this.currentCourse.next(course);
+	// }
 
 	// sendNewAssignment(assignment) {
 	// 	this.newAssignment.next(assignment);

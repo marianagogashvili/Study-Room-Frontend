@@ -5,25 +5,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 </head>
-<body >
+<body *ngIf="!loading">
 	<table class="student__div" cellspacing="0">
 		<tr>
 			<th></th>
 			<th>Name</th>
 			<th>Login</th>
 			<th>Group</th>
-			<th>Remove</th>
+			<th *ngIf="userType === 'teacher'">Remove</th>
 		</tr>
 		<tr  *ngFor="let student of students; index as i">
 			<td>{{ i+1 }}</td>
 			<td>{{student.fullName}}</td>
 			<td>{{student.login}}</td>
 			<td>{{student.group.name}}</td>
-			<td><fa-icon class="cross__icon" [icon]="crossIcon" (click)="removeStudent(student)"></fa-icon></td>
+			<td  *ngIf="userType === 'teacher'"><fa-icon class="cross__icon" [icon]="crossIcon" (click)="removeStudent(student)"></fa-icon></td>
 		</tr>
 	</table>
 	<div>
-		<button class="delete__btn" (click)="deleteAllStudents()" >Remove all</button>
+		<button  *ngIf="userType === 'teacher'" class="delete__btn" (click)="deleteAllStudents()" >Remove all</button>
 	</div>
 	
 </body>

@@ -70,31 +70,33 @@
 				class="back__btn" (click)="editIndex = null">Back</button>	
 		</form>
 		
-		<div class="topic__div" *ngIf="i !== editIndex ">
-			<button 
-			*ngIf="userType==='teacher'"
-			type="button" 
-			class="add-before__btn" (click)="addBefore(topic)">add before</button>	
+		<div class="topic__div" >
+			<div *ngIf="i !== editIndex ">
+				<button 
+				*ngIf="userType === 'teacher'"
+				type="button" 
+				class="add-before__btn" (click)="addBefore(topic)">add before</button>	
 
-			<div class="topics__div" *ngIf="userType === 'teacher' || (userType === 'student' && topic.hidden === false)">
-				
-				<h1 [ngStyle]="topic.hidden === true && {'color':'grey'}" class="title__p" [id]="'topic'+i">{{ topic.title }}</h1>
-				<p class="date__p">{{ topic.createdAt | date: 'd, MMM yyyy' }}</p>
-				
-				<div class="teacher__btns" *ngIf="userType==='teacher'">
-					<button class="edit__icon" (click)="showEditTopic(topic, i)">
-					<fa-icon [icon]="editIcon"></fa-icon></button>
-					<button class="delete__icon" (click)="removeTopic(topic._id, i)">
-						<fa-icon [icon]="removeIcon"></fa-icon></button>
+				<div class="topics__div" *ngIf="userType === 'teacher' || (userType === 'student' && topic.hidden === false)">
+					
+					<h1 [ngStyle]="topic.hidden === true && {'color':'grey'}" class="title__p" [id]="'topic'+i">{{ topic.title }}</h1>
+					<p class="date__p">{{ topic.createdAt | date: 'd, MMM yyyy' }}</p>
+					
+					<div class="teacher__btns" *ngIf="userType === 'teacher'">
+						<button class="edit__icon" (click)="showEditTopic(topic, i)">
+						<fa-icon [icon]="editIcon"></fa-icon></button>
+						<button class="delete__icon" (click)="removeTopic(topic._id, i)">
+							<fa-icon [icon]="removeIcon"></fa-icon></button>
 
-					<button 
-						type="button" 
-						class="add-assignment__btn" (click)="showAssignment(topic._id)">assignment</button>
-					<button 
-						type="button" 
-						class="add-post__btn" (click)="showPost(topic._id)">post</button>
+						<button 
+							type="button" 
+							class="add-assignment__btn" (click)="showAssignment(topic._id)">assignment</button>
+						<button 
+							type="button" 
+							class="add-post__btn" (click)="showPost(topic._id)">post</button>
+					</div>
+					
 				</div>
-				
 			</div>
 			<div *ngIf="userType === 'teacher' || (userType === 'student' && topic.hidden === false)">
 				<div class="assignments__div" *ngIf="topic.feed && topic.feed.length > 0; else elseBlock">

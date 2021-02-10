@@ -30,7 +30,7 @@
 	<div *ngIf="!editMode" class="main__div">
 		<div class="main__div-title">
 			<h1>{{course.title}}</h1>
-			<button class="edit__btn" (click)="switchToEditMode()">Edit</button>
+			<button class="edit__btn" *ngIf="userType === 'teacher'" (click)="switchToEditMode()">Edit</button>
 		</div>
 		<div class="main__div-descr">
 			{{course.description}}
@@ -38,7 +38,7 @@
 
 	</div>
 
-	<form *ngIf="editMode" class="main__div-edit" [formGroup]="editForm" (ngSubmit)="updateCourse()" action="">
+	<form *ngIf="editMode && userType === 'teacher'" class="main__div-edit" [formGroup]="editForm" (ngSubmit)="updateCourse()" action="">
 
 	<div [@errorState]="errorState" class="errorsDiv">
 		<h3 class="errorTitle">Error</h3>
@@ -67,7 +67,7 @@
 
 	<div class="main__links">
 		<p  routerLink="main"  class="main__link-one" routerLinkActive="main__link-two">main</p>
-		<p routerLink="students" routerLinkActive="main__link-two" class="main__link-one" *ngIf="userType === 'teacher'">students</p>
+		<p routerLink="students" routerLinkActive="main__link-two" class="main__link-one" >students</p>
 		<p routerLink="add-student" routerLinkActive="main__link-two" class="main__link-one" *ngIf="userType === 'teacher'">add student</p>
 	</div>
 </body>

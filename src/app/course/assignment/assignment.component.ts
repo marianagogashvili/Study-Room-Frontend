@@ -42,7 +42,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   			  private courseService: CoursesService) { }
 
   ngOnInit() {
-  	this.sub2 = this.courseService.userType.subscribe(type => {
+  	this.sub2 = this.courseService.allowedUser.subscribe(type => {
   		this.userType =  type;
   		console.log(this.userType);
   	});
@@ -168,7 +168,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 
   delete() {
   	this.assignmentService
-  		.deleteAssignment({id: this.assignment._id})
+  		.deleteAssignment({ id: this.assignment._id })
   		.subscribe(result => {
   			console.log(result);
   			this.router.navigate(['../../main'], {relativeTo: this.route});

@@ -23,17 +23,6 @@ export class AssignmentService {
 			}));
 	}
 
-	// getAssignmentsByCourse(param: Params) {
-	// 	return this.http.post(
-	// 		'http://localhost:8000/assignment/getAssignmentsByCourse', 
-	// 		JSON.stringify(param), {
-	// 			headers: new HttpHeaders({
-	// 				'Content-Type': 'application/json',
-	// 				Authorization: 'Bearer ' + localStorage.getItem('token')
-	// 			})
-	// 		});
-	// }
-
 	getAssignmentById(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/assignment/getAssignmentById', 

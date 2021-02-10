@@ -4,6 +4,7 @@ import { CoursesService } from './courses.service';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Subscription } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course',
@@ -43,7 +44,11 @@ export class CourseComponent implements OnInit,  OnDestroy {
   errorState = 'hidden';
   deleteCourseState = 'hidden';
 
+  allowedUser = false;
+
   sub: Subscription;
+  sub2: Subscription;
+
 
   constructor(private route: ActivatedRoute,
   			  private router: Router,
@@ -72,22 +77,28 @@ export class CourseComponent implements OnInit,  OnDestroy {
   	});
 
   	this.loading = true;
-  	this.route.params.subscribe(result => {
-  		this.courseService.getCourse({id: result['id']}).subscribe(result => {
-  			this.course = result;
-  			this.courseService.courseId = this.course._id;
-  			this.loading = false;
-  		}, error => { 
-  			let err;
-  			if (error === null) {
-  				err = "Internal Server error, please try later"
-  			} else {
-  				err = error;
-  			}
-  			this.courseService.sendError(err);
-  			this.router.navigate(['/']);
-  		});
-  	});
+    this.sub2 = this.route.params.pipe(map(result => {
+      return result['id'];
+    }), mergeMap((id):any => {
+      return this.courseService.getCourse({id: id})
+    }), mergeMap((course):any =>{
+      this.course = course;
+      this.courseService.courseId = this.course._id;
+      this.loading = false;
+      return this.courseService.userType;
+    })).subscribe((userType): any => {
+      let uid = localStorage.getItem('userId');
+      if (userType === 'student' && this.course.students.includes(uid)) {
+          this.courseService.sendAllowedUser(this.userType);
+      } else if (userType === 'teacher' && (uid === this.course.creator._id)) {
+          this.courseService.sendAllowedUser(this.userType);
+      } else {
+        this.courseService.sendAllowedUser(null);
+        this.router.navigate(['/']);
+      }
+    });
+   
+
   }
 
   updateCourse() {
@@ -103,8 +114,8 @@ export class CourseComponent implements OnInit,  OnDestroy {
   			id: this.course._id, 
   			title: title, 
   			description: description,
-  			key: key, 
-  			teacherId: localStorage.getItem('userId')}).subscribe(result => {
+  			key: key
+      }).subscribe(result => {
   				this.course.title = title;
   				this.course.description = description;
   				this.editMode = false;
@@ -130,7 +141,7 @@ export class CourseComponent implements OnInit,  OnDestroy {
   }
 
   deleteCourse() {
-  	this.courseService.deleteCourse({id: this.course._id}).subscribe(result => {
+  	this.courseService.deleteCourse({ id: this.course._id }).subscribe(result => {
   		this.router.navigate(['/']);
   	});
   }
@@ -145,6 +156,7 @@ export class CourseComponent implements OnInit,  OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
   }
 
 }
