@@ -1,4 +1,4 @@
-<div *ngIf="!loading" class="solution__div">
+<div class="solution__div">
 	<h2 >Solution</h2>
 	<p *ngIf="assignment.deadline"><span style="margin-right: 15px;">until</span><span [ngStyle]="!available && {'color': '#e37878'}">{{ deadlineDate | date: 'd, MMM yyyy HH:mm' }}</span></p>
 	<p *ngIf="!assignment.deadline">No deadline</p>

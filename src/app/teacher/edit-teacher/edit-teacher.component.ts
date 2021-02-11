@@ -44,8 +44,7 @@ export class EditTeacherComponent implements OnInit {
   			  private router: Router) { }
 
   ngOnInit() {
-  	const id = localStorage.getItem('userId');
-  	this.teacherService.getTeacher({id: id}).subscribe((teacher: Teacher) => {
+  	this.teacherService.getTeacher().subscribe((teacher: Teacher) => {
 		this.teacher = teacher;
 		this.savedVal.name = teacher.fullName;
 		this.savedVal.login = teacher.login;
@@ -63,7 +62,6 @@ export class EditTeacherComponent implements OnInit {
   	if (!form.valid) {
       return;
     }
-    const id = localStorage.getItem('userId');
   	const fullName = form.value.fullName;
   	const login = form.value.login;
   	const oldPassword = form.value.oldPassword;
@@ -76,7 +74,7 @@ export class EditTeacherComponent implements OnInit {
   			this.errorState = 'hidden';
   		}, 2000);
     } else {
-    	const user = {id: id, fullName: fullName, login: login, oldPassword: oldPassword, newPassword: newPassword};
+    	const user = { fullName: fullName, login: login, oldPassword: oldPassword, newPassword: newPassword};
 
 	  	this.teacherService.editTeacher(user).subscribe((result: {message: string, teacher: Teacher}) => {
 			console.log(result);

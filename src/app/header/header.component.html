@@ -5,8 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body *ngIf="!loading" id="header">
+	<div id="mySidenav" class="sidenav">
+	  <a class="closebtn" (click)="closeNav()">&times;</a>
+	  <a href="#">About</a>
+	  <a href="#">Services</a>
+	  <a href="#">Clients</a>
+	  <a href="#">Courses</a>
+	</div>
+	
+
 	<div class="main__header">
 
+		<a class="main__header-link"  (click)="openNav()"><span class="link__span">&#9776;</span></a>
 		<a href="" class="main__header-link"><span class="link__span">About</span></a>
 		<a href="" class="main__header-link"><span class="link__span">Grades</span></a>
 		<a href="" class="main__header-link"><span class="link__span">Edit Profile</span></a>

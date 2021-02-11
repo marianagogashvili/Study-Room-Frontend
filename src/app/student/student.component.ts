@@ -26,8 +26,7 @@ export class StudentComponent implements OnInit {
   		}
   	});
 
-  	const id = localStorage.getItem('userId');
-  	this.studentService.getStudent({id: id}).subscribe(student => {
+  	this.studentService.getStudent().subscribe(student => {
   		console.log(student);
   		this.student = student;
   		this.loading = false;

@@ -11,10 +11,9 @@ export class StudentService {
 
 	constructor(private http: HttpClient) {}
 
-	getStudent(param: Params) {
-		return this.http.post(
+	getStudent() {
+		return this.http.get(
 			'http://localhost:8000/student/getStudent', 
-			JSON.stringify(param), 
 			{
 				headers: new HttpHeaders({
 					'Content-Type': 'application/json',

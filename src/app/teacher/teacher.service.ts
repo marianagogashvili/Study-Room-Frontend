@@ -10,10 +10,9 @@ export class TeacherService {
 	teacher = new BehaviorSubject<any>(null);
 	constructor(private http: HttpClient) {}
 
-	getTeacher(param: Params) {
-		return this.http.post(
+	getTeacher() {
+		return this.http.get(
 			'http://localhost:8000/teacher/getTeacher', 
-			JSON.stringify(param), 
 			{
 				headers: new HttpHeaders({
 					'Content-Type': 'application/json',

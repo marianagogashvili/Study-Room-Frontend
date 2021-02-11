@@ -57,13 +57,11 @@ export class TeacherComponent implements OnInit {
   		console.log(result);
   		if (result !== null) {
   			this.teacher = result;
-  			this.courses = result.courses;
   			this.loading = false;
   		}
   	});
 
-  	const id = localStorage.getItem('userId');
-  	this.teacherService.getTeacher({id: id}).subscribe((teacher: {courses}) => {
+  	this.teacherService.getTeacher().subscribe((teacher: {courses}) => {
   		this.teacher = teacher;
   		this.courses = teacher.courses;
   		this.loading = false;

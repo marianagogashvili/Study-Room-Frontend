@@ -51,8 +51,7 @@ export class SolutionsComponent implements OnInit {
   	if (grade <= this.assignment.maxGrade) {
   		if (grade !== solution.grade || comment !== solution.comment) {
 	  		this.solutionService.gradeSolution({
-		  		assignmentId: this.assignment._id,
-		  		studentId: id,
+		  		solutionId: id,
 		  		grade: grade,
 		  		comment: comment
 		  	}).subscribe(result => {

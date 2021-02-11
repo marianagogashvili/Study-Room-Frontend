@@ -44,7 +44,7 @@ export class CoursesService {
 
 	getCourse(param: Params) {
 		return this.http.post(
-			'http://localhost:8000/course/getCourseTeacher', 
+			'http://localhost:8000/course/getCourse', 
 			JSON.stringify(param), {
 				headers: new HttpHeaders({
 					'Content-Type': 'application/json',

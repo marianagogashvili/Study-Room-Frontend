@@ -33,7 +33,6 @@ import { AddPostComponent } from './course/add-post/add-post.component';
 import { GradesComponent } from './student/grades/grades.component';
 import { AssignmentsComponent } from './student/assignments/assignments.component';
 import { MainStudentComponent } from './student/main-student/main-student.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -57,8 +56,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     AddPostComponent,
     GradesComponent,
     AssignmentsComponent,
-    MainStudentComponent,
-    SideNavComponent
+    MainStudentComponent
   ],
   imports: [
     BrowserModule,

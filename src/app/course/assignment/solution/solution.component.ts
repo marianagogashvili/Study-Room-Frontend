@@ -31,13 +31,13 @@ export class SolutionComponent implements OnInit {
 
   uploadMode;
   editMode;
-  loading;
+  // loading;
 
 
   constructor(private solutionService: SolutionService) { }
 
   ngOnInit() {
-  	this.loading = true;
+  	// this.loading = true;
   	this.uploadMode = false;
   	this.editMode = false;
 
@@ -52,13 +52,12 @@ export class SolutionComponent implements OnInit {
 
 
   	this.solutionService.getSolution({
-	  		assignmentId: this.assignment._id, 
-	  		studentId: localStorage.getItem('userId')}
+	  		assignmentId: this.assignment._id}
   		).subscribe((solution: {fileUrl}) => {
   			if (solution) {
   				this.solution = solution;
 	  			this.solutionFiles = [...solution.fileUrl];
-	  			this.loading = false;
+	  			// this.loading = false;
 	  			console.log(solution);
   			}
   			
@@ -80,8 +79,7 @@ export class SolutionComponent implements OnInit {
   saveEdit() {
   	let formData: FormData = new FormData();
   	formData.append('dest', 'solution');
-  	formData.append('assignmentId', this.assignment._id);
-  	formData.append('studentId', localStorage.getItem('userId'));
+  	formData.append('solutionId', this.solution._id);
   	formData.append('remove', JSON.stringify(this.removeFiles));
   	this.addFiles.forEach(file => {
   		formData.append('file', file, file.name);
@@ -99,7 +97,6 @@ export class SolutionComponent implements OnInit {
   saveUpload() {
   	let formData: FormData = new FormData();
   	formData.append('assignmentId', this.assignment._id);
-  	formData.append('studentId', localStorage.getItem('userId'));
   	formData.append('dest', 'solution');
   	this.solutionFilesToCreate.forEach(file => {
   		formData.append('file', file, file.name);
@@ -170,8 +167,7 @@ export class SolutionComponent implements OnInit {
 
   delete() {
   	this.solutionService.deleteSolution({
-	  		assignmentId: this.assignment._id, 
-	  		studentId: localStorage.getItem('userId')
+	  		solutionId: this.solution._id
 	  	}).subscribe(result => {
 	  		this.solution = null;
 	});

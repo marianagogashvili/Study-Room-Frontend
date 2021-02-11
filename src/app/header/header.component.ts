@@ -6,6 +6,9 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { StudentService } from '../student/student.service';
+import { TeacherService } from '../teacher/teacher.service';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-header',
@@ -83,13 +86,30 @@ export class HeaderComponent implements OnInit {
   showHeaderState = 'hidden';
 
   loggedIn = localStorage.getItem('userId');
+  courses; 
 
-  constructor(private router: Router) { }
+
+  constructor(private router: Router,
+              private studentService: StudentService,
+              private teacherService: TeacherService) { }
 
   ngOnInit() {
     this.loading = false;
-    // this.displayHeader = false;
-    // this.showHeaderState = 'hidden';
+    const decodedToken: {type} = jwt_decode(localStorage.getItem('token'));
+    if (decodedToken.type === 'student') {
+      this.studentService.getStudent().subscribe((student: {courses}) => {
+        this.courses = student.courses;
+      }, error => {
+
+      });
+    } else {
+      this.teacherService.getTeacher().subscribe((teacher: {courses}) => {
+        this.courses = teacher.courses;
+
+      }, error => {
+
+      });
+    }
   }
 
   logOut() {
@@ -108,4 +128,22 @@ export class HeaderComponent implements OnInit {
     this.showHeaderState = this.showHeaderState === 'hidden' ? 'shown': 'hidden';
   }
 
+  
+  openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    let element = document.getElementById("main");
+    element.style.marginLeft= "250px";
+    element.style.webkitTransitionDuration = "0.5s";
+    element.style.webkitTransitionTimingFunction = "ease-out";
+
+  }
+
+  closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    let element = document.getElementById("main");
+    element.style.marginLeft= "0";
+    element.style.webkitTransitionDuration = "0.3s";
+    element.style.webkitTransitionTimingFunction = "ease-out";
+
+  }
 }

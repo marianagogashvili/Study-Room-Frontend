@@ -8,7 +8,6 @@
 <app-header></app-header>
 <div *ngIf="showEdit" class="backdrop" (click)="showEdit = false"></div>
 <app-edit (showEditVal)="getEditVal($event)" *ngIf="showEdit"></app-edit>
-<app-side-nav></app-side-nav>
 <body *ngIf="!loading">
 	<div  id="main">
 		<div class="main__div">
