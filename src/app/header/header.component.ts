@@ -1,13 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faAddressCard } from '@fortawesome/free-regular-svg-icons';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faUniversity } from '@fortawesome/free-solid-svg-icons';
+import { faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
+
 import { trigger, state, style, animate, transition } from '@angular/animations';
+
 import { StudentService } from '../student/student.service';
 import { TeacherService } from '../teacher/teacher.service';
+import { TopicService } from '../course/topic.service';
+
 import jwt_decode from "jwt-decode";
 
 @Component({
@@ -70,8 +79,6 @@ import jwt_decode from "jwt-decode";
       })),
       transition('shown <=> hidden', animate(200)),
     ])
-
-
   ]
 })
 export class HeaderComponent implements OnInit {
@@ -86,12 +93,22 @@ export class HeaderComponent implements OnInit {
   showHeaderState = 'hidden';
 
   loggedIn = localStorage.getItem('userId');
+  
   courses; 
+  showCourses;
+  showTopics;
+  courseTopics = null;
 
+  openIcon = faAngleDown;
+  closedIcon = faAngleRight;
+  uniIcon = faUniversity;
+  topicIcon = faPuzzlePiece;
 
   constructor(private router: Router,
               private studentService: StudentService,
-              private teacherService: TeacherService) { }
+              private teacherService: TeacherService,
+              private route: ActivatedRoute,
+              private topicService: TopicService) { }
 
   ngOnInit() {
     this.loading = false;
@@ -110,6 +127,30 @@ export class HeaderComponent implements OnInit {
 
       });
     }
+
+    this.route.params.subscribe(params => {
+      console.log(params['id']);
+      if (params['id']) {
+        this.topicService.getTopics({courseId: params['id']}).subscribe(topics => {
+          this.courseTopics = topics;
+
+        });
+      }
+      
+    });
+    if (this.displayHeader) {
+     this.closeNav();
+    }
+  }
+
+  toggleCourseList() {
+    // this.openListState = this.openListState === 'shown' ? 'hidden' : 'shown';
+    // console.log(this.openListState);
+ 
+  }
+
+  toTopic(id) {
+    document.getElementById('topic' + id).scrollIntoView({ behavior: 'smooth' });
   }
 
   logOut() {
@@ -136,6 +177,11 @@ export class HeaderComponent implements OnInit {
     element.style.webkitTransitionDuration = "0.5s";
     element.style.webkitTransitionTimingFunction = "ease-out";
 
+    let element2 = document.getElementById("main2");
+    element2.style.marginLeft= "250px";
+    element2.style.webkitTransitionDuration = "0.5s";
+    element2.style.webkitTransitionTimingFunction = "ease-out";
+
   }
 
   closeNav() {
@@ -144,6 +190,11 @@ export class HeaderComponent implements OnInit {
     element.style.marginLeft= "0";
     element.style.webkitTransitionDuration = "0.3s";
     element.style.webkitTransitionTimingFunction = "ease-out";
+
+    let element2 = document.getElementById("main2");
+    element2.style.marginLeft= "0";
+    element2.style.webkitTransitionDuration = "0.3s";
+    element2.style.webkitTransitionTimingFunction = "ease-out";
 
   }
 }

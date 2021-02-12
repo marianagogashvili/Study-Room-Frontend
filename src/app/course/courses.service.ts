@@ -42,6 +42,19 @@ export class CoursesService {
 			}));
 	}
 
+	getGrades(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/getGrades', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			}).pipe(catchError(error => {
+				return throwError(error.error);
+			}));
+	}
+
 	getCourse(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/course/getCourse', 
@@ -134,6 +147,18 @@ export class CoursesService {
 			});
 	}
 
+	getGroups() {
+		return this.http.get('http://localhost:8000/group/getGroups');
+	}
+
+	sendStudentsToSelf(students) {
+		this.oldStudents.next(students);
+	}
+
+	sendError(err) {
+		this.error.next(err);
+	}
+
 	showAssignment(val) {
 		this.assignmentMode.emit(val);
 	}
@@ -163,15 +188,4 @@ export class CoursesService {
 	// }
 
 
-	getGroups() {
-		return this.http.get('http://localhost:8000/group/getGroups');
-	}
-
-	sendStudentsToSelf(students) {
-		this.oldStudents.next(students);
-	}
-
-	sendError(err) {
-		this.error.next(err);
-	}
 }

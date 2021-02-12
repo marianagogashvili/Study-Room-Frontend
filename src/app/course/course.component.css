@@ -1,11 +1,28 @@
-.main__div, .main__div-edit {
+.main__div {
 	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
-	height: 20rem;
+	height: auto;
+	padding-top: 90px;
+	padding-left: 5%;
+	color: white;
+
+}
+
+.main__div-edit {
+	background-image:  linear-gradient(to  top, #99e3cc, #59cdce, #00b5d4, #0099d7, #0b7ace);
+	height: 33rem;
 	padding-top: 90px;
 	padding-left: 17%;
 	color: white;
 
 }
+
+.main__div-edit-inputs {
+ 	height: 95%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ }
 
 .delete__div {
 	position: absolute;
@@ -44,8 +61,8 @@
 }
 
 .delete__btns {
-	display: inline;
-	width: 100%;
+	/*display: inline;*/
+	/*width: 100%;*/
 	text-align: center;
 }
 
@@ -75,6 +92,7 @@
 	text-transform: uppercase;
 	border: 0;
 	outline: none;
+	margin-bottom: 10px;
 }
 
 .edit__btn:active {
@@ -93,16 +111,21 @@ input, textarea {
 }
 input {
 	height: 40px;
-	width: 240px;
-	margin-top: 10px;
-
+	max-width: 600px;
+	width: 50%;
 }
+
+.key__input {
+	width: 30%;
+}
+
 textarea {
 	padding-top: 12px;
 	outline: none;
 	resize: none;
 	width: 310px;
-	height: 70px;
+	height: 45%;
+	width: 80%;
 
 }
 
@@ -137,7 +160,7 @@ textarea {
 	margin-right: 0.5rem;
 	font-size: 18px;
 	max-width: 350px;
-	max-height: 200px;
+	/*max-height: 200px;*/
 	overflow-x: scroll;
 }
 
@@ -167,15 +190,14 @@ input.ng-invalid.ng-touched {
   box-shadow: 0 0 7px red;
 }
 
-.key__input {
-	width: 50%;
+.main__div-title {
+	font-size: 12px;
 }
 
 .delete__btn {
 	text-transform: uppercase;
     width: 9rem;
     height: 2.5rem;
-    margin-left: 15px;
     border-radius: 15px;
     border: 0;
     background-color: #C34A36;
@@ -198,63 +220,32 @@ input.ng-invalid.ng-touched {
 }
 
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 800px) {
+
 	.main__div {
 		display: flex;
 		justify-content: space-around;
-		height: 10rem;
+		height: auto;
+	}
+
+	.main__div-edit {
+		height: 40rem;
 	}
 
 	.main__div-title {
-		flex: 0 0 30%;
+		font-size: 16px;
+		flex: 0 0 70%;
 	}
 
-
-	.main__div-descr {
-		max-width: 500px;
-		max-height: 200px;
-		height: 100px;
-		flex: 1;
-	}
-
-
-}
-
-@media screen and (min-width: 800px) {
-	.main__div-edit {
-		display: flex;
-		justify-content: space-around;
-		height: 13rem;
-	}
-
-	.main__div-title-edit {
-		flex: 0 0 30%;
+	.main__div-descr-edit textarea {
+		height: 80%;
 	}
 
 	.main__div-descr-edit {
 		max-width: 700px;
-		max-height: 300px;
-		height: 150px;
+		max-height: 600px;
+		height: 600px;
 		flex: 1;
 		margin-left: 30px;
-	}
-
-	input {
-		height: 40px;
-		width: 240px;
-		margin-top: 10px;
-
-	}
-	.key__input {
-		width:50%;
-		max-width: 200px;
-	}
-	textarea {
-		padding-top: 12px;
-		outline: none;
-		resize: none;
-		width:80%;
-		max-width: 550px;
-		height: 70px;
 	}
 }

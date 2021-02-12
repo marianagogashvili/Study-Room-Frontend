@@ -5,7 +5,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #ededed;
+  background-color: #f8f8f8;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -14,15 +14,22 @@
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 18px;
+
+  color: black;
   display: block;
   transition: 0.3s;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  background-color: #f1f1f1;
 }
+
+.open-icon {
+	font-size: 15px;
+    margin-left: 10px;
+}
+
 
 .sidenav .closebtn {
   position: absolute;
@@ -35,6 +42,14 @@
 #main {
   transition: margin-left .5s;
   padding: 16px;
+}
+
+.course__link {
+	margin-left: 10px;
+	font-weight: 300;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-y: hidden;
 }
 
 @media screen and (max-height: 450px) {
@@ -155,11 +170,14 @@
 	border: 2px solid white;
 }
 
+
 @media screen and (max-width: 800px) {
 
-	.main__header {
+	.main__header  {
 		display: none;
 	}
+
+
 	.hamburger__header-main {
 		display: flex;
 	}

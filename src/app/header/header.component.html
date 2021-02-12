@@ -9,8 +9,30 @@
 	  <a class="closebtn" (click)="closeNav()">&times;</a>
 	  <a href="#">About</a>
 	  <a href="#">Services</a>
-	  <a href="#">Clients</a>
-	  <a href="#">Courses</a>
+	  <a *ngIf="courseTopics !== null" (click)="showTopics = !showTopics">
+	  	<fa-icon [icon]="topicIcon"></fa-icon>
+	  	Topics
+	  	<fa-icon class="open-icon" *ngIf="showTopics" [icon]="openIcon"></fa-icon>
+	  	<fa-icon class="open-icon" *ngIf="!showTopics" [icon]="closedIcon"></fa-icon>
+	  </a>
+	  <div *ngIf="showTopics">
+	  	  <a (click)="toTopic(i)" class="course__link" *ngFor="let topic of courseTopics;index as i">
+		  	{{ topic.title }}
+		  </a>
+	  </div>
+	 
+	  <a (click)="showCourses = !showCourses">
+	  	<fa-icon [icon]="uniIcon"></fa-icon>
+	  	Courses 
+	  	<fa-icon class="open-icon" *ngIf="showCourses" [icon]="openIcon"></fa-icon>
+	  	<fa-icon class="open-icon" *ngIf="!showCourses" [icon]="closedIcon"></fa-icon>
+	  </a>
+	  <div  *ngIf="showCourses">
+	  	  <a [routerLink]="['/course/', course._id]" class="course__link" *ngFor="let course of courses">
+		  	{{ course.title }}
+		  </a>
+	  </div>
+	  
 	</div>
 	
 

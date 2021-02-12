@@ -1,0 +1,25 @@
+table {
+	width: 100%;
+	margin: 2rem auto;
+}
+
+
+
+th {
+	text-transform: uppercase;
+	background-color: #f8f8f8;
+	height: 4rem;
+}
+
+td {
+	font-size: 16px;
+	font-weight: 300;
+	text-align: center;
+	padding: 10px;
+	height: 2rem;
+	/*border-bottom: 1px solid #cdd0cb;*/
+
+}
+.cell {
+	background-color: #f8f8f8;
+}

@@ -33,6 +33,7 @@ import { AddPostComponent } from './course/add-post/add-post.component';
 import { GradesComponent } from './student/grades/grades.component';
 import { AssignmentsComponent } from './student/assignments/assignments.component';
 import { MainStudentComponent } from './student/main-student/main-student.component';
+import { GradebookComponent } from './course/gradebook/gradebook.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { MainStudentComponent } from './student/main-student/main-student.compon
     AddPostComponent,
     GradesComponent,
     AssignmentsComponent,
-    MainStudentComponent
+    MainStudentComponent,
+    GradebookComponent
   ],
   imports: [
     BrowserModule,

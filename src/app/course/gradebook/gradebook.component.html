@@ -1,0 +1,24 @@
+<table cellspacing="0">
+	<tr>
+		<th>Assignment 
+			<fa-icon [icon]="upIcon"></fa-icon>
+			<fa-icon [icon]="downIcon"></fa-icon></th>
+		<th>Deadline
+			<fa-icon [icon]="upIcon"></fa-icon>
+			<fa-icon [icon]="downIcon"></fa-icon></th>
+		<th>Grade
+			<fa-icon [icon]="upIcon"></fa-icon>
+			<fa-icon [icon]="downIcon"></fa-icon></th>
+		<th>Max
+			<fa-icon [icon]="upIcon"></fa-icon>
+			<fa-icon [icon]="downIcon"></fa-icon></th>
+		<th>Comment</th>
+	</tr>
+	<tr *ngFor="let assignment of grades; index as i" [ngClass]="i % 2 !== 0 && {'cell': true}">
+		<td>{{ assignment.title }}</td>
+		<td>{{ assignment.deadline || 'No deadline' }}</td>
+		<td>{{ assignment.grade || '-' }}</td>
+		<td>{{ assignment.maxGrade }}</td>
+		<td>{{ assignment.comment }}</td>
+	</tr>
+</table>

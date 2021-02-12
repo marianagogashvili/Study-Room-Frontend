@@ -18,6 +18,7 @@ import { AssignmentComponent } from './course/assignment/assignment.component';
 import { GradesComponent } from './student/grades/grades.component';
 import { AssignmentsComponent } from './student/assignments/assignments.component';
 import { MainStudentComponent } from './student/main-student/main-student.component';
+import { GradebookComponent } from './course/gradebook/gradebook.component';
 
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
@@ -32,11 +33,13 @@ const appRoutes:Routes = [
 		// { path: 'edit', component: EditComponent }
 		// edit, grades
 	]},
-	{ path: 'course/:id', canActivate: [AuthGuard], component: CourseComponent, children: [
+	{ path: 'course/:id' , canActivate: [AuthGuard], component: CourseComponent, children: [
+		{ path: '', redirectTo: 'main', pathMatch: 'full'},
 		{ path: 'students', canActivate: [AuthGuard], component:  StudentsComponent },
 		{ path: 'main', canActivate: [AuthGuard], component:  MainComponent },
 		{ path: 'add-student', canActivate: [AuthGuardTeacher], component:  AddStudentComponent },
 		{ path: 'assignment/:assignmentId', canActivate: [AuthGuard], component:  AssignmentComponent },
+		{ path: 'gradebook', canActivate: [AuthGuardStudent], component: GradebookComponent },
 	]}
 ];
 
