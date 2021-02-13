@@ -6,6 +6,28 @@
 	<title>Document</title>
 </head>
 <body *ngIf="!loading" id="main">
+	<form class="search__div" [formGroup]="searchForm" (ngSubmit)="findStudents()">
+		<input 
+			formControlName="fullName"
+			type="text"
+			placeholder="name">
+		<input 
+			formControlName="login"
+			type="text"
+			placeholder="login">
+		<select name="" id="" formControlName="group" >
+			<option value="">-</option>
+			<option [value]="group.name" *ngFor="let group of groups">{{ group.name }}</option>
+		</select>
+		<div class="btns">
+			<button class="search__btn">Search</button>
+			<fa-icon class="redo__icon"  (click)="clearSearch()" [icon]="redoIcon"></fa-icon>
+				
+		</div>
+
+	</form>
+	
+
 	<table class="student__div" cellspacing="0">
 		<tr>
 			<th></th>

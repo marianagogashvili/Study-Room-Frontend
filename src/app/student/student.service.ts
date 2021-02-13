@@ -39,6 +39,21 @@ export class StudentService {
 			}));
 	}
 
+
+	getGrades() {
+		return this.http.get(
+			'http://localhost:8000/student/getGrades', 
+			{
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+			.pipe(catchError(error => {
+				return throwError(error.error);
+			}));
+	}
+
 	sendStudent(student) {
 		this.student.next(student);
 	}

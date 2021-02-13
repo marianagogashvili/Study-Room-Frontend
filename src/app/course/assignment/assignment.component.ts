@@ -138,7 +138,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   		description  === this.assignment.description &&
   		maxGrade === this.assignment.maxGrade && 
   		availableFrom === this.assignment.availableFrom.slice(0, 16) &&
-  		deadline === this.assignment.deadline.slice(0, 16) &&
+  		deadline === this.assignment.deadline ? this.assignment.deadline.slice(0, 16) : null &&
   		this.addFilesList.length === 0 && this.removeFilesList.length === 0) {
   		this.error = "You haven't changed anything";
   		setTimeout(() => {

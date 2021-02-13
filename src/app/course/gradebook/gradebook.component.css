@@ -18,8 +18,15 @@ td {
 	padding: 10px;
 	height: 2rem;
 	/*border-bottom: 1px solid #cdd0cb;*/
-
+	outline: none;
 }
 .cell {
 	background-color: #f8f8f8;
+}
+
+.comment_td {
+	max-width: 100px;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-y: hidden;
 }

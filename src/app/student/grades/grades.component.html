@@ -1,1 +1,12 @@
-<p>grades works!</p>
+<table>
+	<tr>
+		<th>Course title</th>
+		<th>Your grade</th>
+		<th>Max grade</th>
+	</tr>
+	<tr  *ngFor="let course of courses">
+		<td [routerLink]="['/course', course.id]">{{ course.title }}</td>
+		<td>{{ course.grade }}</td>
+		<td>{{ course.maxGrade }}</td>
+	</tr>
+</table>

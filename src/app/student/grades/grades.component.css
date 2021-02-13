@@ -1,0 +1,19 @@
+table {
+	width: 90%;
+	padding-left: 2rem;
+	margin-top: 2rem;
+}
+
+td:nth-child(2),
+td:nth-child(3) {
+	text-align: center;
+}
+td:nth-child(1) {
+	width: 75%;
+}
+
+td {
+	outline: none;
+	padding: 10px;
+	border-bottom: 1px solid #cdd0cb;
+}

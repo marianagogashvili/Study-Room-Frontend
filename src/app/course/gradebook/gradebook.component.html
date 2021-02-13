@@ -1,24 +1,31 @@
 <table cellspacing="0">
 	<tr>
-		<th>Assignment 
-			<fa-icon [icon]="upIcon"></fa-icon>
-			<fa-icon [icon]="downIcon"></fa-icon></th>
+		<th>Assignment</th>
+		<th>Date 
+			<fa-icon *ngIf="dateSort === 'asc'" (click)="orderByAssignmentDate('desc')" [icon]="upIcon"></fa-icon>
+			<fa-icon *ngIf="!dateSort || dateSort === 'desc'" (click)="orderByAssignmentDate('asc')" [icon]="downIcon"></fa-icon></th>
 		<th>Deadline
-			<fa-icon [icon]="upIcon"></fa-icon>
-			<fa-icon [icon]="downIcon"></fa-icon></th>
+			<fa-icon *ngIf="deadlineSort === 'asc'" (click)="orderByDeadline('desc')" [icon]="upIcon"></fa-icon>
+			<fa-icon *ngIf="!deadlineSort || deadlineSort === 'desc'" (click)="orderByDeadline('asc')" [icon]="downIcon"></fa-icon>
 		<th>Grade
-			<fa-icon [icon]="upIcon"></fa-icon>
-			<fa-icon [icon]="downIcon"></fa-icon></th>
+			<fa-icon *ngIf="gradeSort === 'asc'" (click)="orderByGrade('desc')" [icon]="upIcon"></fa-icon>
+			<fa-icon *ngIf="!gradeSort || gradeSort === 'desc'" (click)="orderByGrade('asc')" [icon]="downIcon"></fa-icon>
 		<th>Max
-			<fa-icon [icon]="upIcon"></fa-icon>
-			<fa-icon [icon]="downIcon"></fa-icon></th>
+			<fa-icon *ngIf="maxSort === 'asc'" (click)="orderByMax('desc')" [icon]="upIcon"></fa-icon>
+			<fa-icon *ngIf="!maxSort || maxSort === 'desc'" (click)="orderByMax('asc')" [icon]="downIcon"></fa-icon>
 		<th>Comment</th>
 	</tr>
 	<tr *ngFor="let assignment of grades; index as i" [ngClass]="i % 2 !== 0 && {'cell': true}">
-		<td>{{ assignment.title }}</td>
-		<td>{{ assignment.deadline || 'No deadline' }}</td>
+		<td [routerLink]="['../assignment/', assignment.id ]">{{ assignment.title }}</td>
+		<td >{{ assignment.createdAt | date:'dd/MM/yy' }}</td>
+		<td *ngIf="assignment.deadline">{{ assignment.deadline | date:'dd/MM/yy HH:mm' }}</td>
+		<td *ngIf="!assignment.deadline">No deadline</td>
 		<td>{{ assignment.grade || '-' }}</td>
 		<td>{{ assignment.maxGrade }}</td>
-		<td>{{ assignment.comment }}</td>
+		<td class="comment_td">{{ assignment.comment }}</td>
 	</tr>
 </table>
+
+<div>
+	You have {{ gradeSum }} out of {{ maxGradeSum }} which is {{ percentGrade }} percent
+</div>
