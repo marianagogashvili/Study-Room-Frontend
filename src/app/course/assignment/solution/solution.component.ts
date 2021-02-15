@@ -14,7 +14,10 @@ export class SolutionComponent implements OnInit {
   @Input() userType;
   @Input() assignment;
   solution; 
+  
   deadlineDate;
+  availableFromDate;
+
   currentDate = new Date(new Date().setHours(new Date().getHours() + 2));
   available;
 
@@ -42,8 +45,10 @@ export class SolutionComponent implements OnInit {
   	this.editMode = false;
 
   	if (this.assignment.deadline) {
-  		this.available =  this.currentDate < new Date(this.assignment.deadline);
+  		this.available =  (this.currentDate < new Date(this.assignment.deadline)) && (this.currentDate > new Date(this.assignment.availableFrom));
   		this.deadlineDate = new Date(new Date(this.assignment.deadline).setHours(new Date(this.assignment.deadline).getHours() - 2));
+  		this.availableFromDate = new Date(new Date(this.assignment.availableFrom).setHours(new Date(this.assignment.availableFrom).getHours() - 2));
+
   	} else {
   		this.available = true;
   	}

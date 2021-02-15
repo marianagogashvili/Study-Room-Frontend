@@ -6,6 +6,7 @@ import { throwError, BehaviorSubject } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class TopicService {
 	oldTopics = new BehaviorSubject<string>(null);
+	topicId = new BehaviorSubject<string>(null);
 	constructor(private http: HttpClient) {}
 
 	createTopic(param: Params) {
@@ -54,5 +55,9 @@ export class TopicService {
 
 	sendTopics(topics) {
 		this.oldTopics.next(topics);
+	}
+
+	sendTopicId(topicId) {
+		this.topicId.next(topicId);
 	}
 }

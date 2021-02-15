@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 import { TopicService } from '../topic.service';
@@ -44,6 +44,7 @@ export class MainComponent implements OnInit, OnDestroy {
   linkIcon = faExternalLinkAlt;
   minusIcon = faMinusCircle;
 
+
   userType = null;
   allowedUser;
 
@@ -52,7 +53,6 @@ export class MainComponent implements OnInit, OnDestroy {
   beforeTopicNum = null;
 
   assignments;
-
   feed;
 
   sub: Subscription;
@@ -63,6 +63,7 @@ export class MainComponent implements OnInit, OnDestroy {
   			  private courseService: CoursesService,
   			  private postService: PostsService,
   			  private route: ActivatedRoute,
+  			  private router: Router,
   			  private assignmentService: AssignmentService) { }
 
   ngOnInit() {
@@ -133,6 +134,11 @@ export class MainComponent implements OnInit, OnDestroy {
   		document.getElementById(this.scrollEl).scrollIntoView({ behavior: 'smooth' });
   		this.scrollEl = null;
   	} 
+  }
+
+  goToTest(topicId) {
+  	this.topicService.sendTopicId(topicId);
+  	this.router.navigate(['../add-testwork'], {relativeTo: this.route});
   }
 
   createTopic() {

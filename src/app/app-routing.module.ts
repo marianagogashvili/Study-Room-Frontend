@@ -19,6 +19,7 @@ import { GradesComponent } from './student/grades/grades.component';
 import { AssignmentsComponent } from './student/assignments/assignments.component';
 import { MainStudentComponent } from './student/main-student/main-student.component';
 import { GradebookComponent } from './course/gradebook/gradebook.component';
+import { AddTestworkComponent } from './course/add-testwork/add-testwork.component';
 
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
@@ -40,6 +41,8 @@ const appRoutes:Routes = [
 		{ path: 'add-student', canActivate: [AuthGuardTeacher], component:  AddStudentComponent },
 		{ path: 'assignment/:assignmentId', canActivate: [AuthGuard], component:  AssignmentComponent },
 		{ path: 'gradebook', canActivate: [AuthGuardStudent], component: GradebookComponent },
+		{ path: 'add-testwork', canActivate: [AuthGuardTeacher], component: AddTestworkComponent },
+
 	]}
 ];
 

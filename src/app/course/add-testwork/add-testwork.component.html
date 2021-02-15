@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<form action="" [formGroup]="createForm" (ngSubmit)="createTestwork()">
+		<input type="text" formControlName="title">
+		<input 
+			type="datetime-local" formControlName="deadline">
+		<button (click)="onAddTestQuestion()">Add test question</button>
+		<button (click)="onAddQuestion()">Add regular question</button>
+		
+		<div formArrayName="testQuestions" *ngFor="let questionControl of createForm.get('testQuestions').controls;let i = index">
+			<div [formGroupName]="i">
+				<input type="text" formControlName="title">
+				<input type="text" formControlName="a">
+				<input type="text" formControlName="b">
+				<input type="text" formControlName="c">
+				<input type="text" formControlName="d">
+				<select type="text" formControlName="answer">
+					<option value="">a</option>
+					<option value="">b</option>
+					<option value="">c</option>
+					<option value="">d</option>
+				</select>
+			</div>
+		</div>
+		<div formArrayName="regularQuestions" *ngFor="let questionControl of createForm.get('regularQuestions').controls;let i = index">
+			<div [formGroupName]="i">
+				<input type="text" formControlName="title">
+				<input type="text" formControlName="answer">
+			</div>
+		</div>
+		<button type="submit">
+			Create
+		</button>
+	</form>
+	
+</body>
+</html>
