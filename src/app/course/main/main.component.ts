@@ -137,8 +137,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   goToTest(topicId) {
-  	this.topicService.sendTopicId(topicId);
-  	this.router.navigate(['../add-testwork'], {relativeTo: this.route});
+  	this.router.navigate(['../add-testwork'], {queryParams: {topicId: topicId},relativeTo: this.route});
   }
 
   createTopic() {

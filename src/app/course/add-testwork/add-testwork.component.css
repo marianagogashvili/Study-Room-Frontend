@@ -1,0 +1,261 @@
+form {
+	margin-top: 2rem;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+  box-shadow: 0 0 7px red;
+}
+
+hr {
+	margin: 2rem 5rem;
+}
+
+.main__input,
+.hour__div input,
+.minute__div input {
+	height: 40px;
+	max-width: 270px;
+	min-width: 240px;
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 17px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+}
+
+.main__inputs {
+	align-items: center;
+}
+
+.hidden__input {
+	display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.hidden__input input {
+	width: 25px;
+	height: 25px;
+	margin-left: 7px;
+}
+
+.label__div {
+	font-size: 18px;
+}
+
+.label__div label,
+.hour__div label,
+.minute__div label{
+	margin-right: 15px;
+}
+
+.time__div {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.hour__div input,
+.minute__div input {
+	height: 30px;
+	max-width: 80px;
+	min-width: 50px;
+	padding: 10px;
+	width: 20%;
+}
+
+
+.lower__div {
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;	
+	margin-bottom: 3rem;
+}
+
+.question__num__p {
+	font-size: 20px;
+	border-radius: 50%;
+	padding: 10px 17px;
+	border: 2px solid #0b7ace;
+}
+
+.main-btns__div {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.main-btns__div button {
+	height: 2.5rem;
+	border-radius: 20px;
+	background-color: transparent;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+	color: white;
+	color: #0b7ace;
+	border: 1px solid #0b7ace;
+	width: 12rem;
+	margin: 0 10px;
+}
+
+.label__div, .hidden__input {
+	padding: 0 15px;
+}
+
+.main__head {
+	display: flex; 
+	width: 100%;
+	flex-direction: column;
+	/*justify-content: center;*/
+	align-items: center;
+}
+
+.label__div {
+	margin-bottom: 2rem;
+}
+
+.label__div:nth-child(1) label {
+	margin-right: 3.5rem;
+}
+
+.question__div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.question__input__div {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 2rem 0;
+}
+
+.options__div div {
+	margin-bottom: 2rem;
+}
+
+.main__input2, .question, .answer {
+	height: 40px;
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 17px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 12px;
+}
+
+.question {
+	width: 60%;
+}
+
+.answer {
+	width: 80px;
+}
+
+.regular__question__div {
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
+	flex-direction: column;
+}
+
+
+.main__input2 {
+	width: 350px;
+}
+
+.question__div:nth-child(1) label,
+.regular__question__div label {
+	margin-right: 1rem;
+}
+
+
+.question__div div label {
+	margin-right: 4rem;
+}
+
+.options {
+	display: flex; 
+	flex-direction: column;
+	justify-content: space-around; 
+	align-items: center;
+	width: 100%;
+}
+
+.create__btn {
+	height: 2.5rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+	color: white;
+	margin: 1rem 3rem;
+
+	background-color: #0b7ace;
+	width: 8rem;
+}
+
+.create__btn:disabled {
+ 	background-color: #c4c4c4;
+}
+
+@media screen and (min-width: 800px) {
+	.main__inputs {
+		display: flex;
+		justify-content: space-around;
+		width: 70%;
+	}
+	.main__head {
+		display: flex; 
+		width: 100%;
+		flex-direction: row;
+		justify-content: center;
+	}
+	.label__div {
+		margin-bottom: 0;
+	}
+	.label__div:nth-child(1) label {
+		margin-right: 15px;
+	}
+	.time__div {
+		width: 40%;
+	}
+
+	.lower__div {
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;	
+
+	}
+
+	.main-btns__div {
+		width: 40%;
+		margin-top: 0;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	.options {
+		display: flex; 
+		flex-direction: row;
+		justify-content: space-around; 
+		width: 100%;
+	}
+}

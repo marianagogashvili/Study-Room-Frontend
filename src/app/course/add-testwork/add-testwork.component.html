@@ -7,34 +7,153 @@
 </head>
 <body>
 	<form action="" [formGroup]="createForm" (ngSubmit)="createTestwork()">
-		<input type="text" formControlName="title">
-		<input 
-			type="datetime-local" formControlName="deadline">
-		<button (click)="onAddTestQuestion()">Add test question</button>
-		<button (click)="onAddQuestion()">Add regular question</button>
+		<div class="main__head">
+			<div class="main__inputs">
+				<div class="label__div">
+					<label for="title">Title</label>
+					<input 
+					id="title" 
+					class="main__input" 
+					type="text" 
+					formControlName="title">
+				</div>
+				<div class="label__div">
+					<label for="deadline">Deadline</label>
+					<input 
+					id="deadline" 
+					class="main__input" 
+					type="datetime-local" 
+					formControlName="deadline">
+				</div>
+			</div>
+			<div class="hidden__input">
+				<label for="hide">hidden</label>
+				<input formControlName="hidden" id="hide" name="hide" type="checkbox">
+			</div>
+			
+		</div>
+
+		<div class="lower__div">
+			<div class="time__div">
+				<div class="hour__div">
+					<label for="hours">Hours</label>
+					<input formControlName="hours" id="hours" min="0" type="number">
+				</div>
+				<div class="minute__div">
+					<label for="minutes">Minutes</label>
+					<input formControlName="minutes" id="minutes" min="0" type="number" >
+				</div>
+			</div>
+			
+			<div class="main-btns__div">
+				<button type="button" (click)="onAddTestQuestion()">test question</button>
+				<button type="button" (click)="onAddQuestion()">regular question</button>
+			</div>		
+		</div>
 		
-		<div formArrayName="testQuestions" *ngFor="let questionControl of createForm.get('testQuestions').controls;let i = index">
-			<div [formGroupName]="i">
-				<input type="text" formControlName="title">
-				<input type="text" formControlName="a">
-				<input type="text" formControlName="b">
-				<input type="text" formControlName="c">
-				<input type="text" formControlName="d">
-				<select type="text" formControlName="answer">
-					<option value="">a</option>
-					<option value="">b</option>
-					<option value="">c</option>
-					<option value="">d</option>
-				</select>
+		
+		<div 
+			formArrayName="testQuestions" 
+			*ngFor="let questionControl of createForm.get('testQuestions').controls;let i = index">
+			<hr color="#d4d4d4">
+			<div *ngIf="questionControl.controls.a" class="question__div"  [formGroupName]="i">	
+				<p class="question__num__p">{{ i+1 }}</p>
+
+				<div class="question__input__div">
+					<label for="question">Question</label>
+					<input 
+						id="question" 
+						placeholder="question text"
+						type="text" 
+						class="question" 
+						formControlName="title">
+				</div>
+				<div class="options">
+					<div class="options__div">
+						<div>
+							<label for="a">a)</label>
+							<input 
+								id="a" 
+								class="main__input2"  
+								type="text" 
+								formControlName="a"
+								placeholder="option a">
+						</div>
+						<div>
+							<label for="b">b)</label>
+							<input 
+								id="b" 
+								type="text"
+								class="main__input2" 
+								formControlName="b"
+								placeholder="option b">
+						</div>
+					</div>	
+					<div class="options__div">
+						<div>
+							<label for="c">c)</label>
+							<input 
+								id="c" 
+								type="text" 
+								class="main__input2" 
+								formControlName="c"
+								placeholder="option c">
+						</div>
+						<div>
+							<label for="d">d)</label>
+							<input 
+								id="d" 
+								type="text" 
+								class="main__input2" 
+								formControlName="d"
+								placeholder="option d">
+						</div>	
+					</div>
+				</div>
+				<div>
+					<label for="answer">Answer</label>
+					<select 
+						type="text" 
+						id="answer" 
+						class="answer" 
+						formControlName="answer">
+						<option value="a">a</option>
+						<option value="b">b</option>
+						<option value="c">c</option>
+						<option value="d">d</option>
+					</select>
+				</div>
+				
 			</div>
-		</div>
-		<div formArrayName="regularQuestions" *ngFor="let questionControl of createForm.get('regularQuestions').controls;let i = index">
-			<div [formGroupName]="i">
-				<input type="text" formControlName="title">
-				<input type="text" formControlName="answer">
+			<div *ngIf="!questionControl.controls.a" [formGroupName]="i" class="regular__question__div">
+				<p class="question__num__p">{{ i+1 }}</p>
+				<div class="question__input__div">
+					<label for="question">Question</label>
+					<input 
+						id="question" 
+						placeholder="question text"
+						type="text" 
+						class="question" 
+						formControlName="title">
+				</div>
+				<div class="question__input__div">
+					<label for="answer">Answer</label>
+					<input 
+						id="answer" 
+						placeholder="answer text"
+						type="text" 
+						class="question" 
+						formControlName="answer">
+				</div>
 			</div>
+			
 		</div>
-		<button type="submit">
+		
+<!-- 		<div formArrayName="regularQuestions" *ngFor="let questionControl of createForm.get('regularQuestions').controls;let i = index">
+
+			<hr color="#d4d4d4">
+		</div> -->
+		<button [disabled]="!createForm.valid" class="create__btn" id="create__btn" type="submit">
 			Create
 		</button>
 	</form>

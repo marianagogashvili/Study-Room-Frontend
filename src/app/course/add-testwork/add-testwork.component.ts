@@ -1,6 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TopicService } from '../topic.service';
-import { Subscription } from 'rxjs';
+import { TestService } from '../test.service';
+import { map, mergeMap } from 'rxjs/operators';
+import { pipe, Subscription } from 'rxjs';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
@@ -8,23 +11,33 @@ import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
   templateUrl: './add-testwork.component.html',
   styleUrls: ['./add-testwork.component.css']
 })
-export class AddTestworkComponent implements OnInit, OnDestroy {
+export class AddTestworkComponent implements OnInit {
+  courseId;
+  topicId;
   createForm;
-  sub;
-  constructor(private topicService: TopicService) { }
+
+  constructor(private route: ActivatedRoute,
+  			  private topicService: TopicService,
+  			  private testworkService: TestService,
+  			  private router: Router) { }
 
   ngOnInit() {
   	this.createForm = new FormGroup({
   		'title': new FormControl('', Validators.required),
-  		// 'hidden': new FormControl('', Validators.required),
+  		'hidden': new FormControl(false, Validators.required),
   		'deadline': new FormControl('', Validators.required),
-  		// 'timeRestriction': new FormControl('', Validators.required),
-  		'testQuestions': new FormArray([]),
-  		'regularQuestions': new FormArray([])
+  		'hours': new FormControl(0, Validators.required),
+  		'minutes': new FormControl(0, Validators.required),
+  		'testQuestions': new FormArray([])
   	});
 
-  	this.sub = this.topicService.topicId.subscribe(topicId => {
-  		console.log(topicId);
+  	this.route.parent.params.subscribe(params => {
+  		this.courseId = params['id'];
+  		console.log(params);
+  	});
+
+  	this.route.queryParams.subscribe(queryParams => {
+  		this.topicId = queryParams['topicId'];
   	});
   }
 
@@ -38,7 +51,7 @@ export class AddTestworkComponent implements OnInit, OnDestroy {
   		'answer': new FormControl('', Validators.required)
   	});
   	(<FormArray>this.createForm.get('testQuestions')).push(group);
-  	console.log(this.createForm);
+  	document.getElementById('create__btn').scrollIntoView({ behavior: 'smooth' });
   }
 
   onAddQuestion() {
@@ -46,16 +59,33 @@ export class AddTestworkComponent implements OnInit, OnDestroy {
   		'title': new FormControl('', Validators.required),
   		'answer': new FormControl('', Validators.required)
   	});
-  	(<FormArray>this.createForm.get('regularQuestions')).push(group);
-  	
+  	(<FormArray>this.createForm.get('testQuestions')).push(group);
+  	document.getElementById('create__btn').scrollIntoView({ behavior: 'smooth' });
+ 	console.log(this.createForm);
   }
 
   createTestwork() {
-  	console.log(this.createForm);
-  }
+  	const testQuestions = this.createForm.value.testQuestions;
+  	if (testQuestions !== []) {
+  		const title = this.createForm.value.title;
+	  	const deadline = this.createForm.value.deadline;
+	  	const hidden = this.createForm.value.hidden;
+	  	const timeRestriction = this.createForm.value.hours * 3600 + this.createForm.value.minutes * 60;
+	  	console.log(this.createForm.value.testQuestions);
 
-  ngOnDestroy() {
-  	this.sub.unsubscribe();
+	  	this.testworkService.createTestwork({
+	  		courseId: this.courseId,
+	  		title: title, 
+	  		deadline: deadline, 
+	  		hidden: hidden,
+	  		timeRestriction: timeRestriction,
+	  		topicId: this.topicId,
+	  		questions: testQuestions}).subscribe(result => {
+	  			this.router.navigate(['/course/', this.courseId]);
+	  	});
+  	} else {
+  		//show error
+  	}
   }
 
 }
