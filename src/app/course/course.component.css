@@ -37,7 +37,7 @@
 	/*position: absolute;*/
 	width: 400px;
 	height: 220px;
-	z-index: 3;
+	z-index: 4;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -209,15 +209,6 @@ input.ng-invalid.ng-touched {
 	background-color: #ff7a73;
 }
 
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 50;
-}
 
 
 @media screen and (min-width: 800px) {

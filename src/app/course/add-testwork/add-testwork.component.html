@@ -6,7 +6,10 @@
 	<title>Document</title>
 </head>
 <body>
-	<form action="" [formGroup]="createForm" (ngSubmit)="createTestwork()">
+	<button *ngIf="editTestwork" (click)="deleteTest()" class="delete__btn" type="button">
+		Delete test
+	</button>
+	<form action="" [formGroup]="createForm" (ngSubmit)="saveTestwork()">
 		<div class="main__head">
 			<div class="main__inputs">
 				<div class="label__div">
@@ -58,7 +61,10 @@
 			<hr color="#d4d4d4">
 			<div *ngIf="questionControl.controls.a" class="question__div"  [formGroupName]="i">	
 				<p class="question__num__p">{{ i+1 }}</p>
-
+				<button (click)="removeQuestion(i)" class="delete__btn" type="button">
+					<fa-icon class="trash__icon" [icon]="trashIcon"></fa-icon>
+					Delete
+				</button>
 				<div class="question__input__div">
 					<label for="question">Question</label>
 					<input 
@@ -127,6 +133,10 @@
 			</div>
 			<div *ngIf="!questionControl.controls.a" [formGroupName]="i" class="regular__question__div">
 				<p class="question__num__p">{{ i+1 }}</p>
+				<button (click)="removeQuestion(i)" class="delete__btn" type="button">
+					<fa-icon class="trash__icon" [icon]="trashIcon"></fa-icon>
+					Delete
+				</button>
 				<div class="question__input__div">
 					<label for="question">Question</label>
 					<input 
@@ -153,8 +163,11 @@
 
 			<hr color="#d4d4d4">
 		</div> -->
-		<button [disabled]="!createForm.valid" class="create__btn" id="create__btn" type="submit">
+		<button *ngIf="!editTestwork" [disabled]="!createForm.valid" class="create__btn" id="create__btn" type="submit">
 			Create
+		</button>
+		<button *ngIf="editTestwork" [disabled]="!createForm.valid" class="create__btn" id="create__btn" type="submit">
+			Update
 		</button>
 	</form>
 	

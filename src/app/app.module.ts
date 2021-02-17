@@ -35,6 +35,7 @@ import { AssignmentsComponent } from './student/assignments/assignments.componen
 import { MainStudentComponent } from './student/main-student/main-student.component';
 import { GradebookComponent } from './course/gradebook/gradebook.component';
 import { AddTestworkComponent } from './course/add-testwork/add-testwork.component';
+import { TestworkComponent } from './course/testwork/testwork.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { AddTestworkComponent } from './course/add-testwork/add-testwork.compone
     AssignmentsComponent,
     MainStudentComponent,
     GradebookComponent,
-    AddTestworkComponent
+    AddTestworkComponent,
+    TestworkComponent
   ],
   imports: [
     BrowserModule,

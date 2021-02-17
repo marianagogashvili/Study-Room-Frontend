@@ -154,10 +154,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
+    this.router.navigate(['/auth']);
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('expiryDate');
-    this.router.navigate(['/auth']);
   }
 
   logIn() {

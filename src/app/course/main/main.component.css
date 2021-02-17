@@ -211,7 +211,7 @@ input.ng-touched.ng-invalid {
 	color: #5c5c5c;
 }
 
-.pdf__icon, .word__icon, .link__icon, .file__icon { 
+.pdf__icon, .word__icon, .link__icon, .file__icon, .test__icon { 
 	font-size: 25px;
 }
 
@@ -227,7 +227,10 @@ input.ng-touched.ng-invalid {
 
 .file__icon {
 	color: #FFC82A;
+}
 
+.test__icon {
+	color: #7bf542;
 }
 
 .link__icon__title {

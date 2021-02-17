@@ -16,6 +16,7 @@ hr {
 	margin: 2rem 5rem;
 }
 
+
 .main__input,
 .hour__div input,
 .minute__div input {
@@ -98,16 +99,22 @@ hr {
 
 .main-btns__div button {
 	height: 2.5rem;
-	border-radius: 20px;
+	border-radius: 10px;
 	background-color: transparent;
 	text-transform: uppercase;
 	border: 0;
 	outline: none;
-	color: white;
+	
 	color: #0b7ace;
+
 	border: 1px solid #0b7ace;
 	width: 12rem;
 	margin: 0 10px;
+}
+
+.main-btns__div button:hover {
+	color: white;
+	background-color: #0b7ace;
 }
 
 .label__div, .hidden__input {
@@ -198,7 +205,7 @@ hr {
 	width: 100%;
 }
 
-.create__btn {
+.create__btn, .delete__btn {
 	height: 2.5rem;
 	border-radius: 20px;
 	text-transform: uppercase;
@@ -212,9 +219,31 @@ hr {
 }
 
 .create__btn:disabled {
- 	background-color: #c4c4c4;
+ 	border: 1px solid #c4c4c4;
+ 	background-color: transparent;
+ 	color:  #c4c4c4;
 }
 
+.trash__icon {
+	margin-right: 10px;
+	font-size: 18px;
+}
+
+.trash__icon:active {
+	color: #f5928c; 
+} 
+
+.delete__btn {
+	background-color: #d6473e;
+}
+
+.delete__btn:hover {
+	background-color: #ed896d;
+}
+
+.delete__btn:active {
+	background-color: #b53b19;
+}
 @media screen and (min-width: 800px) {
 	.main__inputs {
 		display: flex;

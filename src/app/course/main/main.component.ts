@@ -7,6 +7,7 @@ import { TopicService } from '../topic.service';
 import { CoursesService } from '../courses.service';
 import { AssignmentService } from '../assignment.service';
 import { PostsService } from '../posts.service';
+import { TestService } from '../test.service';
 
 import { map, mergeMap } from 'rxjs/operators';
 import { pipe, Subscription } from 'rxjs';
@@ -20,6 +21,7 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { faFileWord } from '@fortawesome/free-regular-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faVial } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main',
@@ -41,6 +43,7 @@ export class MainComponent implements OnInit, OnDestroy {
   pdfIcon = faFilePdf;
   wordIcon = faFileWord;
   fileIcon = faFile;
+  testIcon = faVial;
   linkIcon = faExternalLinkAlt;
   minusIcon = faMinusCircle;
 
@@ -55,6 +58,7 @@ export class MainComponent implements OnInit, OnDestroy {
   assignments;
   feed;
 
+
   sub: Subscription;
   sub2: Subscription;
   sub3: Subscription;
@@ -64,7 +68,8 @@ export class MainComponent implements OnInit, OnDestroy {
   			  private postService: PostsService,
   			  private route: ActivatedRoute,
   			  private router: Router,
-  			  private assignmentService: AssignmentService) { }
+  			  private assignmentService: AssignmentService,
+  			  private testworkService: TestService) { }
 
   ngOnInit() {
   	this.sub3 = 
@@ -136,7 +141,7 @@ export class MainComponent implements OnInit, OnDestroy {
   	} 
   }
 
-  goToTest(topicId) {
+  goToCreateTest(topicId) {
   	this.router.navigate(['../add-testwork'], {queryParams: {topicId: topicId},relativeTo: this.route});
   }
 
@@ -220,6 +225,15 @@ export class MainComponent implements OnInit, OnDestroy {
   	}
   	
   	window.open(fileUrl, '_blank');
+  }
+
+  goToTest(topicId, testworkId) {
+  	// this.testworkService.sendEditTest(testwork);
+  	if (this.userType === 'teacher') {
+  		this.router.navigate(['../add-testwork'], {relativeTo: this.route, queryParams: {topicId: topicId, testworkId: testworkId } });
+  	} else if (this.userType === 'student') {
+  		this.router.navigate(['../testwork'], {queryParams: {testId: testworkId},relativeTo: this.route});
+  	}
   }
 
   showAssignment(topic) {

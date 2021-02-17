@@ -5,6 +5,7 @@ import { throwError, BehaviorSubject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class TestService {
+	// testwork = new BehaviorSubject<string>(null);
 	constructor(private http: HttpClient) {}
 
 	createTestwork(param: Params) {
@@ -15,7 +16,44 @@ export class TestService {
 					'Content-Type': 'application/json',
 					Authorization: 'Bearer ' + localStorage.getItem('token')
 				})
-			});
+			})
 	}
 
+	updateTestwork(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/testwork/updateTest', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+	}
+
+	deleteTestwork(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/testwork/deleteTest', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+	}
+
+
+	getTestwork(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/testwork/getTest', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+	}
+
+	// sendEditTest(testwork) {
+	// 	this.testwork.next(testwork);
+	// }
 }
