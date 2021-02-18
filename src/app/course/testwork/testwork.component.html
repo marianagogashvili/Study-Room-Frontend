@@ -1,4 +1,54 @@
-<div *ngIf="!loading">
+<div *ngIf="!loading && workMode" class="cover__div">
 	<h1>{{ testwork.title }}</h1>
-	<p>this test </p>
+	<p>This test lasts {{ timeRestriction }}</p>
+	<p>Deadline: {{ testwork.deadline | date: 'dd MMMM yyyy  \'at\' mm:hh' }}</p>
+	<button class="start__btn" (click)="startTheTest()">Start</button>
+</div>
+
+<div *ngIf="!loading && !workMode" class="main__div">
+
+
+	<div class="question__div">
+		<h3 class="question__h3">{{ testwork.questions[currentQuestionId].title }}</h3>
+		<div *ngIf="testwork.questions[currentQuestionId].a">
+			<div class="choice__div" (click)="addAnswer('a')">
+				<p [ngClass]="answers[currentQuestionId] && answers[currentQuestionId].answer === 'a' && {'active__choice': true}">a</p>
+				{{ testwork.questions[currentQuestionId].a }}
+			</div>
+			<div class="choice__div" (click)="addAnswer('b')">
+				<p [ngClass]="answers[currentQuestionId] && answers[currentQuestionId].answer === 'b' && {'active__choice': true}">b</p>
+				{{ testwork.questions[currentQuestionId].b }}
+			</div>
+			<div class="choice__div" (click)="addAnswer('c')">
+				<p [ngClass]="answers[currentQuestionId] && answers[currentQuestionId].answer === 'c' && {'active__choice': true}">c</p>
+				{{ testwork.questions[currentQuestionId].c }}
+			</div>
+			<div class="choice__div" (click)="addAnswer('d')">
+				<p [ngClass]="answers[currentQuestionId] && answers[currentQuestionId].answer === 'd' && {'active__choice': true}">d</p>
+				{{ testwork.questions[currentQuestionId].d }}
+			</div>
+		</div>
+		<div *ngIf="!testwork.questions[currentQuestionId].a">
+			<input type="text" placeholder="">
+		</div>
+
+		<button 
+			class="" 
+			type="button" 
+			*ngIf="testwork.questions.length > currentQuestionId+1"
+			(click)="currentQuestionId = currentQuestionId + 1">Next</button>
+		<button 
+			class="" 
+			type="button" 
+			*ngIf="testwork.questions.length === currentQuestionId+1"
+			>Save</button>
+
+	</div>
+
+	<div class="menu__div">
+
+		<p [ngClass]="{'active__num': currentQuestionId === i  }" class="question__num" *ngFor="let t of testwork.questions; let i = index" (click)="currentQuestionId = i">{{ i + 1 }}</p>
+	</div>
+
+
 </div>
