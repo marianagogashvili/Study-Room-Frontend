@@ -59,7 +59,9 @@
 
 
 .question__div {
-	margin: 2rem;
+	
+	margin: 1rem 2rem;
+	flex: 1;
 }
 
 .choice__div {
@@ -84,7 +86,25 @@
 	font-size: 20px;
 }
 
-@media screen and (min-width: 500px) {
+textarea {
+    width: 100%;
+    height: 40vh;
+    resize: none;
+	border-radius: 17px;
+	border: 1px solid #00b5d4;
+	box-shadow: 0 0 7px #00b5d4;
+	font-size: 20px;
+	outline: none;
+	font-family: 'Montserrat', sans-serif;
+	padding: 12px 0 0 12px;
+
+}
+
+textarea::placeholder {
+	color: #bababa;
+}
+
+@media screen and (min-width: 600px) {
 	.main__div {
 		display: flex;
 		justify-content: space-between;
@@ -98,8 +118,17 @@
     	align-content: flex-start;
     	height: 100%;
 	}
+	.question__div {
+		margin: 2rem 4rem;
+		flex: 1;
+	}
+
+	textarea {
+		width: 80%;
+	}
 
 	.question__num {
 		height: 25px;
 	}
+
 }

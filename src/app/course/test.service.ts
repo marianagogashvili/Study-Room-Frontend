@@ -53,6 +53,17 @@ export class TestService {
 			})
 	}
 
+	saveAnswers(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/testwork/saveAnswers', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+	}
+
 	// sendEditTest(testwork) {
 	// 	this.testwork.next(testwork);
 	// }

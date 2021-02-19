@@ -18,7 +18,8 @@
 					id="title" 
 					class="main__input" 
 					type="text" 
-					formControlName="title">
+					formControlName="title"
+					required>
 				</div>
 				<div class="label__div">
 					<label for="deadline">Deadline</label>
@@ -26,7 +27,8 @@
 					id="deadline" 
 					class="main__input" 
 					type="datetime-local" 
-					formControlName="deadline">
+					formControlName="deadline"
+					required>
 				</div>
 			</div>
 			<div class="hidden__input">
@@ -72,7 +74,8 @@
 						placeholder="question text"
 						type="text" 
 						class="question" 
-						formControlName="title">
+						formControlName="title"
+						required>
 				</div>
 				<div class="options">
 					<div class="options__div">
@@ -116,18 +119,33 @@
 						</div>	
 					</div>
 				</div>
-				<div>
-					<label for="answer">Answer</label>
-					<select 
-						type="text" 
-						id="answer" 
-						class="answer" 
-						formControlName="answer">
-						<option value="a">a</option>
-						<option value="b">b</option>
-						<option value="c">c</option>
-						<option value="d">d</option>
-					</select>
+				<div style="display: flex; align-items: center; width: 70%; justify-content: space-around;">
+					<div>
+						<label for="answer">Answer</label>
+						<select 
+							type="text" 
+							id="answer" 
+							class="answer" 
+							formControlName="answer">
+							<option value="a">a</option>
+							<option value="b">b</option>
+							<option value="c">c</option>
+							<option value="d">d</option>
+						</select>
+					</div>
+					
+
+					<div class="points__div">		
+						<label for="answer">Max points</label>
+						<input 
+							id="answer" 
+							placeholder="max"
+							type="number" 
+							class="question" 
+							formControlName="points"
+							min="1"
+							required>
+					</div>
 				</div>
 				
 			</div>
@@ -154,6 +172,28 @@
 						type="text" 
 						class="question" 
 						formControlName="answer">
+
+				</div>
+				<div class="question__input__div">
+					<div class="points__div">		
+						<label for="answer">Max points</label>
+						<input 
+							id="answer" 
+							placeholder="max"
+							type="number" 
+							class="question" 
+							formControlName="points"
+							min="1"
+							required>
+					</div>
+					<div class="hidden__input">		
+						<label for="autoCheck">Automatic check</label>
+						<input 
+							formControlName="autoCheck" 
+							id="autoCheck" 
+							name="autoCheck" 
+							type="checkbox">
+					</div>
 				</div>
 			</div>
 			

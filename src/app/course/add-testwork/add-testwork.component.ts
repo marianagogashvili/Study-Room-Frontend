@@ -98,7 +98,8 @@ export class AddTestworkComponent implements OnInit, OnDestroy {
   		'b': new FormControl('', Validators.required),
   		'c': new FormControl('', Validators.required),
   		'd': new FormControl('', Validators.required),
-  		'answer': new FormControl('', Validators.required)
+  		'answer': new FormControl('', Validators.required),
+  		'points': new FormControl('', Validators.required),
   	});
   	(<FormArray>this.createForm.get('testQuestions')).push(group);
   	document.getElementById('create__btn').scrollIntoView({ behavior: 'smooth' });
@@ -107,7 +108,9 @@ export class AddTestworkComponent implements OnInit, OnDestroy {
   onAddQuestion() {
   	const group = new FormGroup({
   		'title': new FormControl('', Validators.required),
-  		'answer': new FormControl('', Validators.required)
+  		'answer': new FormControl('', Validators.required),
+  		'points': new FormControl('', Validators.required),
+  		'autoCheck': new FormControl(false, Validators.required),
   	});
   	(<FormArray>this.createForm.get('testQuestions')).push(group);
   	document.getElementById('create__btn').scrollIntoView({ behavior: 'smooth' });

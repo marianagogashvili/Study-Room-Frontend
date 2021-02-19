@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -73,7 +74,7 @@ import { TestworkComponent } from './course/testwork/testwork.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe, AuthGuard, AuthGuardTeacher, AuthGuardStudent, JwtHelperService],
+  providers: [DatePipe, AuthGuard, CookieService, AuthGuardTeacher, AuthGuardStudent, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
