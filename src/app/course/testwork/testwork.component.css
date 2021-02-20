@@ -38,6 +38,15 @@
     height: 100%;
 }
 
+.timer__p {
+	text-align: center;
+	width: 100%;
+	background-color: #f8f8f8;
+	border-radius: 5px;
+	font-size: 18px;
+}
+
+
 .question__num {
 	padding: 10px;
 	border: 1px solid #0b7ace;
@@ -117,6 +126,8 @@ textarea::placeholder {
     	flex-wrap: wrap;
     	align-content: flex-start;
     	height: 100%;
+    	/*width: 100%;*/
+    	justify-content: space-around;
 	}
 	.question__div {
 		margin: 2rem 4rem;

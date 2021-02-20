@@ -55,7 +55,7 @@ export class TestService {
 
 	saveAnswers(param: Params) {
 		return this.http.post(
-			'http://localhost:8000/testwork/saveAnswers', 
+			'http://localhost:8000/testAnswer/saveAnswers', 
 			JSON.stringify(param), {
 				headers: new HttpHeaders({
 					'Content-Type': 'application/json',
@@ -64,6 +64,16 @@ export class TestService {
 			})
 	}
 
+	getAnswers(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/testAnswer/getAnswers', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+	}
 	// sendEditTest(testwork) {
 	// 	this.testwork.next(testwork);
 	// }

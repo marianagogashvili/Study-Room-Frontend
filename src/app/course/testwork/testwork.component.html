@@ -1,11 +1,11 @@
-<div *ngIf="!loading && workMode" class="cover__div">
+<div *ngIf="!loading && !workMode" class="cover__div">
 	<h1>{{ testwork.title }}</h1>
 	<p>This test lasts {{ timeRestriction }}</p>
 	<p>Deadline: {{ testwork.deadline | date: 'dd MMMM yyyy  \'at\' mm:hh' }}</p>
 	<button class="start__btn" (click)="startTheTest()">Start</button>
 </div>
 
-<div *ngIf="!loading && !workMode" class="main__div">
+<div *ngIf="!loading && workMode" class="main__div">
 
 	<div class="question__div" >
 		<h3 class="question__h3">{{ testwork.questions[currentQuestionId].title }}</h3>
@@ -38,7 +38,8 @@
 				formControlName="answer" 
 				name="answer" 
 				placeholder="write your answer here"
-				value=""></textarea>
+				value=""
+				style="display: block"></textarea>
 			<button 
 				class="start__btn" 
 				type="submit" 
@@ -57,9 +58,12 @@
 	</div>
 
 	<div class="menu__div">
+		<p class="timer__p">{{ timerVal  }}</p>
 
 		<p [ngClass]="{'active__num': currentQuestionId === i, 'filled__num': answers[i] && answers[i] !== null && answers[i] !== '' }" class="question__num" *ngFor="let t of testwork.questions; let i = index" (click)="goToQuestion(i)">{{ i + 1 }}</p>
-	</div>
 
+
+	</div>
+	
 
 </div>
