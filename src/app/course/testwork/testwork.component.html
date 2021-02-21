@@ -1,14 +1,56 @@
-<div *ngIf="!loading && !workMode" class="cover__div">
+<div *ngIf="!loading && studentAnswer.length === 0 && !workMode " class="cover__div">
 	<h1>{{ testwork.title }}</h1>
 	<p>This test lasts {{ timeRestriction }}</p>
-	<p>Deadline: {{ testwork.deadline | date: 'dd MMMM yyyy  \'at\' mm:hh' }}</p>
-	<button class="start__btn" (click)="startTheTest()">Start</button>
+	<p>Deadline: {{ testwork.deadline.slice(0, 16) | date: 'dd MMMM yyyy  \'at\' hh:mm' }}</p>
+	<button [disabled]="!available" class="start__btn" (click)="startTheTest()">Start</button>
+</div>
+<div  *ngIf="!loading && studentAnswer.length !== 0 " class="answers__div">
+	<h1 style="text-align: center;">{{ testwork.title }}</h1>
+	<div *ngFor="let answer of studentAnswer" class="answers__list">
+		<h3 class="question2__h3">
+			<span *ngIf="answer.points || answer.points === 0" class="points__span">points: {{  answer.points }}  / {{ answer.question.points }}</span>
+			<span *ngIf="!answer.points && answer.points !== 0" class="pending__span">pending</span>
+			{{ answer.question.title }}</h3>
+		<div class="choice__list" *ngIf="answer.question.a">
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'a'), 'wrong__choice': answer.studentAnswer === 'a' && answer.points === 0}">a</p>
+				{{ answer.question.a }}
+			</div>
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'b'), 'wrong__choice': answer.studentAnswer === 'b' && answer.points === 0}">b</p>
+				{{ answer.question.b }}
+			</div>
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'c'), 'wrong__choice': answer.studentAnswer === 'c' && answer.points === 0}">c</p>
+				{{ answer.question.c }}
+			</div>
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'd'), 'wrong__choice': answer.studentAnswer === 'd' && answer.points === 0}">d</p>
+				{{ answer.question.d }}
+			</div>
+			
+		</div>
+		<div *ngIf="!answer.question.a">
+			
+			<div *ngIf="answer.points === 0">
+				<div class="wrong_answ__div">
+					Your answer: {{  answer.studentAnswer }}
+				</div>
+				<div class="correct_answ__div">
+					Correct answer: {{  answer.question.answer }}
+				</div>
+			</div>
+			<div class="correct_answ__div" *ngIf=" answer.points !== 0">
+				Correct answer: {{  answer.question.answer }}
+			</div>
+		</div>
+	</div>
 </div>
 
-<div *ngIf="!loading && workMode" class="main__div">
+<div *ngIf="!loading && workMode && available" class="main__div">
 
 	<div class="question__div" >
-		<h3 class="question__h3">{{ testwork.questions[currentQuestionId].title }}</h3>
+		<h3 class="question__h3"><span class="points__span">points: {{ testwork.questions[currentQuestionId].points }}</span>{{ testwork.questions[currentQuestionId].title }}</h3>
 		<div *ngIf="testwork.questions[currentQuestionId].a">
 			<div class="choice__div" (click)="addAnswer('a')">
 				<p [ngClass]="answers[currentQuestionId] === 'a' && {'active__choice': true}">a</p>

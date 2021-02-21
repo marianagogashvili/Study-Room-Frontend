@@ -18,7 +18,8 @@
 	outline: none;
 }
 
-.start__btn:hover {
+.start__btn:hover,
+.start__btn:disabled {
 	background-color: #9ca9d6;
 }
 
@@ -57,6 +58,15 @@
 	background-color: white;
 }
 
+.points__span {
+	padding: 10px;
+	background-color: #f8f8f8;
+	font-size: 14px;
+	margin-right: 10px;
+	font-weight: 300;
+	border-radius: 3px;
+}
+
 .active__num {
 	box-shadow: 0 0 7px #0b7ace;
 }
@@ -77,6 +87,7 @@
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+	margin-left: 2rem;
 }
 
 .choice__div p {
@@ -111,6 +122,67 @@ textarea {
 
 textarea::placeholder {
 	color: #bababa;
+}
+
+.answers__list {
+	border: 1px solid #f2f2f2;
+    box-shadow: 0 0 10px #f2f2f2;
+    width: 80%;
+    margin: auto;
+    /*padding: 10px 20px;*/
+    margin-top: 2rem;
+    border-radius: 7px;
+}
+
+.question2__h3, .choice__list {
+	padding: 10px 20px;
+}
+
+.correct__choice {
+	background-color: #94ff94;
+	border: 1px solid #94ff94 !important;
+	box-shadow: 0 0  7px #94ff94;
+
+	color: #008000;
+}
+
+.wrong__choice {
+	background-color: #ff9482;
+	border: 1px solid  #ff9482 !important;
+	box-shadow: 0 0  7px #ff9482;
+	color: #8f1500;
+}
+
+.pending__span {
+	font-size: 12px;
+	color:#7a5a00;
+	font-weight: 300;
+	background-color:#ffdd7d;
+	border-radius: 15px;
+	margin-right: 10px;
+	padding: 5px 10px;
+}
+
+.correct_answ__div, .wrong_answ__div {
+    padding: 20px;
+}
+
+.correct_answ__div {
+	background-color: #d7ffc2
+}
+
+.wrong_answ__div {
+	background-color: #ffdcd9
+}
+
+.answers__div {
+	margin: 2rem 0;
+}
+
+@media screen and (min-width: 800px) {
+	.answers__list {
+		width: 60%;
+	}
 }
 
 @media screen and (min-width: 600px) {

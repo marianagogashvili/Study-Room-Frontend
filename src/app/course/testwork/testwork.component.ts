@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router,NavigationStart, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
@@ -6,15 +6,18 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { TestService } from '../test.service';
 import { filter, map, mergeMap } from 'rxjs/operators'
+import { Subscription } from 'rxjs'
+
 
 @Component({
   selector: 'app-testwork',
   templateUrl: './testwork.component.html',
   styleUrls: ['./testwork.component.css']
 })
-export class TestworkComponent implements OnInit {
+export class TestworkComponent implements OnInit, OnDestroy {
   testwork;
-  studentAnswer;
+  studentAnswer = null;
+  available;
 
   timeRestriction;
   loading;
@@ -30,7 +33,9 @@ export class TestworkComponent implements OnInit {
   timer;
 
   secondsLeft;
+  currentDate = new Date(new Date().setHours(new Date().getHours() + 2));
 
+  sub: Subscription;
   constructor(private testworkService: TestService,
   			  private route: ActivatedRoute,
   			  private cookieService: CookieService,
@@ -55,38 +60,19 @@ export class TestworkComponent implements OnInit {
 		this.workMode = true;
 		this.answers = JSON.parse(cookieAnswers);
 		this.timer = this.startTimer(cookieSeconds);
+	}	
 
-	}
-
-
-	// this.router.events.subscribe((val) => {
-	// 	if (val instanceof NavigationEnd) {
-	// 		this.saveTest();
- //        	this.cookieService.delete('Answers');
- //  			this.cookieService.delete('Secs');
- //  			clearInterval(this.timer);
-	// 	}
-
- //    });
+	this.sub = this.router.events.subscribe((val) => {
+        if(this.workMode && (val instanceof NavigationEnd))  {
+        	this.saveTest();
+        }
+    });
 
   	this.answerForm = new FormGroup({
   		'answer': new FormControl('', Validators.required)
   	});
 
   	this.loading = true;
-  	// this.route.queryParams.subscribe(params => {
-  	// 	this.testworkService
-  	// 	.getTestwork({testId: params['testId']}).subscribe(testwork => {
-  	// 		console.log(testwork);
-  	// 		this.testwork = testwork;
-
-  	// 		this.currentQuestionId = 0;
-  	// 		this.timeRestriction = (Math.floor(this.testwork.timeRestriction / 3600) > 0 ? Math.floor(this.testwork.timeRestriction / 3600) + " hrs " : '') + 
-  	// 							   (Math.floor(this.testwork.timeRestriction % 3600 / 60) > 0 ? Math.floor(this.testwork.timeRestriction % 3600 / 60) + " min(s) " : '') +
-  	// 							   (Math.floor(this.testwork.timeRestriction % 60) > 0 ? Math.floor(this.testwork.timeRestriction % 60) + " secs " : '');
-  	// 		this.loading = false;
-  	// 	});
-  	// });
 
   	this.route.queryParams.pipe(map(params => {
   		return params['testId'];
@@ -94,15 +80,21 @@ export class TestworkComponent implements OnInit {
   		return this.testworkService.getTestwork({testId: id})
   	}), mergeMap((testwork):any => {
 		this.testwork = testwork;
+		this.available = (this.currentDate < new Date(this.testwork.deadline));
+
+		console.log(this.testwork);
 
 		this.currentQuestionId = 0;
 		this.timeRestriction = (Math.floor(this.testwork.timeRestriction / 3600) > 0 ? Math.floor(this.testwork.timeRestriction / 3600) + " hrs " : '') + 
 							   (Math.floor(this.testwork.timeRestriction % 3600 / 60) > 0 ? Math.floor(this.testwork.timeRestriction % 3600 / 60) + " min(s) " : '') +
 							   (Math.floor(this.testwork.timeRestriction % 60) > 0 ? Math.floor(this.testwork.timeRestriction % 60) + " secs " : '');
-		this.loading = false;
+		
 		return this.testworkService.getAnswers({testId: this.testwork._id})
-  	})).subscribe(answer => {
+  	})).subscribe((answer: {answers: [{question}]}) => {
+  		
   		this.studentAnswer = answer;
+		console.log(this.studentAnswer);
+  		this.loading = false;
   	});
 
   }
@@ -152,15 +144,20 @@ export class TestworkComponent implements OnInit {
   saveTest() {
   	let finalAnswers = [];
   	this.testwork.questions.forEach((question, i) => {
-  		finalAnswers.push({questionId: question._id, answer: this.answers[i]});
+  		finalAnswers.push({question: question._id, answer: this.answers[i] || ''});
   	});
 
   	this.testworkService.saveAnswers({answers: JSON.stringify(finalAnswers), testId: this.testwork._id}).subscribe(result => {
-  		this.workMode = false;
-  		this.answers = [];
   		clearInterval(this.timer);
   		this.cookieService.delete('Answers');
   		this.cookieService.delete('Secs');
+
+  		this.testworkService.getAnswers({testId: this.testwork._id})
+  		.subscribe((answer: {answers: [{question}]}) => {
+	  		this.studentAnswer = answer;
+	  		this.workMode = false;
+  			this.answers = [];
+	  	});
   	});
   }
 
@@ -169,6 +166,12 @@ export class TestworkComponent implements OnInit {
 
   	this.currentQuestionId = i;
   	this.answerForm.patchValue({'answer': this.answers[i]});
+  }
+
+  ngOnDestroy() {
+  	if (this.sub && !this.workMode) {
+  		this.sub.unsubscribe();
+  	}
   }
 
 }
