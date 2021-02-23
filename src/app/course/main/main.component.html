@@ -148,12 +148,17 @@
 
 						<span *ngIf="feedPost.maxGrade" class="assignment__title" [routerLink]="['../assignment/', feedPost._id]">{{ feedPost.title }}</span>
 
-						<div *ngIf="userType === 'teacher' || (userType === 'student' && feedPost.hidden === false)">
+						<div *ngIf="userType === 'teacher' || (userType === 'student' && feedPost.hidden === false)" (click)="goToTest(topic._id, feedPost._id)">
 							<span *ngIf="feedPost.questions" class="test__icon">
 								<fa-icon [icon]="testIcon"></fa-icon>
 							</span>
 
-							<span *ngIf="feedPost.questions" class="assignment__title" (click)="goToTest(topic._id, feedPost._id)">{{ feedPost.title }}</span>
+							<span *ngIf="feedPost.questions" class="assignment__title" >{{ feedPost.title }} 
+								<button 
+								type="button" 
+								*ngIf="userType === 'teacher'"
+								class="edit-test__btn" (click)="goToEditTest(topic._id, feedPost._id)">edit</button>
+							</span>
 						</div>
 						
 					</div>

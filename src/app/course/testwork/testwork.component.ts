@@ -5,8 +5,8 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 
 import { TestService } from '../test.service';
-import { filter, map, mergeMap } from 'rxjs/operators'
-import { Subscription } from 'rxjs'
+import { filter, map, mergeMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 
 @Component({

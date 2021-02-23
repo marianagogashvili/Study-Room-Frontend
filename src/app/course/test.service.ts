@@ -74,6 +74,18 @@ export class TestService {
 				})
 			})
 	}
+
+	getAnswersForTeacher(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/testAnswer/getAnswersForTeacher', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+	}
+	
 	// sendEditTest(testwork) {
 	// 	this.testwork.next(testwork);
 	// }

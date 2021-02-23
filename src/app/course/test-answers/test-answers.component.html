@@ -1,0 +1,47 @@
+	<form class="search__div" [formGroup]="searchForm" (ngSubmit)="findStudents()">
+		<input 
+			formControlName="fullName"
+			type="text"
+			placeholder="name">
+		<select name="" id="" formControlName="group" >
+  			<option value="" selected disabled hidden>group</option>
+			<option [value]="group.name" *ngFor="let group of groups">{{ group.name }}</option>
+		</select>
+		<div class="btns">
+			<button class="search__btn">Search</button>
+			<fa-icon class="redo__icon"  (click)="clearSearch()" [icon]="redoIcon"></fa-icon>
+				
+		</div>
+
+	</form>
+	
+<table cellspacing="0">
+
+	<tr>
+		<th>Name</th>
+		<th>Group</th>
+		<th>Passed
+			<fa-icon *ngIf="passedSort === 'asc'" (click)="orderByPassed('desc')" [icon]="upIcon"></fa-icon>
+			<fa-icon *ngIf="!passedSort || passedSort === 'desc'" (click)="orderByPassed('asc')" [icon]="downIcon"></fa-icon>
+		</th>
+		<th>Points 
+			<fa-icon *ngIf="gradeSort === 'asc'" (click)="orderByGrade('desc')" [icon]="upIcon"></fa-icon>
+			<fa-icon *ngIf="!gradeSort || gradeSort === 'desc'" (click)="orderByGrade('asc')" [icon]="downIcon"></fa-icon>
+		</th>
+		<th>Questions</th>
+
+	</tr>
+	<tr 
+		*ngFor="let student of students; let i = index" 
+		[ngClass]="{'tr__grey': i%2 == 0}"
+		(click)="">
+		<td>{{ student.fullName }}</td>
+		<td>{{ student.group }}</td>
+		<td>
+			<fa-icon *ngIf="student.answers.length > 0" [icon]="checkIcon"></fa-icon>
+			<fa-icon *ngIf="student.answers.length == 0" [icon]="minusIcon"></fa-icon>
+		</td>
+		<td>{{ student.sumPoints || '-' }} / {{ student.max }}</td>
+		<td>{{ student.gradedQuestions }} / {{ student.answers.length }}</td>
+	</tr>
+</table>
