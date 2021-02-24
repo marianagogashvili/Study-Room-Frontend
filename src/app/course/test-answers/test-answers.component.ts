@@ -20,6 +20,7 @@ import { CoursesService } from '../courses.service';
 export class TestAnswersComponent implements OnInit {
   students;
   defaultStudents;
+  testworkId;
 
   groups;
   searchForm: FormGroup;
@@ -32,6 +33,7 @@ export class TestAnswersComponent implements OnInit {
 
   gradeSort;
   passedSort;
+  questionSort;
 
   constructor(private testworkService: TestService,
   			  private router: Router,
@@ -51,14 +53,31 @@ export class TestAnswersComponent implements OnInit {
   	});
 
   	this.route.queryParams.subscribe(params => {
-  		this.testworkService.getAnswersForTeacher({testId: params['testworkId']})
+  		this.testworkId = params['testworkId'];
+  		this.testworkService.getAnswersForTeacher({testId: this.testworkId})
   			.subscribe(result => {
   				this.students = result;
   				this.defaultStudents = result;
   				console.log(this.students);
   			});
   	});
+
+  	this.testworkService.studentsAnswers.subscribe((updatedStudent: any) => {
+  		if (updatedStudent) {
+  			this.students.forEach(student => student._id === updatedStudent._id ? student = updatedStudent : false);
+  			// student = updatedStudent;
+  			this.defaultStudents = this.students;
+  		}
+  		
+  	});
   	
+  }
+
+  goToGrade(student) {
+  	if (student.answers.length > 0) {
+  		this.router.navigate(['gradeAnswers'], { queryParams: {testworkId: this.testworkId} , relativeTo: this.route });
+  		this.testworkService.sendAnswers(student);
+  	}
   }
 
   orderByGrade(type) {
@@ -79,6 +98,17 @@ export class TestAnswersComponent implements OnInit {
   			return b.answers.length - a.answers.length;
   		} else if (type === 'desc'){
   			return a.answers.length - b.answers.length;
+  		}
+  	});
+  }
+
+  orderByQuestion(type) {
+  	this.questionSort = type;
+  	this.students.sort((a, b): any => {
+  		if (type === 'asc') {
+  			return b.gradedQuestions - a.gradedQuestions;
+  		} else if (type === 'desc'){
+  			return a.gradedQuestions - b.gradedQuestions;
   		}
   	});
   }

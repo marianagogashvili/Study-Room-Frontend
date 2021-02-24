@@ -38,6 +38,7 @@ import { GradebookComponent } from './course/gradebook/gradebook.component';
 import { AddTestworkComponent } from './course/add-testwork/add-testwork.component';
 import { TestworkComponent } from './course/testwork/testwork.component';
 import { TestAnswersComponent } from './course/test-answers/test-answers.component';
+import { GradeAnswersComponent } from './course/test-answers/grade-answers/grade-answers.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { TestAnswersComponent } from './course/test-answers/test-answers.compone
     GradebookComponent,
     AddTestworkComponent,
     TestworkComponent,
-    TestAnswersComponent
+    TestAnswersComponent,
+    GradeAnswersComponent
   ],
   imports: [
     BrowserModule,

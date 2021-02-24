@@ -82,16 +82,8 @@ export class StudentsComponent implements OnInit, OnDestroy {
     this.students = this.defaultStudents.filter(student => (name ? student.fullName.toLowerCase().includes(name.toLowerCase()) : true) 
   			&& (login ? student.login.includes(login) : true) &&
   			(group ? student.group.name === group : true)
-  		// }
   	);
-  	console.log(this.students);
 
- //  	this.courseService.findStudents(
-	// 	{fullName: name, login: login, group: group, courseId: this.courseId})
-	// 	.subscribe(students => {
-	// 		console.log(students);
-	// 		// this.students = students;
-	// });
   }
 
   removeStudent(student) {

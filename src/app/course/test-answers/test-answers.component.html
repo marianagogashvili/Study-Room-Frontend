@@ -1,3 +1,4 @@
+<router-outlet></router-outlet>
 	<form class="search__div" [formGroup]="searchForm" (ngSubmit)="findStudents()">
 		<input 
 			formControlName="fullName"
@@ -28,13 +29,16 @@
 			<fa-icon *ngIf="gradeSort === 'asc'" (click)="orderByGrade('desc')" [icon]="upIcon"></fa-icon>
 			<fa-icon *ngIf="!gradeSort || gradeSort === 'desc'" (click)="orderByGrade('asc')" [icon]="downIcon"></fa-icon>
 		</th>
-		<th>Questions</th>
-
+		<th>Questions
+			<fa-icon *ngIf="questionSort === 'asc'" (click)="orderByQuestion('desc')" [icon]="upIcon"></fa-icon>
+			<fa-icon *ngIf="!questionSort || questionSort === 'desc'" (click)="orderByQuestion('asc')" [icon]="downIcon"></fa-icon>
+		</th>
+		<th>Date</th>
 	</tr>
 	<tr 
 		*ngFor="let student of students; let i = index" 
 		[ngClass]="{'tr__grey': i%2 == 0}"
-		(click)="">
+		(click)="goToGrade(student)">
 		<td>{{ student.fullName }}</td>
 		<td>{{ student.group }}</td>
 		<td>
@@ -43,5 +47,7 @@
 		</td>
 		<td>{{ student.sumPoints || '-' }} / {{ student.max }}</td>
 		<td>{{ student.gradedQuestions }} / {{ student.answers.length }}</td>
+		<td *ngIf="student.createdAt">{{ student.createdAt | date: 'dd/MM/yy' }}</td>
+		<td *ngIf="!student.createdAt">-</td>
 	</tr>
 </table>

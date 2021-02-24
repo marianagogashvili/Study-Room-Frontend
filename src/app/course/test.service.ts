@@ -5,7 +5,7 @@ import { throwError, BehaviorSubject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class TestService {
-	// testwork = new BehaviorSubject<string>(null);
+	studentsAnswers = new BehaviorSubject<string>(null);
 	constructor(private http: HttpClient) {}
 
 	createTestwork(param: Params) {
@@ -75,6 +75,17 @@ export class TestService {
 			})
 	}
 
+	updateAnswers(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/testAnswer/updateAnswers', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			})
+	}
+
 	getAnswersForTeacher(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/testAnswer/getAnswersForTeacher', 
@@ -85,7 +96,11 @@ export class TestService {
 				})
 			})
 	}
-	
+
+	sendAnswers(answers) {
+		this.studentsAnswers.next(answers);
+	}
+
 	// sendEditTest(testwork) {
 	// 	this.testwork.next(testwork);
 	// }

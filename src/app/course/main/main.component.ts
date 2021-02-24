@@ -230,7 +230,7 @@ export class MainComponent implements OnInit, OnDestroy {
   goToTest(topicId, testworkId) {
   	// this.testworkService.sendEditTest(testwork);
   	if (this.userType === 'teacher') {
-  		this.router.navigate(['../testAnswers'], {relativeTo: this.route, queryParams: {topicId: topicId, testworkId: testworkId } });
+  		this.router.navigate(['../testAnswers'], {relativeTo: this.route, queryParams: { testworkId: testworkId } });
   	} else if (this.userType === 'student') {
   		this.router.navigate(['../testwork'], {queryParams: {testId: testworkId},relativeTo: this.route});
   	}

@@ -1,0 +1,38 @@
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+
+input[type=number] {
+	outline: none;
+	width: 50px;
+}
+
+.no__points {
+	background-color: #ffafa3;
+}
+
+.student_answ__div {
+	background-color: #f7f7f7;
+	padding: 20px;
+}
+
+.create__btn {
+	height: 2.5rem;
+	border-radius: 20px;
+	text-transform: uppercase;
+	border: 0;
+	outline: none;
+	color: white;
+	margin: 1rem 3rem;
+
+	background-color: #0b7ace;
+	width: 8rem;
+}
+
+.create__btn:active {
+ 	border: 1px solid #c4c4c4;
+ 	background-color: transparent;
+ 	color:  #c4c4c4;
+}

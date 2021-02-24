@@ -1,0 +1,41 @@
+<div class="answers__div" [formGroup]="pointsForm">
+
+	<div *ngFor="let answer of studentAnswer; let i = index" class="answers__list"  formArrayName="answers">
+		<h3 class="question2__h3" [formGroupName]="i">
+			<span class="points__span" [ngClass]="{'no__points': !this.pointsForm.value.answers[i].grade && this.pointsForm.value.answers[i].grade !== 0}">points: <input formControlName="grade" [value]="answer.points" type="number" min="0" [max]="answer.question.points">  / {{ answer.question.points }}</span>
+			
+			{{ answer.question.title }}</h3>
+		<div class="choice__list" *ngIf="answer.question.a">
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'a'), 'wrong__choice': answer.studentAnswer === 'a' && answer.points === 0}">a</p>
+				{{ answer.question.a }}
+			</div>
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'b'), 'wrong__choice': answer.studentAnswer === 'b' && answer.points === 0}">b</p>
+				{{ answer.question.b }}
+			</div>
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'c'), 'wrong__choice': answer.studentAnswer === 'c' && answer.points === 0}">c</p>
+				{{ answer.question.c }}
+			</div>
+			<div class="choice__div">
+				<p [ngClass]="{'correct__choice': (answer.question.answer === 'd'), 'wrong__choice': answer.studentAnswer === 'd' && answer.points === 0}">d</p>
+				{{ answer.question.d }}
+			</div>
+			
+		</div>
+		<div *ngIf="!answer.question.a">
+			<div class="student_answ__div">
+				Student's answer: {{  answer.studentAnswer }}
+			</div>
+			<div class="correct_answ__div">
+				Correct answer: {{  answer.question.answer }}
+			</div>
+		
+		</div>
+	</div>
+	<div style="text-align: center;">
+		<button (click)="saveGrade()" class="create__btn">Save</button>
+	</div>
+	
+</div>
