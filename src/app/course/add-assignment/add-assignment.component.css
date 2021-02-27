@@ -74,6 +74,23 @@ textarea.ng-invalid.ng-touched {
   box-shadow: 0 0 7px red;
 }
 
+.hidden__input {
+	width: 20px;
+	height: 20px;
+}
+
+.hidden__label {
+	margin-left: 0.5rem;
+}
+
+.hidden__div {
+	display: inline;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+
+}
+
 .create__btn {
 	height: 2.5rem;
 	border-radius: 20px;

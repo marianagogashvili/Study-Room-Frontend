@@ -49,6 +49,19 @@
 		Maximum grade should not be empty
 	</span>
 
+	<div class="hidden__div">
+		<label 
+		class="hidden__label" 
+		for="hide">hidden</label>
+		<input 
+			type="checkbox"
+			class="hidden__input"
+			id="hide"
+			name="hide"
+			hide
+			ngModel 
+			>
+	</div>
 	<div class="file__div">
 		<label [ngStyle]="files.length > 0 && {'background-color':'#7dcc5e'}" for="fileName" class="file__btn">Select file</label>
 		<input 

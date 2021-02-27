@@ -76,7 +76,10 @@ export class AuthComponent implements OnInit {
     const className = form.value.className;
     const type = this.userType;
 
-    const groupId = this.groups.find(group => group.name === className)._id;
+    let groupId = null;
+    if (className) {
+        groupId = this.groups.find(group => group.name === className)._id;
+    }
 
     this.user = {login: login, password: password, fullName: fullName, groupId: groupId, type: type};
 

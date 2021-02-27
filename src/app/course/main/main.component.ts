@@ -22,6 +22,7 @@ import { faFileWord } from '@fortawesome/free-regular-svg-icons';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faVial } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main',
@@ -46,6 +47,7 @@ export class MainComponent implements OnInit, OnDestroy {
   testIcon = faVial;
   linkIcon = faExternalLinkAlt;
   minusIcon = faMinusCircle;
+  arrowDownIcon = faArrowDown;
 
 
   userType = null;
@@ -57,7 +59,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   assignments;
   feed;
-
+  marginLeft = 20;
+  hiddenVal;
 
   sub: Subscription;
   sub2: Subscription;
@@ -99,6 +102,17 @@ export class MainComponent implements OnInit, OnDestroy {
   			.pipe(map(feed => {
   				console.log(feed);
   				this.feed = feed;
+  				this.feed.forEach(feedVal => {
+            
+  					if (feedVal.parent) {
+  						this.marginLeft +=20;
+              feedVal.hidden = this.hiddenVal;
+  					} else {
+              this.hiddenVal = feedVal.hidden;
+  						this.marginLeft = 0;
+  					}
+            feedVal.marginLeft = this.marginLeft;
+  				});
   				return feed;
   			}), mergeMap((feed):any => {
   				return this.topicService.getTopics({courseId: params['id']})
@@ -243,8 +257,8 @@ export class MainComponent implements OnInit, OnDestroy {
   	}
   }
 
-  showAssignment(topic) {
-  	this.courseService.showAssignment(topic);
+  showAssignment(topic, assignmentId) {
+  	this.courseService.showAssignment({topic: topic, assignmentId: assignmentId});
   	document.getElementById('header').scrollIntoView({ behavior: 'smooth' });	
   }
 

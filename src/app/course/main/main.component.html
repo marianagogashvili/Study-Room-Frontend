@@ -90,7 +90,7 @@
 
 						<button 
 							type="button" 
-							class="add-assignment__btn" (click)="showAssignment(topic._id)">assignment</button>
+							class="add-assignment__btn" (click)="showAssignment(topic._id, null)">assignment</button>
 						<button 
 							type="button" 
 							class="add-post__btn" (click)="showPost(topic._id)">post</button>
@@ -142,11 +142,18 @@
 							</fa-icon>
 						</span>
 
-						<span *ngIf="feedPost.maxGrade" class="file__icon">
-							<fa-icon [icon]="fileIcon"></fa-icon>
-						</span>
+						<div *ngIf="userType === 'teacher' || (userType === 'student' && feedPost.hidden === false)">
+							<span *ngIf="feedPost.maxGrade" class="file__icon">
+								<fa-icon [icon]="fileIcon"></fa-icon>
+							</span>
 
-						<span *ngIf="feedPost.maxGrade" class="assignment__title" [routerLink]="['../assignment/', feedPost._id]">{{ feedPost.title }}</span>
+							<span *ngIf="feedPost.maxGrade" class="assignment__title" [routerLink]="['../assignment/', feedPost._id]" [ngStyle]="feedPost.parent && {'margin-left': feedPost.marginLeft+'px'}">
+								{{ feedPost.title }}
+							</span>
+							<fa-icon *ngIf="userType === 'teacher' && feedPost.maxGrade" [icon]="arrowDownIcon" (click)="showAssignment(topic._id, feedPost._id)"></fa-icon>
+						</div>
+
+						
 
 						<div *ngIf="userType === 'teacher' || (userType === 'student' && feedPost.hidden === false)" (click)="goToTest(topic._id, feedPost._id)">
 							<span *ngIf="feedPost.questions" class="test__icon">

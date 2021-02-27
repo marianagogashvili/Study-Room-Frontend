@@ -26,7 +26,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   ]
 })
 export class AddAssignmentComponent implements OnInit, OnDestroy {
-  @Input() topicId;
+  @Input() topicAndParent;
+  topicId;
+  parentId = null;
+
   fileIcon = faFile;
   errorState = 'hidden';
 
@@ -43,6 +46,16 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   		      private router: Router) { }
 
   ngOnInit() {
+  	console.log(this.topicAndParent);
+  	this.topicId = this.topicAndParent.topic;
+  	if (this.topicAndParent.assignmentId) {
+  		this.parentId = this.topicAndParent.assignmentId;
+  	}
+  	
+    console.log(this.topicId);
+    console.log(this.parentId);
+
+
   	this.currentDate.setHours(this.currentDate.getHours() + 2);
   	this.availableFrom = this.currentDate.toISOString().slice(0, 16);
   }
@@ -57,9 +70,9 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   	this.files.push(files[0]);
 
   	let size = 0;
-	this.files.forEach(file => {
-		size += file.size;
-	});
+  	this.files.forEach(file => {
+  		size += file.size;
+  	});
   	if (size / 1000000 > 10) {
   		this.error = "Files are too big";
   		this.errorState = 'shown';
@@ -80,6 +93,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   		}, 2000);
   	} else {
   		const title = form.value.title;
+      const hide = form.value.hide;
   		const descr = form.value.description;
   		const availableFrom = form.value.availableFrom;
   		const deadline = form.value.deadline;
@@ -98,13 +112,17 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
 	  			formData.append('file', file, file.name);
 	  		});
 	  		formData.append('title', title);
+        formData.append('hidden', hide);
 	  		formData.append('description', descr);
 	  		formData.append('availableFrom', availableFrom);
 	  		formData.append('deadline', deadline);
 	  		formData.append('maxGrade', maxGrade);
 
 	  		formData.append('courseId', this.courseService.courseId);
-	  		formData.append('topicId', this.topicId);
+
+	      formData.append('parentId', this.parentId || '');
+
+    		formData.append('topicId', this.topicId);
 
 
 	  		console.log(formData);

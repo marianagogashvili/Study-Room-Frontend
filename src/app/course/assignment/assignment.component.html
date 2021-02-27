@@ -48,7 +48,18 @@
 					type="datetime-local"
 					formControlName="deadline"
 					[min]="editForm.value.availableFrom.slice(0, 16)">
-
+				<div class="hidden__div">
+					<label 
+					class="hidden__label" 
+					for="hide">hidden</label>
+					<input 
+						type="checkbox"
+						class="hidden__input"
+						id="hide"
+						name="hide"
+						formControlName="hide"
+						>
+				</div>
 				<div class="filelist__div" *ngFor="let file of filesList; index as i">
 					<span (click)="removeFileFromList(file, i)" class="pdf__icon" ><fa-icon [icon]="minusIcon"></fa-icon></span>
 					<span class="filelist__span">{{ file.split('-')[3] }}</span>

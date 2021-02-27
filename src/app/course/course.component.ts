@@ -36,7 +36,8 @@ export class CourseComponent implements OnInit,  OnDestroy {
   addAssignment = false;
   addPost = false;
 
-  assignmentTopicId;
+  assignmentTopicIdAndParent;
+
   postTopicId;
   userType;
 
@@ -60,8 +61,8 @@ export class CourseComponent implements OnInit,  OnDestroy {
 }
 
   ngOnInit() {
-  	this.courseService.assignmentMode.subscribe((topicId) => {
-  		this.assignmentTopicId = topicId;
+  	this.courseService.assignmentMode.subscribe(topicIdAndParent => {
+  		this.assignmentTopicIdAndParent = topicIdAndParent;
   		this.addAssignment = !this.addAssignment;
   	});
 

@@ -7,7 +7,7 @@
 </head>
 <app-header></app-header>
 
-<app-add-assignment [topicId]="assignmentTopicId" *ngIf="addAssignment"></app-add-assignment>
+<app-add-assignment [topicAndParent]="assignmentTopicIdAndParent" *ngIf="addAssignment"></app-add-assignment>
 
 <app-add-post [topicId]="postTopicId" [courseId]="course._id" *ngIf="addPost"></app-add-post>
 
