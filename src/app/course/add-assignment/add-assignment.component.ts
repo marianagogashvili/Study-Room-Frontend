@@ -93,7 +93,7 @@ export class AddAssignmentComponent implements OnInit, OnDestroy {
   		}, 2000);
   	} else {
   		const title = form.value.title;
-      const hide = form.value.hide;
+      const hide = form.value.hide || false;
   		const descr = form.value.description;
   		const availableFrom = form.value.availableFrom;
   		const deadline = form.value.deadline;

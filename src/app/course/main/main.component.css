@@ -25,6 +25,10 @@ body {
 	color: #687cf7;
 }
 
+.hidden__span {
+	color: #bababa;
+}
+
 .delete__icon, .edit__icon {
 	margin-left: 1rem;
 	font-size: 25px;

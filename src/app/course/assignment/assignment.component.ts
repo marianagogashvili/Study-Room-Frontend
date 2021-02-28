@@ -49,6 +49,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 
   	this.editForm = new FormGroup({
   		'title': new FormControl('', [Validators.required]),
+      'hide': new FormControl(false, [Validators.required]),
   		'description': new FormControl('', [Validators.required]),
   		'availableFrom': new FormControl('', [Validators.required]),
   		'maxGrade': new FormControl('', [Validators.required]),
@@ -79,6 +80,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   	this.editMode = !this.editMode;
   	this.editForm.patchValue({
   		'title': this.assignment.title, 
+      'hide': this.assignment.hidden, 
   		'description': this.assignment.description,
   		'maxGrade': this.assignment.maxGrade,
   		'availableFrom': this.assignment.availableFrom.slice(0, 16),
@@ -124,6 +126,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 
   updateAssignment() {
   	const title = this.editForm.value.title;
+    const hide = this.editForm.value.hide;
   	const description = this.editForm.value.description;
   	const availableFrom = this.editForm.value.availableFrom;
   	const maxGrade = this.editForm.value.maxGrade;
@@ -135,6 +138,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
 			this.error = null;
 		}, 2000);
 	} else if (title === this.assignment.title && 
+      hide === this.assignment.hidden && 
   		description  === this.assignment.description &&
   		maxGrade === this.assignment.maxGrade && 
   		availableFrom === this.assignment.availableFrom.slice(0, 16) &&
@@ -148,6 +152,7 @@ export class AssignmentComponent implements OnInit, OnDestroy {
   		let formData: FormData = new FormData();
   		formData.append('id', this.assignment._id);
   		formData.append('title', title);
+      formData.append('hide', hide);
   		formData.append('description', description);
   		formData.append('maxGrade', maxGrade);
 

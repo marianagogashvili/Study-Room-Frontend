@@ -102,17 +102,15 @@ export class MainComponent implements OnInit, OnDestroy {
   			.pipe(map(feed => {
   				console.log(feed);
   				this.feed = feed;
-  				this.feed.forEach(feedVal => {
-            
-  					if (feedVal.parent) {
-  						this.marginLeft +=20;
+  				this.feed.forEach((feedVal, i) => {
+            let parentId = i > 0 ? this.feed[i-1].parent : this.feed[i].parent;
+            this.hiddenVal = i > 0 ? this.feed[i-1].hidden : this.feed[i].hidden;
+
+            if (feedVal.parent && this.hiddenVal === true) {
               feedVal.hidden = this.hiddenVal;
-  					} else {
-              this.hiddenVal = feedVal.hidden;
-  						this.marginLeft = 0;
-  					}
-            feedVal.marginLeft = this.marginLeft;
+            }
   				});
+
   				return feed;
   			}), mergeMap((feed):any => {
   				return this.topicService.getTopics({courseId: params['id']})
@@ -130,15 +128,24 @@ export class MainComponent implements OnInit, OnDestroy {
 
   				return this.courseService.feedValue;
   			}), mergeMap((assignment): any => {
-  				console.log(assignment);
   				let topic = this.topics.filter(t => t._id === assignment.topic);
-				if (topic[0].feed) {
-					topic[0].feed[topic[0].feed.length] = assignment;
-				} else {
-					topic[0].feed =[ assignment ];			
-				}
 
-				return topic;
+  				if (topic[0].feed) {
+
+            if (!assignment.parent) {
+              topic[0].feed[topic[0].feed.length] = assignment;
+            } else {
+              let i = topic[0].feed.findIndex(feed => feed._id === assignment.parent);
+
+              assignment.marginLeft = topic[0].feed[i].marginLeft ? this.feed[i].marginLeft + 20 : 20;
+              topic[0].feed.splice(i+1, 0, assignment);
+            }
+            
+  				} else {
+  					topic[0].feed =[ assignment ];			
+  				}
+
+				  return topic;
   			})).subscribe((topic:any)  => {
 
   			});

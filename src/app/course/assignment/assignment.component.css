@@ -26,7 +26,7 @@ form {
 .form__one, .form__two  {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 2rem;
+	margin: 1rem 0 2rem 0;
 }
 
 .form__one	{
@@ -151,6 +151,23 @@ textarea {
 	font-weight: 600;
 	outline: none;
 } 
+
+.hidden__input {
+	width: 20px;
+	height: 20px;
+}
+
+.hidden__label {
+	margin-left: 0.5rem;
+}
+
+.hidden__div {
+	display: inline;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+}
 
 .save__btn {
 	width: 6rem;

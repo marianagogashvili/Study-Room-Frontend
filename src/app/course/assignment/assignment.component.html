@@ -21,18 +21,18 @@
 	<form *ngIf="editMode && userType === 'teacher'" [formGroup]="editForm" (ngSubmit)="updateAssignment()">
 		<div class="edit__form">
 			<div class="form__one">
-				<input
+				Title <input
 				required
 				class="title__input" 
 				type="text"
 				formControlName="title">
 
-				<textarea 
+				Description <textarea 
 					required
 					formControlName="description">
 				</textarea>
 
-				<input
+				Max grade <input
 				required
 				class="title__input" 
 				type="number"
