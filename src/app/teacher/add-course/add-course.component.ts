@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { TeacherService } from '../teacher.service';
+import { HomeService } from '../../home.service';
+
 import { AuthService } from '../../auth/auth.service';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +16,7 @@ import { Router } from '@angular/router';
 export class AddCourseComponent implements OnInit {
   @Output() getCourse: EventEmitter<any> = new EventEmitter<any>();
   groups;
+  fields;
   students;
   studentList = [];
 
@@ -22,34 +25,35 @@ export class AddCourseComponent implements OnInit {
 
 
   constructor(private teacherService: TeacherService,
+          private homeService: HomeService,
   			  private authService: AuthService,
   			  private router: Router) { }
 
   ngOnInit() {
-  	this.authService.getGroups().subscribe(groups => {
+  	this.homeService.getGroups().subscribe(groups => {
       this.groups = groups;
-      console.log(groups);
+    });
+    this.homeService.getFields().subscribe(fields => {
+      this.fields = fields;
     });
   }
 
   findStudent(name: string) {
   		if (name.length > 2) {
-  			this.teacherService.findStudent({name: name}).subscribe(students => {
-		  		console.log(students);
-		  		this.students = students;
+  			this.teacherService.findStudent({name: name}).subscribe((students: any) => {
+          if (students.length > 0) {
+            this.students = students;
+          }
 		  	});
   		} 
   }
 
-  addStudent(student) {
-  	console.log("sdfdsfds");
+  addStudent(student) { 	
   	if (student.value !== '') {
-  		let foundStudent = this.students.find((s) => {
-  			if (s.fullName === student.value) {
-  				return s;
-  			}
-  		});
-  		let st = this.studentList.find((st) => {
+      student = student.value.split('-');
+  		let foundStudent = this.students.find((s) =>s.fullName === student[0].trim() || s.login === student[1].trim());
+
+      let st = this.studentList.find((st) => {
   			if (st._id === foundStudent._id) {
   				return true;
   			}
@@ -75,9 +79,12 @@ export class AddCourseComponent implements OnInit {
   	const title = form.value.title;
   	const description = form.value.description;
   	const key = form.value.key;
+    const opened = form.value.opened || false;
   	const groupName = form.value.groupName;
+    const fieldName = form.value.fieldName;
 
-  	const course = {title: title, description: description, key: key, groupName: groupName, students: this.studentList};
+
+  	const course = {title: title, description: description, key: key, opened: opened, groupName: groupName, fieldName: fieldName, students: this.studentList};
   	this.teacherService.createCourse(course).subscribe(result =>{ 
   		this.getCourse.emit(course);
   	}, error => {

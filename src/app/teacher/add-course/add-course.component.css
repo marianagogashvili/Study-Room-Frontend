@@ -2,6 +2,7 @@
 	box-sizing: border-box;
 }
 
+
 .add-course__div {
 	position: absolute;
 	width: 100%; 
@@ -18,8 +19,9 @@
 	z-index: 100;
 	display: flex;
 	width: 500px;
+	/*min-width: 400px;*/
 	max-width: 900px;
-	height: 950px;
+	height: 1100px;
 	top: 20px;
 	bottom: 20px;
 	padding: 30px;
@@ -35,7 +37,7 @@
 
 .create-course__div-left, .create-course__div-right {
 	display: flex;
-	height: 500px;
+	height: 600px;
 	flex-direction: column;
 	justify-content: space-between;
 }
@@ -44,7 +46,7 @@
 	margin-bottom: 30px;
 }
 
-input, textarea {
+input[type="text"], textarea {
 	height: 50px;
 	width: 330px;
 	min-width: 240px;
@@ -81,7 +83,7 @@ input, textarea {
 }
 
 .students__list {
-	height: 250px; 
+	height: 300px; 
 	overflow-y: scroll;
 }
 
@@ -117,11 +119,27 @@ td {
 	background-color: #bbbfca;
 }
 
+.hidden__input {
+	width: 20px;
+	height: 20px;
+}
+
+.hidden__label {
+	margin-left: 0.5rem;
+}
+
+.hidden__div {
+	display: inline;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+
+}
 @media screen and (min-width: 900px) {
 	.create-course__div {
 		display: flex;
 		width: 80%;
-		height: 600px;
+		height: 700px;
 		top: 40px;
 		flex-direction: row;
 		padding: 20px;

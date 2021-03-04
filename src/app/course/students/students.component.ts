@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 import { CoursesService } from '../courses.service';
+import { HomeService } from '../../home.service';
 
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faRedo } from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +33,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
   redoIcon = faRedo;
 
   constructor(private courseService: CoursesService,
+          private homeService: HomeService,
   			  private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -50,7 +52,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
   		this.defaultStudents = students;
   	});
 
-  	this.courseService.getGroups().subscribe(groups => {
+  	this.homeService.getGroups().subscribe(groups => {
   		this.groups = groups;
   	});
 

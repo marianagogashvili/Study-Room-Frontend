@@ -70,6 +70,11 @@ body {
 	padding: 10px 25px;
 }
 
+.course__div-info h1 {
+	height: 40px;
+	overflow: hidden;
+}
+
 .course__div-grades {
 	width: 100%;
 }

@@ -147,8 +147,31 @@ export class CoursesService {
 			});
 	}
 
-	getGroups() {
-		return this.http.get('http://localhost:8000/group/getGroups');
+	getAllCourses() {
+		return this.http.get(
+			'http://localhost:8000/course/getAll');
+	}
+
+	searchCourses(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/search', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
+	registerStudent(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/registerStudent', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
 	}
 
 	sendStudentsToSelf(students) {

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
+import { AuthService } from './auth.service';
+import { HomeService } from '../home.service';
+
 import { catchError } from 'rxjs/operators';
 
 @Component({
@@ -53,10 +56,11 @@ export class AuthComponent implements OnInit {
   errors;
   userType;
   constructor(private authService: AuthService,
+              private homeService: HomeService,
               private router: Router) { }
 
   ngOnInit() {
-    this.authService.getGroups().subscribe(groups => {
+    this.homeService.getGroups().subscribe(groups => {
       this.groups = groups;
       console.log(groups);
     });

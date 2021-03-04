@@ -1,8 +1,14 @@
-
 body {
 	display: flex;
 	justify-content: center;
 }
+
+header {
+	background-color: #97cbdb;
+	width: 100%;
+	height: 80px;
+}
+
 .errorsDiv {
 	position: absolute; 
 	background-color: rgb(237, 70, 47, 0.9); 

@@ -5,9 +5,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+	<header>
+		<app-header></app-header>
+	</header>
 	<div [@errorState]="errorState" class="errorsDiv">
 		<h3 class="errorTitle">Error</h3>
 		<div class="errorDiv">{{ error }}</div>
 	</div>
 </body>
 </html>
+

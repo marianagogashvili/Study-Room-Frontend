@@ -55,6 +55,35 @@
 				type="text"
 	        	id="key"
 	        	formControlName="key" class="key__input">
+			
+			<div class="hidden__div">
+				<label 
+				class="hidden__label" 
+				for="hide">opened</label>
+				<input 
+					type="checkbox"
+					class="hidden__input"
+					id="hide"
+					name="opened"
+					formControlName="opened"
+					>
+			</div>
+			<label for="key">Field</label>
+			<div>
+				<input 
+				type="text" 
+				list="fieldName" 
+				name="fieldName"
+				placeholder="select field"
+				formControlName="field"
+				/>
+				
+
+				<datalist id="fieldName">
+				  <option *ngFor="let field of fields" >{{ field.name }}</option>
+				</datalist> 
+			</div> 
+			
 	        <label for="description">Description</label>
 	        <textarea 
 				type="text"

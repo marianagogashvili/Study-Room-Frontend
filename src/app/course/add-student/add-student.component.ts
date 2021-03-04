@@ -3,6 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faRedo } from '@fortawesome/free-solid-svg-icons';
 import { CoursesService } from '../courses.service';
+import { HomeService } from '../../home.service';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,10 +22,11 @@ export class AddStudentComponent implements OnInit {
   redoIcon = faRedo;
 
   constructor(private courseService: CoursesService,
+    private homeService: HomeService,
   	private router: Router) { }
 
   ngOnInit() {
-  	this.courseService.getGroups().subscribe(groups => {
+  	this.homeService.getGroups().subscribe(groups => {
   		this.groups = groups;
   		console.log(groups);
   	});

@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CoursesService } from './courses.service';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+
+import { CoursesService } from './courses.service';
+import { HomeService } from '../home.service';
+
 import { Subscription } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
@@ -29,6 +32,7 @@ import { map, mergeMap } from 'rxjs/operators';
 export class CourseComponent implements OnInit,  OnDestroy {
   loading;
   course;
+  fields;
 
   editMode = false;
   editForm: FormGroup;
@@ -53,7 +57,8 @@ export class CourseComponent implements OnInit,  OnDestroy {
 
   constructor(private route: ActivatedRoute,
   			  private router: Router,
-  			  private courseService: CoursesService) { 
+  			  private courseService: CoursesService,
+          private homeService: HomeService) { 
     this.sub = this.courseService.userType.subscribe(type => {
       this.userType = type;
     });
@@ -61,6 +66,11 @@ export class CourseComponent implements OnInit,  OnDestroy {
 }
 
   ngOnInit() {
+    this.homeService.getFields().subscribe(fields => {
+      this.fields = fields;
+      console.log(this.fields);
+    });
+
   	this.courseService.assignmentMode.subscribe(topicIdAndParent => {
   		this.assignmentTopicIdAndParent = topicIdAndParent;
   		this.addAssignment = !this.addAssignment;
@@ -74,7 +84,9 @@ export class CourseComponent implements OnInit,  OnDestroy {
   	this.editForm = new FormGroup({
   		'title': new FormControl('', [Validators.required]),
   		'description': new FormControl('', [Validators.required]),
-  		'key': new FormControl('', [Validators.required])
+  		'key': new FormControl(''),
+      'field': new FormControl('', [Validators.required]),
+      'opened': new FormControl('', [Validators.required])
   	});
 
   	this.loading = true;
@@ -106,19 +118,28 @@ export class CourseComponent implements OnInit,  OnDestroy {
   	const title = this.editForm.value.title;
   	const description = this.editForm.value.description;
   	const key = this.editForm.value.key;
+    const field = this.editForm.value.field;
+    const opened = this.editForm.value.opened;
+
   	if (title === this.course.title &&
   		description === this.course.description &&
-  		key === this.course.key) {
+  		key === this.course.key &&
+      field === this.course.field.name &&
+      opened === this.course.opened) {
   		this.showError("You haven't changed anything");
   	} else {
   		this.courseService.editCourse({
   			id: this.course._id, 
   			title: title, 
   			description: description,
-  			key: key
+  			key: key,
+        opened: opened,
+        field: field
       }).subscribe(result => {
   				this.course.title = title;
   				this.course.description = description;
+          this.course.field.name = field;
+          this.course.opened = opened;
   				this.editMode = false;
   			}, error => {
 		  		this.showError(error);
@@ -132,7 +153,9 @@ export class CourseComponent implements OnInit,  OnDestroy {
   		this.editForm.patchValue({
   			title: this.course.title,
   			description: this.course.description,
-  			key: this.course.key
+  			key: this.course.key,
+        field: this.course.field.name,
+        opened: this.course.opened
   		});
   	}
   }

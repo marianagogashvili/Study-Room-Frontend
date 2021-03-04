@@ -38,7 +38,7 @@
 			key
 			placeholder="Secret key"
 			ngModel
-			required
+			
 			#key = "ngModel"
 			minlength="3" 
 			>
@@ -61,6 +61,37 @@
 			  <option *ngFor="let group of groups" >{{ group.name }}</option>
 			</datalist> 
 		</div> 
+
+		<div class="hidden__div">
+			<label 
+			class="hidden__label" 
+			for="hide">opened</label>
+			<input 
+				type="checkbox"
+				class="hidden__input"
+				id="hide"
+				name="opened"
+				opened
+				ngModel 
+				#opened="ngModel"
+				>
+		</div>
+
+		<div>
+			<input 
+			type="text" 
+			list="fieldName" 
+			name="fieldName"
+			placeholder="select field"
+			ngModel
+			fieldName
+			#fieldName="ngModel"
+			required 
+			/>
+			<datalist id="fieldName">
+			  <option *ngFor="let field of fields" >{{ field.name }}</option>
+			</datalist> 
+		</div> 
 	</div>
 	<div class="create-course__div-right">
 		<div>
@@ -77,7 +108,7 @@
 			/>
 
 			<datalist id="student" *ngIf="students">
-			  <option *ngFor="let student of students">{{ student.fullName }}</option>
+			  <option *ngFor="let student of students">{{ student.fullName }} - {{ student.login }}</option>
 			</datalist> 
 		</div> 
 		<div class="icons">
@@ -95,7 +126,7 @@
 				</tr>
 				<tr *ngFor="let s of studentList; index as i">
 
-			      <td align="center"><div class="table__login">{{s.login}}</div></td>
+			      <td *ngIf="studentList" align="center"><div class="table__login">{{s.login}}</div></td>
 
 			      <td align="center">{{s.group.name}}</td>
 			      <td align="center"><fa-icon class="cross__icon" [icon]="crossIcon" (click)="removeStudent(i)"></fa-icon></td>

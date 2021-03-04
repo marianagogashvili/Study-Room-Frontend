@@ -1,0 +1,33 @@
+header {
+	background-color: #97cbdb;
+	width: 100%;
+	height: 80px;
+}
+
+.main__div {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.search__div {
+	flex: 0 0 30%;
+}
+
+.courses__div {
+	flex: 1;
+}
+
+option {
+	width: 50%;
+}
+
+@media screen and (min-width: 600px) {
+	.search__div {
+
+	}
+
+	.courses__div {
+		
+	}
+}

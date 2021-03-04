@@ -26,7 +26,7 @@ import { CoursesService } from '../course/courses.service';
   ]
 })
 export class HomeComponent implements OnInit {
-
+  courses;
   error;
   errorState = 'hidden';
 
@@ -37,6 +37,9 @@ export class HomeComponent implements OnInit {
   			  private coursesService: CoursesService) { }
 
   ngOnInit() {
+    this.coursesService.getAllCourses().subscribe(courses => {
+      this.courses = courses;
+    });
   	this.subscription = this.studentService.error.subscribe(error => {
   		console.log(error);
   		if (error) {

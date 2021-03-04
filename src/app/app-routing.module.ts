@@ -9,6 +9,7 @@ import { AuthGuardStudent } from './auth-guard-student.service';
 
 
 import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
 import { EditComponent } from './student/edit/edit.component';
 import { CourseComponent } from './course/course.component';
 import { StudentsComponent } from './course/students/students.component';
@@ -26,6 +27,7 @@ import { GradeAnswersComponent } from './course/test-answers/grade-answers/grade
 
 const appRoutes:Routes = [
 	{ path: '', component: HomeComponent},
+	{ path: 'search', component: SearchComponent},
 	{ path: 'auth', component: AuthComponent },
 	{ path: 'student', canActivate: [AuthGuardStudent], canActivateChild:[AuthGuardStudent], component: StudentComponent, children: [
 		{ path: 'main', component: MainStudentComponent },

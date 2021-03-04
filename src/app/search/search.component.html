@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<header>
+		<app-header></app-header>
+	</header>
+
+	<div class="main__div">
+		<div class="search__div">
+			Seach by:
+			<label for="fieldName">Faculty</label>
+			<input 
+				id="fieldName" 
+				type="text"
+				list="fieldList"
+				[(ngModel)]="fieldName"
+				(change)="sortByField(fieldName)" 
+				(click)="fieldName = ''"
+				>
+			<datalist id="fieldList">
+				<option *ngFor="let field of fields">{{field.name}}</option>
+			</datalist>
+		</div>
+		<div class="courses__div">
+			<div *ngFor="let course of courses" (click)="showCourse(course)">
+				{{ course.title }}
+			</div>
+		</div>
+	</div>
+	<div *ngIf="selectedCourse">
+		{{ selectedCourse.title }}
+		{{ selectedCourse.description }}
+		{{ selectedCourse.students.length }} students
+		<input 
+			*ngIf="selectedCourse.key !== ''"
+			type="text"
+			placeholder="secret key" 
+			[(ngModel)]="key">
+		<button (click)="registerInCourse()">
+			<span *ngIf="selectedCourse.opened === true">Register</span>
+			<span *ngIf="selectedCourse.opened === false">Send request</span>
+		</button>
+	</div>
+</body>
+</html>

@@ -10,7 +10,7 @@ import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 import { TestService } from '../test.service';
 import { CoursesService } from '../courses.service';
-
+import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-test-answers',
@@ -36,6 +36,7 @@ export class TestAnswersComponent implements OnInit {
   questionSort;
 
   constructor(private testworkService: TestService,
+          private homeService: HomeService,
   			  private router: Router,
   			  private courseService: CoursesService,
   			  private route: ActivatedRoute) { }
@@ -48,7 +49,7 @@ export class TestAnswersComponent implements OnInit {
   	});
 
 
-  	this.courseService.getGroups().subscribe(groups => {
+  	this.homeService.getGroups().subscribe(groups => {
   		this.groups = groups;
   	});
 

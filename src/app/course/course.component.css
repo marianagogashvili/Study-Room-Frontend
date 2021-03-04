@@ -24,6 +24,22 @@
     justify-content: space-between;
  }
 
+
+.hidden__input {
+	width: 20px;
+	height: 20px;
+}
+
+
+.hidden__div {
+	display: inline;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+}
+
+
 .delete__div {
 	position: absolute;
 	width: 100vw;
@@ -109,7 +125,7 @@ input, textarea {
 	padding-left: 12px;
 
 }
-input {
+input[type="text"] {
 	height: 40px;
 	max-width: 600px;
 	width: 50%;
@@ -166,6 +182,7 @@ textarea {
 
 
 .errorsDiv {
+	z-index: 4;
 	position: absolute; 
 	background-color: rgb(237, 70, 47, 0.9); 
 	top: 1rem; 

@@ -67,6 +67,7 @@ export class TeacherService {
 			}));
 	}
 
+
 	sendTeacher(teacher) {
 		this.teacher.next(teacher);
 	}
