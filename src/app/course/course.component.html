@@ -103,6 +103,7 @@
 		<p routerLink="students" routerLinkActive="main__link-two" class="main__link-one" >students</p>
 		<p routerLink="add-student" routerLinkActive="main__link-two" class="main__link-one" *ngIf="userType === 'teacher'">add student</p>
 		<p routerLink="gradebook" routerLinkActive="main__link-two" class="main__link-one" *ngIf="userType === 'student'">gradebook</p>
+		<p routerLink="student-requests" routerLinkActive="main__link-two" class="main__link-one" *ngIf="userType === 'teacher'">requests</p>
 	</div>
 </body>
 <router-outlet ></router-outlet>

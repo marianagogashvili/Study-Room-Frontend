@@ -58,7 +58,9 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   	this.route.parent.params.subscribe(params => {
 
-  		this.courseService.getStudentsOfCourse(
+  		// this.courseService.getStudentsOfCourse(
+      this.courseService.getCourse(
+
   			{ id: params['id'] })
   			.subscribe((course: {_id: string, students}) => {
   				this.courseId = course._id

@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
   displayHeader = false;
   showHeaderState = 'hidden';
 
-  loggedIn = localStorage.getItem('userId');
+  loggedIn = localStorage.getItem('token');
   
   courses; 
   showCourses;

@@ -14,13 +14,14 @@ export class AuthGuardStudent implements CanActivate, CanActivateChild {
 				state: RouterStateSnapshot): Observable<boolean> |
 											Promise<boolean> |
 											boolean {
-		const user = localStorage.getItem('userId');
+		// const user = localStorage.getItem('userId');
 		const token = localStorage.getItem('token');
 		const decoded: { type } = jwt_decode(token);
 
-		if (user && decoded.type === 'student') {
+		if (decoded.type === 'student') {
 			return true;
-		} else if (user === null) {
+		// } else if (user === null) {
+		} else {
 			this.router.navigate(['/']);
 			return false;
 		}

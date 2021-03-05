@@ -51,7 +51,7 @@ export class CourseComponent implements OnInit,  OnDestroy {
 
   allowedUser = false;
 
-  sub: Subscription;
+  // sub: Subscription;
   sub2: Subscription;
 
 
@@ -59,9 +59,9 @@ export class CourseComponent implements OnInit,  OnDestroy {
   			  private router: Router,
   			  private courseService: CoursesService,
           private homeService: HomeService) { 
-    this.sub = this.courseService.userType.subscribe(type => {
-      this.userType = type;
-    });
+    // this.sub = this.courseService.userType.subscribe(type => {
+    //   this.userType = type.type;
+    // });
   	router.events.subscribe((val) => this.editMode = false);
 }
 
@@ -99,11 +99,13 @@ export class CourseComponent implements OnInit,  OnDestroy {
       this.courseService.courseId = this.course._id;
       this.loading = false;
       return this.courseService.userType;
-    })).subscribe((userType): any => {
-      let uid = localStorage.getItem('userId');
-      if (userType === 'student' && this.course.students.includes(uid)) {
+    })).subscribe((userType: {type, uid}) => {
+      console.log(userType);
+       this.userType = userType.type;
+      // let uid = localStorage.getItem('userId');
+      if (userType.type === 'student' && this.course.students.includes(userType.uid)) {
           this.courseService.sendAllowedUser(this.userType);
-      } else if (userType === 'teacher' && (uid === this.course.creator._id)) {
+      } else if (userType.type === 'teacher' && (userType.uid === this.course.creator._id)) {
           this.courseService.sendAllowedUser(this.userType);
       } else {
         this.courseService.sendAllowedUser(null);
@@ -179,7 +181,7 @@ export class CourseComponent implements OnInit,  OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
     this.sub2.unsubscribe();
   }
 

@@ -13,8 +13,6 @@ export class CoursesService {
 	assignmentMode = new EventEmitter();
 	postMode = new EventEmitter();
 
-	// newAssignment = new Subject<any>();
-	// newPost = new Subject<any>();
 	feedValue = new Subject<any>(); 
 
 	error = new BehaviorSubject<string>(null);
@@ -25,8 +23,8 @@ export class CoursesService {
 	courseId;
 
 	checkType() {
-		const decodedToken: {type} = jwt_decode(localStorage.getItem('token'));
-		this.userType.next(decodedToken.type);  
+		const decodedToken: {type, id} = jwt_decode(localStorage.getItem('token'));
+		this.userType.next({type: decodedToken.type, uid: decodedToken.id});  
 	}
 
 	getFeed(param: Params) {
@@ -81,16 +79,16 @@ export class CoursesService {
 			}));
 	}
 
-	getStudentsOfCourse(param: Params) {
-		return this.http.post(
-			'http://localhost:8000/course/getStudentsOfCourse', 
-			JSON.stringify(param), {
-				headers: new HttpHeaders({
-					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + localStorage.getItem('token')
-				})
-			});
-	}
+	// getStudentsOfCourse(param: Params) {
+	// 	return this.http.post(
+	// 		'http://localhost:8000/course/getStudentsOfCourse', 
+	// 		JSON.stringify(param), {
+	// 			headers: new HttpHeaders({
+	// 				'Content-Type': 'application/json',
+	// 				Authorization: 'Bearer ' + localStorage.getItem('token')
+	// 			})
+	// 		});
+	// }
 
 	deleteStudentFromCourse(param: Params) {
 		return this.http.post(
@@ -174,6 +172,17 @@ export class CoursesService {
 			});
 	}
 
+	sendStudentRequest(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/sendStudentRequest', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
 	sendStudentsToSelf(students) {
 		this.oldStudents.next(students);
 	}
@@ -197,18 +206,6 @@ export class CoursesService {
 	sendAllowedUser(type) {
 		this.allowedUser.next(type);
 	}
-
-	// sendCourse(course) {
-	// 	this.currentCourse.next(course);
-	// }
-
-	// sendNewAssignment(assignment) {
-	// 	this.newAssignment.next(assignment);
-	// }
-
-	// sendNewPost(post) {
-	// 	this.newPost.next(post);
-	// }
 
 
 }

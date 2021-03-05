@@ -13,12 +13,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 				state: RouterStateSnapshot): Observable<boolean> |
 											Promise<boolean> |
 											boolean {
-		const user = localStorage.getItem('userId');
+		// const user = localStorage.getItem('userId');
 		const token = localStorage.getItem('token');
 
-		if (user && token) {
+		if (token) {
 			return true;
-		} else if (user === null) {
+		// } else if (user === null) {
+		} else {
 			this.router.navigate(['/']);
 			return false;
 		}

@@ -9,7 +9,13 @@
 	<header>
 		<app-header></app-header>
 	</header>
-
+	<div>
+		dd
+		d
+		d
+		d
+		ds
+	</div>
 	<div class="main__div">
 		<div class="search__div">
 			Seach by:
@@ -28,23 +34,31 @@
 		</div>
 		<div class="courses__div">
 			<div *ngFor="let course of courses" (click)="showCourse(course)">
-				{{ course.title }}
+				<span *ngIf="course.students.includes(userId)" routerLink="/course/{{course._id}}">{{ course.title }}</span>
+
+				<span *ngIf="!course.students.includes(userId)">{{ course.title }}</span>
 			</div>
 		</div>
 	</div>
-	<div *ngIf="selectedCourse">
+	<div *ngIf="selectedCourse && (userType === 'student' && !selectedCourse.students.includes(userId))">
 		{{ selectedCourse.title }}
 		{{ selectedCourse.description }}
 		{{ selectedCourse.students.length }} students
 		<input 
-			*ngIf="selectedCourse.key !== ''"
+			*ngIf="selectedCourse.key !== '' && !course.students.includes(userId) && !course.requests.includes(userId)"
 			type="text"
 			placeholder="secret key" 
 			[(ngModel)]="key">
-		<button (click)="registerInCourse()">
-			<span *ngIf="selectedCourse.opened === true">Register</span>
-			<span *ngIf="selectedCourse.opened === false">Send request</span>
+		<button *ngIf="selectedCourse.opened === true" (click)="register(key)">
+			Register
 		</button>
+		<span *ngIf="selectedCourse.requests.includes(userId)">
+			Your request is pending
+		</span>
+		<button *ngIf="selectedCourse.opened === false && !selectedCourse.requests.includes(userId)" (click)="sendRequest(key)">
+			Send request
+		</button>
+
 	</div>
 </body>
 </html>

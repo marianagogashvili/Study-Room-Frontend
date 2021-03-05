@@ -40,6 +40,7 @@ import { TestworkComponent } from './course/testwork/testwork.component';
 import { TestAnswersComponent } from './course/test-answers/test-answers.component';
 import { GradeAnswersComponent } from './course/test-answers/grade-answers/grade-answers.component';
 import { SearchComponent } from './search/search.component';
+import { StudentRequestsComponent } from './course/student-requests/student-requests.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { SearchComponent } from './search/search.component';
     TestworkComponent,
     TestAnswersComponent,
     GradeAnswersComponent,
-    SearchComponent
+    SearchComponent,
+    StudentRequestsComponent
   ],
   imports: [
     BrowserModule,
