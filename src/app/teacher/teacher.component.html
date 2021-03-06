@@ -42,7 +42,7 @@
 			<div class="course__div-info">
 				<h1>{{ course.title}}</h1>
 				<p *ngIf="course.students.length === 1">{{ course.students.length }} person</p>
-				<p>{{ course.students.length }} people</p>
+				<p *ngIf="course.students.length !== 1">{{ course.students.length }} people</p>
 				<div class="course__div-grades">
 					<p class="course__div-grade">my <span class="grade__span">99</span></p>
 					<p class="course__div-grade">max <span class="grade__span">100</span></p>

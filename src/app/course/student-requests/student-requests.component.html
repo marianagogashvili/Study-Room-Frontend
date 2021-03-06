@@ -1,5 +1,22 @@
-<div *ngFor="let student of requests">
-	{{ student.fullName }}
-	{{ student.login }}
-	{{ student.group.name }}
+<div *ngIf="!loading">
+	<table *ngIf="requests.length > 0" class="student__div" cellspacing="0">
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Login</th>
+			<th>Group</th>
+			<th>Accept</th>
+		</tr>
+		<tr  *ngFor="let student of requests; index as i">
+			<td>{{ i+1 }}</td>
+			<td>{{student.fullName}}</td>
+			<td>{{student.login}}</td>
+			<td>{{student.group.name}}</td>
+			<td  ><fa-icon class="cross__icon accept__icon" [icon]="acceptIcon" (click)="acceptStudent(student)" [ngStyle]="student.accepted && {'color': '#35cc3d'}"></fa-icon></td>
+		</tr>
+	</table>
+	<div>
+		<button *ngIf="requests.length > 0" class="delete__btn accept__btn" (click)="acceptAllStudents()" >Accept all</button>
+	</div>
+	<div class="no__requests" *ngIf="requests.length === 0">No requests</div>	
 </div>

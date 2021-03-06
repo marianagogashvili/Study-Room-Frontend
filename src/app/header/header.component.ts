@@ -112,21 +112,26 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.loading = false;
-    const decodedToken: {type} = jwt_decode(localStorage.getItem('token'));
-    if (decodedToken.type === 'student') {
-      this.studentService.getStudent().subscribe((student: {courses}) => {
-        this.courses = student.courses;
-      }, error => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken: {type} = jwt_decode(token);
 
-      });
-    } else {
-      this.teacherService.getTeacher().subscribe((teacher: {courses}) => {
-        this.courses = teacher.courses;
+      if (decodedToken.type === 'student') {
+        this.studentService.getStudent().subscribe((student: {courses}) => {
+          this.courses = student.courses;
+        }, error => {
 
-      }, error => {
+        });
+      } else {
+        this.teacherService.getTeacher().subscribe((teacher: {courses}) => {
+          this.courses = teacher.courses;
 
-      });
+        }, error => {
+
+        });
+      }   
     }
+
 
     this.route.params.subscribe(params => {
       console.log(params['id']);

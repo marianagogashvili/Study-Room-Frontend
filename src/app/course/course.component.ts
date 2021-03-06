@@ -100,10 +100,10 @@ export class CourseComponent implements OnInit,  OnDestroy {
       this.loading = false;
       return this.courseService.userType;
     })).subscribe((userType: {type, uid}) => {
-      console.log(userType);
-       this.userType = userType.type;
+      // console.log(userType);
+      this.userType = userType.type;
       // let uid = localStorage.getItem('userId');
-      if (userType.type === 'student' && this.course.students.includes(userType.uid)) {
+      if (userType.type === 'student' && this.course.students.filter(student => student._id === userType.uid).length > 0 ) {
           this.courseService.sendAllowedUser(this.userType);
       } else if (userType.type === 'teacher' && (userType.uid === this.course.creator._id)) {
           this.courseService.sendAllowedUser(this.userType);

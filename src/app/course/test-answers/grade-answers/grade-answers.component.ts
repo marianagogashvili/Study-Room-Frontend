@@ -89,6 +89,7 @@ export class GradeAnswersComponent implements OnInit, OnDestroy {
   		this.router.navigate(['../'], {queryParams: {testworkId: this.testId}, relativeTo:this.route});  		
   	}
   }
+  
   ngOnDestroy() {
   	this.sub.unsubscribe();
   }

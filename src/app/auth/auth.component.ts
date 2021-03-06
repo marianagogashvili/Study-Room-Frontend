@@ -90,7 +90,7 @@ export class AuthComponent implements OnInit {
     this.authService.register(this.user).subscribe((result: {token: string, id: string, type: string}) => {
       console.log(result);
       localStorage.setItem('token', result.token);
-      localStorage.setItem('userId', result.id);
+      // localStorage.setItem('userId', result.id);
       const time = 60 * 60 * 1000 * 24;
       const expiryDate = new Date(
         new Date().getTime() + time
@@ -100,7 +100,6 @@ export class AuthComponent implements OnInit {
       this.router.navigate(['/', type]);
     }, errors => {
       console.log(errors);
-      
       this.getErrorMessage(errors, form);
     });
   }
@@ -116,7 +115,7 @@ export class AuthComponent implements OnInit {
 
     this.authService.login(this.user).subscribe((result: {token: string, id: string, type: string}) => {
         localStorage.setItem('token', result.token);
-        localStorage.setItem('userId', result.id);
+        // localStorage.setItem('userId', result.id);
         const time = 60 * 60 * 1000 * 24;
         const expiryDate = new Date(
           new Date().getTime() + time
@@ -131,6 +130,7 @@ export class AuthComponent implements OnInit {
   }
 
   getErrorMessage(errors, form) {
+
     if (errors) {
         this.errorState = "shown";
         
@@ -161,7 +161,7 @@ export class AuthComponent implements OnInit {
 
   logOut() {
     localStorage.removeItem('token');
-    localStorage.removeItem('userId');
+    // localStorage.removeItem('userId');
     localStorage.removeItem('expiryDate');
   }
 
@@ -169,12 +169,12 @@ export class AuthComponent implements OnInit {
     this.loginState = "shown";
     this.signupState = "hidden";
     this.resetForm(form);
-    console.log("ha");
+
   }
   onSwitchToSignup(form) {
     this.loginState = "hidden";
     this.signupState = "shown";
     this.resetForm(form);
-    console.log("ha");
+
   }
 }

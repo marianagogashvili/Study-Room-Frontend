@@ -1,0 +1,15 @@
+.accept__icon {
+	color: #fcd12a;
+}
+
+.accept__btn {
+	background-color: #0b7ace;
+}
+
+fa-icon {
+	cursor: pointer;
+}
+
+.no__requests {
+	padding: 2rem;
+}

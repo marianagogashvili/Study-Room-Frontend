@@ -12,12 +12,15 @@ import { TestService } from '../test.service';
 import { CoursesService } from '../courses.service';
 import { HomeService } from '../../home.service';
 
+import { Subscription } from 'rxjs';
+import { filter, map, mergeMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-test-answers',
   templateUrl: './test-answers.component.html',
   styleUrls: ['./test-answers.component.css']
 })
-export class TestAnswersComponent implements OnInit {
+export class TestAnswersComponent implements OnInit, OnDestroy {
   students;
   defaultStudents;
   testworkId;
@@ -34,6 +37,8 @@ export class TestAnswersComponent implements OnInit {
   gradeSort;
   passedSort;
   questionSort;
+
+  sub: Subscription;
 
   constructor(private testworkService: TestService,
           private homeService: HomeService,
@@ -53,24 +58,40 @@ export class TestAnswersComponent implements OnInit {
   		this.groups = groups;
   	});
 
-  	this.route.queryParams.subscribe(params => {
-  		this.testworkId = params['testworkId'];
-  		this.testworkService.getAnswersForTeacher({testId: this.testworkId})
-  			.subscribe(result => {
-  				this.students = result;
-  				this.defaultStudents = result;
-  				console.log(this.students);
-  			});
-  	});
+    this.sub = this.route.queryParams.pipe(map(params => {
+      return params['testworkId'];
+    }), mergeMap((testworkId):any => {
+      this.testworkId = testworkId;
+      return this.testworkService.getAnswersForTeacher({testId: this.testworkId});
+    }), mergeMap((result):any => {
+        this.students = result;
+        this.defaultStudents = result;
+        return this.testworkService.studentsAnswers;
+    })).subscribe((updatedStudent: any)  => {
+        if (updatedStudent) {
+          this.students.forEach(student => student._id === updatedStudent._id ? student = updatedStudent : false);
+          this.defaultStudents = this.students;
+        }
+    });
 
-  	this.testworkService.studentsAnswers.subscribe((updatedStudent: any) => {
-  		if (updatedStudent) {
-  			this.students.forEach(student => student._id === updatedStudent._id ? student = updatedStudent : false);
-  			// student = updatedStudent;
-  			this.defaultStudents = this.students;
-  		}
+  	// this.route.queryParams.subscribe(params => {
+  	// 	this.testworkId = params['testworkId'];
+  	// 	this.testworkService.getAnswersForTeacher({testId: this.testworkId})
+  	// 		.subscribe(result => {
+  	// 			this.students = result;
+  	// 			this.defaultStudents = result;
+  	// 			console.log(this.students);
+  	// 		});
+  	// });
+
+  	// this.testworkService.studentsAnswers.subscribe((updatedStudent: any) => {
+  	// 	if (updatedStudent) {
+  	// 		this.students.forEach(student => student._id === updatedStudent._id ? student = updatedStudent : false);
+  	// 		// student = updatedStudent;
+  	// 		this.defaultStudents = this.students;
+  	// 	}
   		
-  	});
+  	// });
   	
   }
 
@@ -129,6 +150,10 @@ export class TestAnswersComponent implements OnInit {
   			(group ? student.group === group : true)
   	);
 
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

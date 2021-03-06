@@ -90,6 +90,17 @@ export class CoursesService {
 	// 		});
 	// }
 
+	acceptStudent(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/acceptStudent', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
 	deleteStudentFromCourse(param: Params) {
 		return this.http.post(
 			'http://localhost:8000/course/deleteStudentFromCourse', 
@@ -122,6 +133,19 @@ export class CoursesService {
 				})
 			});
 	}
+
+	
+	acceptAllStudents(param: Params) {
+		return this.http.post(
+			'http://localhost:8000/course/acceptAllStudents', 
+			JSON.stringify(param), {
+				headers: new HttpHeaders({
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + localStorage.getItem('token')
+				})
+			});
+	}
+
 
 	deleteAllStudents(param: Params) {
 		return this.http.post(
