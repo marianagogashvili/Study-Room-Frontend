@@ -1,0 +1,117 @@
+div {
+	font-size: 15px;
+}
+
+body {
+	width: 100%;
+}
+
+.assignments__div,
+.solution__div,
+.assignment__div,
+.main__div,
+.sort__div {
+	display: flex;
+}
+
+.assignments__div {
+	/*margin: 3rem auto;*/
+	/*width: 70%;*/
+	flex-direction: column;
+	box-shadow: 0 0 5px #bababa;
+	border-radius: 10px;
+	padding: 20px 20px 10px 20px;
+}
+
+.check__icon, .cross__icon {
+	font-size: 18px;
+}
+
+.check__icon {
+	color: #7bf542;
+}
+
+.cross__icon {
+	color: #e37878;
+}
+
+.assignment__div {
+	flex-direction: row;
+	margin-bottom: 1rem;
+}
+
+.assignment__div:nth-child(2) {
+	padding-right: 5px;
+}
+
+.main__div {
+	margin: 1.5rem auto;
+	width: 90%;
+	flex-direction: column;
+}
+
+.sort__div {
+	justify-content: space-around;
+	margin: 3rem auto 0 auto;
+	width: 70%;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+}
+
+.sort__div div {
+
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+}
+
+select {
+	font-size: 15px;
+}
+
+div:active{
+	outline: none;
+}
+
+.sort__div div {
+	min-width: 160px;
+	margin-top: 10px;
+}
+
+.sort__div div:nth-child(1) {
+	width: 30%;
+}
+.sort__div div:nth-child(2) {
+	width: 27%;
+}
+.sort__div div:nth-child(3) {
+	width: 22%;
+}
+
+.sort__div div:nth-child(4) {
+	width: 40%;
+	margin-left: 20px;
+}
+.sort__div div:nth-child(4) select {
+	margin-left: 10px;
+}
+
+.course__title {
+	font-size: 16px;
+	color: #1774ee;
+	padding: 20px 10px 10px 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+@media screen and (min-width: 400px) {
+	.main__div {
+		width: 70%;
+		margin: 3rem auto;
+	}
+	div {
+		font-size: 18px;
+	}
+
+}

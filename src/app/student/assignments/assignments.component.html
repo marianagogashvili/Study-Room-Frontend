@@ -1,1 +1,111 @@
-<p>assignments works!</p>
+<!-- <div *ngFor="let val of assignments" class="assignments__div">
+	<div class="course__title">
+		{{val.course}}
+	</div>
+	<div class="main__div">
+		<div class="assignment__div">
+			<div style="flex: 1;">
+				{{val.assignment.title}}
+			</div>
+			<div style="flex: 0 0 30%">
+				{{val.assignment.deadline | date: 'd MMMM yyyy'}}
+			</div>
+		</div>
+		<div class="solution__div">
+			<div style="flex: 1;">
+				<div *ngIf="val.solution">
+					You've uploaded your solution
+				</div>
+				<div *ngIf="!val.solution">
+					You've not uploaded your solution yet
+				</div>
+			</div>
+			<div style="flex: 0 0 30%">
+				<div *ngIf="val.solution && val.solution.grade">
+					{{val.solution.grade}} / {{val.assignment.maxGrade}}
+				</div>
+				<div *ngIf="!val.solution || !val.solution.grade">
+					? / {{val.assignment.maxGrade}}
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+</div> -->
+
+<div class="sort__div" [formGroup]="sortForm">
+	<div>
+		Show if:
+		<select formControlName="done" (change)="sort('')" name="" id="">
+			<option value="-">-</option>
+			<option value="true">Done</option>
+			<option value="false">Not done</option>
+		</select>
+	</div>
+	
+	<div>
+		Deadline
+		<select formControlName="deadline" (change)="sort('deadline')" name="" id="">
+			<option value="-">-</option>
+			<option value="asc">Asc</option>
+			<option value="desc">Desc</option>
+		</select>
+	</div>
+
+	<div>
+		Grade
+		<select formControlName="grades" (change)="sort('grades')" name="" id="">
+			<option value="-">-</option>
+			<option value="asc">Asc</option>
+			<option value="desc">Desc</option>
+		</select>
+	</div>
+
+	<div>
+		Course
+		<select style="width: 200px;" formControlName="course" (change)="sort('course')" name="" id="">
+			<option value="-">-</option>
+			<option *ngFor="let course of courses" [value]="course._id">{{course.title.slice(0, 16)}}...</option>
+		</select>
+	</div>
+</div>
+
+<div *ngFor="let val of assignments" class="main__div">
+	<div class="course__title" routerLink="../../course/{{val.courseId}}">
+		{{val.course}}
+	</div>
+	<div class=" assignments__div">
+		<div class="assignment__div">
+			<div style="flex: 0 0 10%;">
+				<div *ngIf="val.solution">
+					<fa-icon class="check__icon" [icon]="checkIcon"></fa-icon>
+				</div>
+				<div *ngIf="!val.solution">
+					<fa-icon class="cross__icon" [icon]="crossIcon"></fa-icon>
+				</div>
+			</div>
+			<div style="flex: 1;" routerLink="../../course/{{val.courseId}}/assignment/{{val.assignment._id}}">
+				{{val.assignment.title}}
+			</div>
+			<div style="flex: 0 0 30%">
+				<div *ngIf="val.assignment.deadline">
+					{{val.assignment.deadline | date: 'd MMMM yyyy'}}
+				</div>
+				<div *ngIf="!val.assignment.deadline">
+					No deadline
+				</div>
+			</div>
+			<div style="flex: 0 0 20%">
+				<div *ngIf="val.solution && val.solution.grade">
+					{{val.solution.grade}} / {{val.assignment.maxGrade}}
+				</div>
+				<div *ngIf="!val.solution || !val.solution.grade">
+					? / {{val.assignment.maxGrade}}
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+</div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from './student.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+
+import { StudentService } from './student.service';
 
 @Component({
   selector: 'app-student',
