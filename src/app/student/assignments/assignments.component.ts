@@ -13,9 +13,9 @@ import { StudentService } from '../student.service';
   styleUrls: ['./assignments.component.css']
 })
 export class AssignmentsComponent implements OnInit { 
-  assignments;
+  works;
   courses;
-  defaultAssignments;
+  defaultworks;
 
   crossIcon = faTimesCircle;
   checkIcon = faCheckCircle;
@@ -31,12 +31,12 @@ export class AssignmentsComponent implements OnInit {
 		'grades': new FormControl('-'),
 		'course': new FormControl('-')
   	});
-  	this.studentService.getAssignments().subscribe((result: {assignments, courses}) => {
+  	this.studentService.getAssignments().subscribe((result: {works, courses}) => {
   		console.log(result);
-  		this.assignments = result.assignments;
+  		this.works = result.works;
   		this.courses = result.courses;
 
-  		this.defaultAssignments = result.assignments;
+  		this.defaultworks = result.works;
   	});
   }
 
@@ -45,7 +45,7 @@ export class AssignmentsComponent implements OnInit {
 
   	const formVal = this.sortForm.value;
   	if (formVal.done !== '-') {
-  		this.assignments = this.defaultAssignments.filter(val => {
+  		this.works = this.defaultworks.filter(val => {
   			if (formVal.done === 'true') {
   				return val.solution;
   			} else if (formVal.done === 'false') {
@@ -53,24 +53,24 @@ export class AssignmentsComponent implements OnInit {
   			}
   		});
   	} else {
-  		this.assignments = this.defaultAssignments;
+  		this.works = this.defaultworks;
   	}
   	if (sortBy === 'course') {
   		if (formVal.course !== '-') {
-  			this.assignments = this.defaultAssignments.filter(val => val.courseId === formVal.course);
+  			this.works = this.defaultworks.filter(val => val.courseId === formVal.course);
   		} else {
-  			this.assignments = this.defaultAssignments;
+  			this.works = this.defaultworks;
   		}
   	}
   	if (sortBy === 'deadline') {
   		this.sortForm.patchValue({'grades': '-'});
   		if (formVal.deadline !== '-') {
-	  		this.assignments = this.assignments.sort((a, b): any => {
+	  		this.works = this.works.sort((a, b): any => {
 	  			if (formVal.deadline === 'desc') {
-	  			  	return ((new Date(b.assignment.deadline) as any) - (new Date(a.assignment.deadline) as any));
+	  			  	return ((new Date(b.work.deadline) as any) - (new Date(a.work.deadline) as any));
 	  			} else if (formVal.deadline === 'asc'){
-	  				console.log(a.assignment.deadline);
-	  				return ((a.assignment.deadline !== null ? (new Date(a.assignment.deadline) as any) : (new Date() as any)) - (b.assignment.deadline !== null ? (new Date(b.assignment.deadline) as any) : (new Date() as any))) ;
+	  				console.log(a.work.deadline);
+	  				return ((new Date(a.work.deadline) as any) - (new Date(b.work.deadline) as any) ) ;
 	  			}
 	  		});
 	  	}
@@ -78,18 +78,18 @@ export class AssignmentsComponent implements OnInit {
   	if (sortBy === 'grades') {
   		this.sortForm.patchValue({'deadline': '-'});
   		if (formVal.grades !== '-') {
-	  		this.assignments = this.assignments.sort((a, b): any => {
+	  		this.works = this.works.sort((a, b): any => {
 	  			if (formVal.grades === 'asc') {
 	  			  	return ((b.solution && b.solution.grade) ? 
-	  			  	  		(b.solution.grade * 100 /  b.assignment.maxGrade) : 0 )- 
+	  			  	  		(b.solution.grade * 100 /  b.work.maxGrade) : 0 )- 
 	  			  		((a.solution && a.solution.grade) ? 
-	  			  		    (a.solution.grade * 100 /  a.assignment.maxGrade)  : 0);
+	  			  		    (a.solution.grade * 100 /  a.work.maxGrade)  : 0);
 	  			} else if (formVal.grades === 'desc'){
 	  				console.log("????");
 	  			  	return ((a.solution && a.solution.grade) ? 
-	  			  	  		(a.solution.grade * 100 /  a.assignment.maxGrade) : 0) - 
+	  			  	  		(a.solution.grade * 100 /  a.work.maxGrade) : 0) - 
 	  			  		((b.solution && b.solution.grade) ? 
-	  			  		 (b.solution.grade * 100 /  b.assignment.maxGrade) : 0);
+	  			  		 (b.solution.grade * 100 /  b.work.maxGrade) : 0);
 	  			}
 	  		});
   		}

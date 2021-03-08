@@ -75,7 +75,11 @@ export class TestworkComponent implements OnInit, OnDestroy {
   	this.loading = true;
 
   	this.route.queryParams.pipe(map(params => {
-  		return params['testId'];
+      let testId = params['testId'];
+      if (!testId) {
+        this.router.navigate(['../'], {relativeTo: this.route});
+      }
+  		return testId;
   	}), mergeMap((id):any => {
   		return this.testworkService.getTestwork({testId: id})
   	}), mergeMap((testwork):any => {

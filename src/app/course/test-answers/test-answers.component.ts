@@ -59,7 +59,11 @@ export class TestAnswersComponent implements OnInit, OnDestroy {
   	});
 
     this.sub = this.route.queryParams.pipe(map(params => {
-      return params['testworkId'];
+      let testId = params['testworkId'];
+      if (!testId) {
+        this.router.navigate(['../'], {relativeTo: this.route});
+      }
+      return testId;
     }), mergeMap((testworkId):any => {
       this.testworkId = testworkId;
       return this.testworkService.getAnswersForTeacher({testId: this.testworkId});

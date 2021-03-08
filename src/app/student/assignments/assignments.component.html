@@ -71,7 +71,7 @@
 	</div>
 </div>
 
-<div *ngFor="let val of assignments" class="main__div">
+<div *ngFor="let val of works" class="main__div">
 	<div class="course__title" routerLink="../../course/{{val.courseId}}">
 		{{val.course}}
 	</div>
@@ -85,23 +85,26 @@
 					<fa-icon class="cross__icon" [icon]="crossIcon"></fa-icon>
 				</div>
 			</div>
-			<div style="flex: 1;" routerLink="../../course/{{val.courseId}}/assignment/{{val.assignment._id}}">
-				{{val.assignment.title}}
+			<div style="flex: 1;" *ngIf="val.work.type === 'assignment'" routerLink="../../course/{{val.courseId}}/assignment/{{val.work._id}}">
+				{{val.work.title}}
+			</div>
+			<div style="flex: 1;" *ngIf="val.work.type === 'test'" routerLink="../../course/{{val.courseId}}/testwork" [queryParams]="{testId: val.work._id}">
+				{{val.work.title}}
 			</div>
 			<div style="flex: 0 0 30%">
-				<div *ngIf="val.assignment.deadline">
-					{{val.assignment.deadline | date: 'd MMMM yyyy'}}
+				<div *ngIf="val.work.deadline">
+					{{val.work.deadline | date: 'd MMMM yyyy'}}
 				</div>
-				<div *ngIf="!val.assignment.deadline">
+				<div *ngIf="!val.work.deadline">
 					No deadline
 				</div>
 			</div>
 			<div style="flex: 0 0 20%">
 				<div *ngIf="val.solution && val.solution.grade">
-					{{val.solution.grade}} / {{val.assignment.maxGrade}}
+					{{val.solution.grade}} / {{val.work.maxGrade}}
 				</div>
 				<div *ngIf="!val.solution || !val.solution.grade">
-					? / {{val.assignment.maxGrade}}
+					? / {{val.work.maxGrade}}
 				</div>
 			</div>
 		</div>
